@@ -1,7 +1,7 @@
 ##ABOUT THIS FILE##########################################################
 #
 # This file is in CEX format (https://github.com/cite-architecture/citedx).
-# It contains a complete DSE model of one manuscript page of the
+# It contains a complete DSE model of one line of the
 # *Iliad* in the Venetus A manuscript.
 #
 ###########################################################################
@@ -13,7 +13,7 @@ license#public domain
 
 #!ctscatalog
 #
-# This demo contains a single line of the *Iliad*.
+# This demo catalogs one text: a specific version of the *Iliad*.
 #
 
 urn#citationScheme#groupName#workTitle#versionLabel#exemplarLabel#online
@@ -21,11 +21,10 @@ urn:cts:greekLit:tlg0012.tlg001.msA:#book/line#Homeric poetry#Iliad#HMT project 
 
 #!ctsdata
 #
-# This demo contains text for a single manuscript page
-# (25 lines of the *Iliad*).
+# This demo contains text for a single manuscript line of the *Iliad*.
 #
 
-urn:cts:greekLit:tlg0012.tlg001.msA:1.1	Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος
+urn:cts:greekLit:tlg0012.tlg001.msA:1.1#Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος
 
 
 #!citecatalog
@@ -35,6 +34,7 @@ urn:cts:greekLit:tlg0012.tlg001.msA:1.1	Μῆνιν ἄειδε θεὰ Πηλη
 # 2. a collection of documentary images
 #
 
+# Text-bearing surfaces:
 collection#urn:cite2:hmt:msA.v1:#Pages of the Venetus A manuscriptscript#urn:cite2:hmt:msA.v1.label:#urn:cite2:hmt:msA.v1.sequence:#CC-attribution-share-alike
 
 property#urn:cite2:hmt:msA.v1.urn:#URN#Cite2Urn#
@@ -44,10 +44,14 @@ property#urn:cite2:hmt:msA.v1.sequence:#Page sequence#Number#
 property#urn:cite2:hmt:msA.v1.rv:#Recto or Verso#String#recto,verso
 property#urn:cite2:hmt:msA.v1.codex:#Codex URN#Cite2Urn#
 
+# Documentary images:
+collection#urn:cite:hmt:vaimg.2017a:#Images of the Venetus A manuscriptscript#urn:cite:hmt:vaimg.2017a.caption:##CC-attribution-share-alike
 
-collection#urn:cite2:hmt:msA.v1:#Pages of the Venetus A manuscriptscript#urn:cite2:hmt:msA.v1.label:#urn:cite2:hmt:msA.v1.sequence:#CC-attribution-share-alike
+property#urn:cite:hmt:vaimg.2017a.urn:#URN#Cite2Urn#
+property#urn:cite:hmt:vaimg.2017a.caption:#Caption#String#
+property#urn:cite:hmt:vaimg.2017a.rights:#Rights#String#
 
-#urn:cite:hmt:vaimg.VA012RN_0013
+
 
 #!citedata
 #
@@ -63,6 +67,15 @@ msA#1#urn:cite2:hmt:msA.v1:12r#recto#Marcianus Graecus Z. 454 (= 822) (Venetus A
 # This demo includes a single image documenting a single manuscript page.
 #
 
+urn#caption#rights
+urn:cite:hmt:vaimg.2017a:VA012RN_0013.2017#Natural light photograph of Venetus A: Marcianus Graecus Z. 454 (= 822), folio 12, recto#This image was derived from an original ©2007, Biblioteca Nazionale Marciana, Venezie, Italia. The derivative image is ©2010, Center for Hellenic Studies. Original and derivative are licensed under the Creative Commons Attribution-Noncommercial-Share Alike 3.0 License. The CHS/Marciana Imaging Project was directed by David Jacobs of the British Library.
+
+#!imagedata
+#
+# This demo extends a single collection of images.
+#
+
+urn:cite:hmt:vaimg.2017a:#local string string#./#urn:cite:hmt:vaimg.2017a.rights:
 
 
 #!relations
