@@ -4,7 +4,7 @@ A cross-platform library for working with digital scholarly editions in the CITE
 
 ## Current version: 0.0.1
 
-Status: not yet released. Release notes to follow.
+Status: not yet released. [Release notes](releases.md) to follow.
 
 ## License
 
