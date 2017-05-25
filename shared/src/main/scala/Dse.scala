@@ -1,6 +1,6 @@
 package edu.holycross.shot.dse
 
-import edu.holycross.shot.cite._
+import edu.holycross.shot.scm._
 import scala.io.Source
 
 
@@ -11,7 +11,7 @@ import js.annotation.JSExport
 *
 * @param texts Set of catalog entries.
 */
-@JSExport case class Dse () {
+@JSExport case class Dse (citeLibrary: CiteLibrary) {
 
 
 }
