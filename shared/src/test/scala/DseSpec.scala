@@ -1,4 +1,4 @@
-package edu.holycross.shot.ohco2
+package edu.holycross.shot.dse
 import org.scalatest.FlatSpec
 import edu.holycross.shot.cite._
 
