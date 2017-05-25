@@ -20,6 +20,13 @@ import js.annotation.JSExport
 */
 object Dse {
 
-
+  /** Create a [[Dse]] from a CEX source.
+  *
+  * @param cexSrc CEX data.
+  */
+  def apply(cexSrc : String, delimiter: String = "#", secondaryDelim: String = ","): Dse = {
+    val citeLib = CiteLibrary(cexSrc,delimiter,secondaryDelim)
+    Dse(citeLib)
+  }
 
 }
