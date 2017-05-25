@@ -1,7 +1,7 @@
 name := "Digital Scholarly Editions library"
 
 
-crossScalaVersions := Seq("2.10.6","2.11.8", "2.12.1")
+//crossScalaVersions := Seq("2.10.6","2.11.8", "2.12.1")
 scalaVersion := "2.11.8"
 
 lazy val root = project.in(file(".")).
@@ -24,13 +24,11 @@ lazy val crossed = crossProject.in(file(".")).
       libraryDependencies ++= Seq(
         "org.scala-js" %% "scalajs-stubs" % scalaJSVersion % "provided",
         "org.scalatest" %%% "scalatest" % "3.0.1" % "test",
+        "edu.holycross.shot.cite" %%% "xcite" % "2.4.0",
+        "edu.holycross.shot" %%% "citeobj" % "2.1.0",
+        "edu.holycross.shot" %%% "scm" % "3.5.0"
 
-        "org.scala-lang.modules" %% "scala-xml" % "1.0.6",
-        "edu.holycross.shot.cite" %%% "xcite" % "2.2.3",
 
-        "edu.holycross.shot" %%% "orca" % "3.0.0",
-        "edu.holycross.shot" %%% "cex" % "1.0.0",
-        "edu.holycross.shot" % "hocuspocus" % "2.1.5"
       )
     ).
     jvmSettings(
