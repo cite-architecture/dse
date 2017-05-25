@@ -2,20 +2,16 @@
 
 A cross-platform library for working with digital scholarly editions in the CITE architecture model.
 
-## Status
+## Current version: 0.0.1
 
-Planning stages.
+Status: not yet released. Release notes to follow.
 
-## Goals
+## License
 
-Implement the CITE architecture's DSE model in a scala library cross-compiled for both JVM and ScalaJS environments by:
+[GPL 3.0](https://opensource.org/licenses/gpl-3.0.html)
 
-- designing the data structures of the DSE model using the `scm` library's `CiteLibrary` object
-    - texts, objects and images are available from the library's repositories
-    - DSE relations are expressed in the `CiteLibrary`'s collection of `relation` triplets
-    - verbs in the `relation` triplets are URNs identifying objects in on or more citable collections
-- supporting instantation of a DSE library from CEX source
-- providing high-level functions implementing basic DSE relations, such as:
-    - text-bearing surface(s) transmitting a given passage of text
-    - passages of text appearing on a given text-bearing surface
-    - documentary image(s) for a given passage of text or text-bearing surface    
+## Using, building, testing
+
+`dse` is compiled for both the JVM and ScalaJS using scala version  2.11.
+
+To build from source and test for a given version, use normal sbt commands (`compile`, `test` ...).
