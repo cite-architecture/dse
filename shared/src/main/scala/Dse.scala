@@ -13,7 +13,6 @@ import js.annotation.JSExport
 */
 @JSExport case class Dse (citeLibrary: CiteLibrary) {
 
-
 }
 
 /** Factory for making catalogs from text sources.
