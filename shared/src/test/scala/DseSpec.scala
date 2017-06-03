@@ -97,11 +97,29 @@ urn:cite2:hmt:vaimg.2017a:VA012RN_0013#urn:cite2:cite:dseverbs.2017a:illustrates
     val expected = Set(img.dropSelector)
     assert(dse.imageCollections == expected)
   }
-  it should "find images for a given TBS" in pending
-  it should "find images for a given text passage" in pending
-  it should "find text passages for a given TBS" in pending
-  it should "find text passages for a given image" in pending
-  it should "find TBS illustrated by a given image" in pending
+  it should "find images for a given TBS" in {
+    val expected = Set(Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA012RN_0013"))
+    assert(dse.imagesForTbs(surface) == expected)
+  }
+  it should "find images for a given text passage" in {
+    val expected = Set(img)
+    assert(dse.imagesForText(psg) == expected)
+  }
+  it should "find text passages for a given TBS" in {
+    val expected = Set(psg)
+    assert(dse.textsForTbs(surface) == expected)
+  }
+  it should "find text passages for a given image" in {
+    val expected = Set(psg)
+    assert(dse.textsForImage(img.dropExtensions) == expected)
+  }
+  it should "find TBS illustrated by a given image" in {
+    val expected = Set(surface)
+    assert(dse.tbsForImage(img.dropExtensions) == expected)
+  }
+
+
+
   it should "be possible to instantiate from a CEX source" in pending
 
 

@@ -14,6 +14,10 @@ import js.annotation.JSExport
 @JSExport case class Dse (citeLibrary: CiteLibrary) {
 
 
+  /** Alias for easy access to all triples in the library.
+  */
+  def triples = citeLibrary.relationSet.get.relations
+
   /** True if submitted CiteLibrary fulfills requirements
   * of DSE model.
   */
@@ -25,19 +29,74 @@ import js.annotation.JSExport
   /** Find set of text-bearing surfaces in the library.
   */
   def tbs: Set[Cite2Urn] = {
-    citeLibrary.relationSet.get.relations.filter(_.relation == hasOnIt).map(tr => Cite2Urn(tr.urn1.toString))
+    triples.filter(_.relation == hasOnIt).map(tr => Cite2Urn(tr.urn1.toString))
   }
 
   /** Find set of texts in the library.
   */
   def texts: Set[CtsUrn] = {
-    citeLibrary.relationSet.get.relations.filter(_.relation == appearsOn).map(tr => CtsUrn(tr.urn1.toString).dropPassage)
+    triples.filter(_.relation == appearsOn).map(tr => CtsUrn(tr.urn1.toString).dropPassage)
   }
 
   /** Find set of image collections in the library.
   */
   def imageCollections: Set[Cite2Urn] = {
-    citeLibrary.relationSet.get.relations.filter(_.relation == illustrates).map(tr => Cite2Urn(tr.urn1.toString).dropSelector)
+    triples.filter(_.relation == illustrates).map(tr => Cite2Urn(tr.urn1.toString).dropSelector)
+  }
+
+
+  /** Find images illustrating a given text-bearing surface.
+  *
+  * @param surface Surface to find images for.
+  */
+  def imagesForTbs(surface: Cite2Urn): Set[Cite2Urn] = {
+      val imgTriples = triples.filter(_.relation == illustrates).filter(t => isCite2Urn(t.urn2))
+
+      imgTriples.filter(_.urn2 ~~ surface).map(tr => Cite2Urn(tr.urn1.toString))
+  }
+
+
+  /** Find texts appearing on a given text-bearing surface.
+  *
+  * @param surface Surface to find texts for.
+  */
+  def textsForTbs(surface: Cite2Urn): Set[CtsUrn] = {
+      val surfaceTriples = triples.filter(_.relation == hasOnIt).filter(t => isCtsUrn(t.urn2))
+
+      surfaceTriples.filter(_.urn1 ~~ surface).map(tr => CtsUrn(tr.urn2.toString))
+  }
+
+
+
+  /** Find texts illustrated by a given image.
+  *
+  * @param surface Surface to find texts for.
+  */
+  def textsForImage(img: Cite2Urn): Set[CtsUrn] = {
+      val imgTriples = triples.filter(_.relation == illustrates).filter(t => isCtsUrn(t.urn2))
+
+      imgTriples.filter(_.urn1 ~~ img).map(tr => CtsUrn(tr.urn2.toString))
+  }
+
+
+  /** Find text-bearing surfaces illustrated by a given image.
+  *
+  * @param surface Surface to find texts for.
+  */
+  def tbsForImage(img: Cite2Urn): Set[Cite2Urn] = {
+      val imgTriples = triples.filter(_.relation == illustrates).filter(t => isCite2Urn(t.urn2))
+
+      imgTriples.filter(_.urn1 ~~ img).map(tr => Cite2Urn(tr.urn2.toString))
+  }
+
+  /** Find images illustrating a given text-bearing surface.
+  *
+  * @param surface Surface to find images for.
+  */
+  def imagesForText(passage: CtsUrn): Set[Cite2Urn] = {
+      val imgTriples = triples.filter(_.relation == illustrates).filter(t => isCtsUrn(t.urn2))
+
+      imgTriples.filter(_.urn2 ~~ passage).map(tr => Cite2Urn(tr.urn1.toString))
   }
 
 
@@ -56,12 +115,6 @@ object Dse {
     Dse(citeLib)
   }
 
-  /** True if subject of a triple is a text-bearing surface.
-  *
-  * @param Triple to examine.
-  */
-  def isTbs(triple: CiteTriple): Boolean = {
-    (triple.relation == hasOnIt)
-  }
+
 
 }

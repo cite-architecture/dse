@@ -2,9 +2,9 @@
 
 A cross-platform library for working with digital scholarly editions in the CITE architecture model.
 
-## Current version: 0.0.1
+## Current version: 1.0.0
 
-Status: not yet released. [Release notes](releases.md) to follow.
+See [release notes](releases.md).
 
 ## License
 

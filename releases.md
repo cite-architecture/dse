@@ -1,4 +1,4 @@
 # `dse`: release notes
 
 
-Not yet released.
+**1.0**: Initial release.
