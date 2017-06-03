@@ -34,6 +34,13 @@ import js.annotation.JSExport
     citeLibrary.relationSet.get.relations.filter(_.relation == appearsOn).map(tr => CtsUrn(tr.urn1.toString).dropPassage)
   }
 
+  /** Find set of image collections in the library.
+  */
+  def imageCollections: Set[Cite2Urn] = {
+    citeLibrary.relationSet.get.relations.filter(_.relation == illustrates).map(tr => Cite2Urn(tr.urn1.toString).dropSelector)
+  }
+
+
 }
 
 /** Factory for making catalogs from text sources.

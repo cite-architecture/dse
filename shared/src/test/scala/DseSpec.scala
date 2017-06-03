@@ -12,7 +12,7 @@ val cexSrc = """
 
 #!citelibrary
 name#Demo of DSE structure: Venetus A manuscript, folio 12 recto
-urn#urn:cite2:dse:demo.2017a:va12r
+urn#urn:cite2:dse:demo.v1:va12r
 license#public domain
 
 #!ctscatalog
@@ -63,8 +63,8 @@ urn:cite2:hmt:msA.2017a:12r#urn:cite2:cite:dseverbs.2017a:hasOnIt#urn:cts:greekL
 
 
 # 2. Relation of text passages to documentary image:
-urn:cts:greekLit:tlg0012.tlg001.msA:1.1#urn:cite2:cite:dseverbs.2017a:illustratedBy#urn:cite2:hmt:vaimg.v1:VA012RN_0013@0.0611,0.2252,0.4675,0.0901
-urn:cite2:hmt:vaimg.v1:VA012RN_0013@0.0611,0.2252,0.4675,0.0901#urn:cite2:cite:dseverbs.2017a:illustrates#urn:cts:greekLit:tlg0012.tlg001.msA:1.1
+urn:cts:greekLit:tlg0012.tlg001.msA:1.1#urn:cite2:cite:dseverbs.2017a:illustratedBy#urn:cite2:hmt:vaimg.2017a:VA012RN_0013@0.0611,0.2252,0.4675,0.0901
+urn:cite2:hmt:vaimg.2017a:VA012RN_0013@0.0611,0.2252,0.4675,0.0901#urn:cite2:cite:dseverbs.2017a:illustrates#urn:cts:greekLit:tlg0012.tlg001.msA:1.1
 
 
 # 3. Relation of text-bearing surface to documentary image:
@@ -76,7 +76,7 @@ urn:cite2:hmt:vaimg.2017a:VA012RN_0013#urn:cite2:cite:dseverbs.2017a:illustrates
 
   val psg = CtsUrn("urn:cts:greekLit:tlg0012.tlg001.msA:1.1")
   val surface = Cite2Urn("urn:cite2:hmt:msA.2017a:12r")
-  val img = Cite2Urn("urn:cite2:hmt:vaimg.v1:VA012RN_0013@0.0611,0.2252,0.4675,0.0901")
+  val img = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA012RN_0013@0.0611,0.2252,0.4675,0.0901")
 
   "A Digital Scholarly Edition" should "be instantiated from a CiteLibrary" in {
     dse match {
@@ -93,7 +93,10 @@ urn:cite2:hmt:vaimg.2017a:VA012RN_0013#urn:cite2:cite:dseverbs.2017a:illustrates
     val expected = Set(psg.dropPassage)
     assert(dse.texts == expected)
   }
-  it should "identify the set of image collections in the library" in pending
+  it should "identify the set of image collections in the library" in {
+    val expected = Set(img.dropSelector)
+    assert(dse.imageCollections == expected)
+  }
   it should "find images for a given TBS" in pending
   it should "find images for a given text passage" in pending
   it should "find text passages for a given TBS" in pending
