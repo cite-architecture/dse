@@ -13,6 +13,11 @@ import js.annotation.JSExport
 */
 @JSExport case class Dse (citeLibrary: CiteLibrary) {
 
+  /** Find set of text-bearing surfaces in the library.
+  */
+  def tbs = {
+
+  }
 }
 
 /** Factory for making catalogs from text sources.
