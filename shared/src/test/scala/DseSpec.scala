@@ -120,7 +120,12 @@ urn:cite2:hmt:vaimg.2017a:VA012RN_0013#urn:cite2:cite:dseverbs.2017a:illustrates
 
 
 
-  it should "be possible to instantiate from a CEX source" in pending
+  it should "be possible to instantiate from a CEX source" in {
+    dse match {
+      case dse: Dse => assert(true)
+      case _ => fail("Should have created a Dse object")
+    }
+  }
 
 
 }

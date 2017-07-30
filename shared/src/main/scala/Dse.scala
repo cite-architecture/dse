@@ -5,13 +5,13 @@ import edu.holycross.shot.citerelation._
 import edu.holycross.shot.scm._
 
 import scala.scalajs.js
-import js.annotation.JSExport
+import scala.scalajs.js.annotation._
 
 /** Catalog for an entire text repository.
 *
 * @param texts Set of catalog entries.
 */
-@JSExport case class Dse (citeLibrary: CiteLibrary) {
+@JSExportAll case class Dse (citeLibrary: CiteLibrary) {
 
 
   /** Alias for easy access to all triples in the library.
