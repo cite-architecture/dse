@@ -7,9 +7,10 @@ import edu.holycross.shot.scm._
 import scala.scalajs.js
 import scala.scalajs.js.annotation._
 
-/** Catalog for an entire text repository.
+/**
 *
-* @param texts Set of catalog entries.
+* @param citeLibrary A CiteLibrary.  It is an error if the library
+* does not included the required DSE components.
 */
 @JSExportAll case class Dse (citeLibrary: CiteLibrary) {
 

@@ -1,8 +1,8 @@
 name := "Digital Scholarly Editions library"
 
 
-//crossScalaVersions := Seq("2.10.6","2.11.8", "2.12.1")
-scalaVersion := "2.11.8"
+crossScalaVersions := Seq("2.11.8", "2.12.3")
+scalaVersion := "2.12.3"
 
 lazy val root = project.in(file(".")).
     aggregate(crossedJVM, crossedJS).
@@ -25,10 +25,11 @@ lazy val crossed = crossProject.in(file(".")).
         "org.scala-js" %% "scalajs-stubs" % scalaJSVersion % "provided",
         "org.scalatest" %%% "scalatest" % "3.0.1" % "test",
 
-        "edu.holycross.shot.cite" %%% "xcite" % "2.6.0",
-        "edu.holycross.shot" %%% "citeobj" % "4.2.0",
-        "edu.holycross.shot" %%% "scm" % "5.0.0",
-        "edu.holycross.shot" %%% "citerelations" % "1.1.1"
+        "edu.holycross.shot" %%% "scm" % "5.0.1",
+        "edu.holycross.shot.cite" %%% "xcite" % "2.7.0",
+        "edu.holycross.shot" %%% "citeobj" % "4.3.0",
+
+        "edu.holycross.shot" %%% "citerelations" % "2.0.0"
       )
     ).
     jvmSettings(

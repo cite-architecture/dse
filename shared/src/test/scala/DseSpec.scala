@@ -16,35 +16,36 @@ urn#urn:cite2:dse:demo.v1:va12r
 license#public domain
 
 #!ctscatalog
-urn#citationScheme#groupName#workTitle#versionLabel#exemplarLabel#online
-urn:cts:greekLit:tlg0012.tlg001.msA:#book/line#Homeric poetry#Iliad#HMT project edition of the Venetus A##true
+urn#citationScheme#groupName#workTitle#versionLabel#exemplarLabel#online#language
+urn:cts:greekLit:tlg0012.tlg001.msA:#book/line#Homeric poetry#Iliad#HMT project edition of the Venetus A##true#grc
 
 #!ctsdata
 urn:cts:greekLit:tlg0012.tlg001.msA:1.1#Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος
 
 
-#!citecatalog
-# Text-bearing surfaces:
-collection#urn:cite2:hmt:msA.v1:#Pages of the Venetus A manuscriptscript#urn:cite2:hmt:msA.v1.label:#urn:cite2:hmt:msA.v1.sequence:#CC-attribution-share-alike
+#!citecollections
+// Text-bearing surfaces:
+urn:cite2:hmt:msA.v1:#Pages of the Venetus A manuscriptscript#urn:cite2:hmt:msA.v1.label:#urn:cite2:hmt:msA.v1.sequence:#CC-attribution-share-alike
+#!citeproperties
+urn:cite2:hmt:msA.v1.urn:#URN#Cite2Urn#
+urn:cite2:hmt:msA.v1.label:#Label#String#
+urn:cite2:hmt:msA.v1.siglum:#Manuscript siglum#String#
+urn:cite2:hmt:msA.v1.sequence:#Page sequence#Number#
+urn:cite2:hmt:msA.v1.rv:#Recto or Verso#String#recto,verso
+urn:cite2:hmt:msA.v1.codex:#Codex URN#Cite2Urn#
 
-property#urn:cite2:hmt:msA.v1.urn:#URN#Cite2Urn#
-property#urn:cite2:hmt:msA.v1.label:#Label#String#
-property#urn:cite2:hmt:msA.v1.siglum:#Manuscript siglum#String#
-property#urn:cite2:hmt:msA.v1.sequence:#Page sequence#Number#
-property#urn:cite2:hmt:msA.v1.rv:#Recto or Verso#String#recto,verso
-property#urn:cite2:hmt:msA.v1.codex:#Codex URN#Cite2Urn#
 
-
-# Documentary images:
-collection#urn:cite2:hmt:vaimg.2017a:#Images of the Venetus A manuscriptscript#urn:cite2:hmt:vaimg.2017a.caption:##CC-attribution-share-alike
-
-property#urn:cite2:hmt:vaimg.2017a.urn:#URN#Cite2Urn#
-property#urn:cite2:hmt:vaimg.2017a.caption:#Caption#String#
-property#urn:cite2:hmt:vaimg.2017a.rights:#Rights#String#
+#!citecollections
+// Documentary images:
+urn:cite2:hmt:vaimg.2017a:#Images of the Venetus A manuscriptscript#urn:cite2:hmt:vaimg.2017a.caption:##CC-attribution-share-alike
+#!citeproperties
+urn:cite2:hmt:vaimg.2017a.urn:#URN#Cite2Urn#
+urn:cite2:hmt:vaimg.2017a.caption:#Caption#String#
+urn:cite2:hmt:vaimg.2017a.rights:#Rights#String#
 
 #!citedata
-#
-#Data block for the collection of text-bearing surfaces.
+//
+//Data block for the collection of text-bearing surfaces.
 siglum#sequence#urn#rv#label#codex
 msA#1#urn:cite2:hmt:msA.v1:12r#recto#Marcianus Graecus Z. 454 (= 822) (Venetus A) folio 12 recto#urn:cite2:hmt:codex:msA
 
@@ -57,28 +58,35 @@ urn:cite2:hmt:vaimg.2017a:VA012RN_0013.2017#Natural light photograph of Venetus 
 urn:cite2:hmt:vaimg.2017a:#local string string#./#urn:cite2:hmt:vaimg.2017a.rights:
 
 #!relations
-# 1. Relation of text passages to text-bearing surface:
+// 1. Relation of text passages to text-bearing surface:
 urn:cts:greekLit:tlg0012.tlg001.msA:1.1#urn:cite2:cite:dseverbs.2017a:appearsOn#urn:cite2:hmt:msA.2017a:12r
 urn:cite2:hmt:msA.2017a:12r#urn:cite2:cite:dseverbs.2017a:hasOnIt#urn:cts:greekLit:tlg0012.tlg001.msA:1.1
 
 
-# 2. Relation of text passages to documentary image:
+// 2. Relation of text passages to documentary image:
 urn:cts:greekLit:tlg0012.tlg001.msA:1.1#urn:cite2:cite:dseverbs.2017a:illustratedBy#urn:cite2:hmt:vaimg.2017a:VA012RN_0013@0.0611,0.2252,0.4675,0.0901
 urn:cite2:hmt:vaimg.2017a:VA012RN_0013@0.0611,0.2252,0.4675,0.0901#urn:cite2:cite:dseverbs.2017a:illustrates#urn:cts:greekLit:tlg0012.tlg001.msA:1.1
 
 
-# 3. Relation of text-bearing surface to documentary image:
+// 3. Relation of text-bearing surface to documentary image:
 urn:cite2:hmt:msA.2017a:12r#urn:cite2:cite:dseverbs.2017a:illustratedBy#urn:cite2:hmt:vaimg.2017a:VA012RN_0013
 urn:cite2:hmt:vaimg.2017a:VA012RN_0013#urn:cite2:cite:dseverbs.2017a:illustrates#urn:cite2:hmt:msA.2017a:12r
 """
+
+
+/*
   val dse = Dse(cexSrc,"#",",")
 
 
   val psg = CtsUrn("urn:cts:greekLit:tlg0012.tlg001.msA:1.1")
   val surface = Cite2Urn("urn:cite2:hmt:msA.2017a:12r")
   val img = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA012RN_0013@0.0611,0.2252,0.4675,0.0901")
+*/
 
-  "A Digital Scholarly Edition" should "be instantiated from a CiteLibrary" in {
+
+
+  "A Digital Scholarly Edition" should "be instantiated from a CiteLibrary" in pending
+  /* {
     dse match {
       case dse: Dse => assert(true)
       case _ => fail("Should have created a CiteLibrary")
@@ -126,6 +134,7 @@ urn:cite2:hmt:vaimg.2017a:VA012RN_0013#urn:cite2:cite:dseverbs.2017a:illustrates
       case _ => fail("Should have created a Dse object")
     }
   }
+  */
 
 
 }
