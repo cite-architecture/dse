@@ -39,7 +39,7 @@ To serialize DSE data in CEX, first define one or more collections with the thre
     urn:cite2:hmt:dse.2017a.label:#Label#String#
     urn:cite2:hmt:dse.2017a.passage:#Text passage#CtsUrn#
     urn:cite2:hmt:dse.2017a.imageroi:#Image region of interest#Cite2Urn#
-    urn:cite2:hmt:dse.2017a.surface:#ertifact surfact#Cite2Urn#
+    urn:cite2:hmt:dse.2017a.surface:#Artifact surface#Cite2Urn#
 
     #!datamodels
     Collection#Model#Label#Description
