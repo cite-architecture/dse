@@ -16,7 +16,8 @@ See [release notes](releases.md).
 
 To build from source and test for a given version, use normal `sbt` commands (`compile`, `test` ...).
 
-## CEX serialization of the DSE data model
+
+## The model
 
 Diplomatic scholarly editions relate three entities:
 
@@ -25,6 +26,9 @@ Diplomatic scholarly editions relate three entities:
 3. visual documentary evidence
 
 Passages of text are identified with CTS URNs;  text-bearing surfaces and visual evidence are identified with CITE2 URNs.  
+
+
+## CEX serialization of the DSE data model
 
 To serialize DSE data in CEX, first define one or more collections with the three required  properties, then include a `#datamodels` section declaring that your collection follows the DSE data model. The following example illustrates these two blocks of a CEX source:
 
