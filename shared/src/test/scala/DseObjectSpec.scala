@@ -1,11 +1,10 @@
 package edu.holycross.shot.dse
 import org.scalatest.FlatSpec
 import edu.holycross.shot.cite._
-import edu.holycross.shot.scm._
+import edu.holycross.shot.cex._
 
 
-
-class DseSpec extends FlatSpec {
+class DseObjectSpec extends FlatSpec {
 
 
 val cexSrc = """
@@ -60,56 +59,13 @@ urn:cite2:hmt:dse.2017a:311v.main7#Main scholion 7, 311 verso#urn:cts:greekLit:t
 
 
 
-  "A Digital Scholarly Edition" should "be instantiated from a CiteLibrary" in pending
-  /* {
-    dse match {
-      case dse: Dse => assert(true)
-      case _ => fail("Should have created a CiteLibrary")
-    }
-  }
-
-  it should "identify the set of TBS in the library" in {
-    val expected = Set(surface)
-    assert (dse.tbs == expected)
-  }
-  it should "identify the set of texts in the library" in {
-    val expected = Set(psg.dropPassage)
-    assert(dse.texts == expected)
-  }
-  it should "identify the set of image collections in the library" in {
-    val expected = Set(img.dropSelector)
-    assert(dse.imageCollections == expected)
-  }
-  it should "find images for a given TBS" in {
-    val expected = Set(Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA012RN_0013"))
-    assert(dse.imagesForTbs(surface) == expected)
-  }
-  it should "find images for a given text passage" in {
-    val expected = Set(img)
-    assert(dse.imagesForText(psg) == expected)
-  }
-  it should "find text passages for a given TBS" in {
-    val expected = Set(psg)
-    assert(dse.textsForTbs(surface) == expected)
-  }
-  it should "find text passages for a given image" in {
-    val expected = Set(psg)
-    assert(dse.textsForImage(img.dropExtensions) == expected)
-  }
-  it should "find TBS illustrated by a given image" in {
-    val expected = Set(surface)
-    assert(dse.tbsForImage(img.dropExtensions) == expected)
+  "The Dse object" should "drop headers from data model source" in {
+    val cex = CexParser(cexSrc)
+    val stripped = Dse.stripHeader(cex.blockVector("datamodels"))
+    assert(stripped.size == 1)
   }
 
 
-
-  it should "be possible to instantiate from a CEX source" in {
-    dse match {
-      case dse: Dse => assert(true)
-      case _ => fail("Should have created a Dse object")
-    }
-  }
-  */
 
 
 }

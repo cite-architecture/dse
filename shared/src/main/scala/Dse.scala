@@ -1,8 +1,8 @@
 package edu.holycross.shot.dse
 
 import edu.holycross.shot.cite._
-import edu.holycross.shot.citerelation._
-import edu.holycross.shot.scm._
+import edu.holycross.shot.cex._
+import edu.holycross.shot.citeobj._
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation._
@@ -21,12 +21,32 @@ import scala.scalajs.js.annotation._
 */
 object Dse {
 
+  /**  Strip header line off of each String in a Vector.
+  *
+  * @param v Vector of Strings.
+  */
+  def stripHeader(v: Vector[String]) : Vector[String] = {
+    val dataModels = v.map( s =>
+      s.split("\n").drop(1).mkString("\n"))
+    dataModels
+  }
+
   /** Create a [[Dse]] from a CEX source.
   *
   * @param cexSrc CEX data.
   */
-  def apply(cexSrc : String, delimiter: String = "#", secondaryDelim: String = ","): Dse = {
-    val citeLib = CiteLibrary(cexSrc,delimiter,secondaryDelim)
+  def apply(cexSrc : String): Dse = {
+    val citerepo = CiteLibrary(cexSrc)
+    
+    val cex = CexParser(cexSrc)
+    val dataModels = stripHeader(cex.blockVector("datamodels"))
+    val collections = dataModels.map { s =>
+      val cols = s.split("#")
+      Cite2Urn(cols(0))
+    }
+    // SELECT ALL DATA FOR EACH COLLECTION:
+    println("COLLS: " + collections)
+
 
     val passages = Vector.empty[DsePassage]
     Dse(passages)
