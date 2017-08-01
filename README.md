@@ -24,4 +24,19 @@ Diplomatic scholarly editions relate three entities:
 2. a sequence of text-bearing surfaces
 3. visual documentary evidence
 
-Passages of text are identified with CTS URNs;  text-bearing surfaces and visual evidence are identified with CITE2 URNs.  To serialize DSE data in CEX, include the CITE Collection `urn:cite2:dse:verbs.v1:` (in CEX format [here](dse.cex)) in your CEX source, and create statements in the CEX `relations` block linking each entity (text, surface, image) with the other two related entities.\\
+Passages of text are identified with CTS URNs;  text-bearing surfaces and visual evidence are identified with CITE2 URNs.  
+
+To serialize DSE data in CEX, first define one or more collections with the three required  properties, then include a `#datamodels` section declaring that your collection follows the DSE data model. The following example illustrates these two blocks of a CEX source:
+
+
+    #!citeproperties
+    Property#Label#Type#Authority list
+    urn:cite2:hmt:dse.2017a.urn:#DSE record#Cite2Urn#
+    urn:cite2:hmt:dse.2017a.label:#Label#String#
+    urn:cite2:hmt:dse.2017a.passage:#Text passage#CtsUrn#
+    urn:cite2:hmt:dse.2017a.imageroi:#Image region of interest#Cite2Urn#
+    urn:cite2:hmt:dse.2017a.surface:#ertifact surfact#Cite2Urn#
+
+    #!datamodels
+    Collection#Model#Label#Description
+    urn:cite2:hmt:dse.2017a:#urn:cite2:dse:datamodel.v1:#DSE model#Diplomatic Scholarly Edition (DSE) model.  See documentation at <https://github.com/cite-architecture/dse>.
