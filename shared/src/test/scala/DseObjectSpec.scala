@@ -8,6 +8,11 @@ class DseObjectSpec extends FlatSpec {
 
 
 val cexSrc = """
+#!citelibrary
+
+name#Data for testing DSE relations
+urn#urn:cite2:cite:testdata.2017_1:dse
+license#Creative Commons Attribution, Non-Commercial 4.0 License <https://creativecommons.org/licenses/by-nc/4.0/>.
 
 #!citecollections
 URN#Description#Labelling property#Ordering property#License

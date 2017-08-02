@@ -3,6 +3,7 @@ package edu.holycross.shot.dse
 import edu.holycross.shot.cite._
 import edu.holycross.shot.cex._
 import edu.holycross.shot.citeobj._
+import edu.holycross.shot.scm._
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation._
@@ -35,9 +36,9 @@ object Dse {
   *
   * @param cexSrc CEX data.
   */
-  def apply(cexSrc : String): Dse = {
-    val citerepo = CiteLibrary(cexSrc)
-    
+  def apply(cexSrc : String, delimiter: String = "#", delimiter2: String = ","): Dse = {
+    val citerepo = CiteLibrary(cexSrc, delimiter, delimiter2)
+
     val cex = CexParser(cexSrc)
     val dataModels = stripHeader(cex.blockVector("datamodels"))
     val collections = dataModels.map { s =>
