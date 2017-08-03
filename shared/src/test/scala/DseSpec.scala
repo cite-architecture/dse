@@ -98,24 +98,30 @@ urn:cite2:hmt:dse.2017a:311v.main7#Main scholion 7, 311 verso#urn:cts:greekLit:t
     val psg = CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A3")
     assert(dse.imagesForText(psg) == expected)
   }
-    /*
+
 
   it should "find text passages for a given TBS" in {
     val dse = Dse(cexSrc)
-    val expected = Set(psg)
-    assert(dse.textsForTbs(surface) == expected)
+    val expectedSize = 10
+    def surface = Cite2Urn("urn:cite2:hmt:msA:311r")
+    assert(dse.textsForTbs(surface).size == expectedSize)
   }
+
+
   it should "find text passages for a given image" in {
     val dse = Dse(cexSrc)
-    val expected = Set(psg)
-    assert(dse.textsForImage(img.dropExtensions) == expected)
+    val expectedSize = 10
+    val img = Cite2Urn("urn:cite2:hmt:vaimg:VA311RN_0481")
+    assert(dse.textsForImage(img).size == expectedSize)
   }
+
   it should "find TBS illustrated by a given image" in {
     val dse = Dse(cexSrc)
-    val expected = Set(surface)
+    val img = Cite2Urn("urn:cite2:hmt:vaimg:VA311RN_0481")
+    val expected = Set(Cite2Urn("urn:cite2:hmt:msA:311r"))
     assert(dse.tbsForImage(img.dropExtensions) == expected)
   }
-*/
+
 
 
   it should "be possible to instantiate from a CEX source" in {

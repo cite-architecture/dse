@@ -53,6 +53,38 @@ import scala.scalajs.js.annotation._
     tbs.map(_.imageroi.dropExtensions).distinct.toSet
   }
 
+  /** Set of texts appearing on a given text-bearing surface.
+  * Note that this is an unordered set of citable nodes.  You need to consult a
+  * TextRepository or a Corpus to determine the document order
+  * of nodes in this set or construct a range from this set.
+  *
+  * @param surf Text-bearing surface.
+  */
+  def textsForTbs(surf: Cite2Urn): Set[CtsUrn] = {
+    val tbs = passages.filter(_.surface ~~ surf)
+    tbs.map(_.passage).toSet
+  }
+
+  /** Set of texts illustrated by a given image.
+  * Note that this is an unordered set of citable nodes.  You need to consult a
+  * TextRepository or a Corpus to determine the document order
+  * of nodes in this set or construct a range from this set.
+  *
+  * @param img Illustrative image.
+  */
+  def textsForImage(img: Cite2Urn): Set[CtsUrn] = {
+    val tbs = passages.filter(_.imageroi ~~ img)
+    tbs.map(_.passage).toSet
+  }
+
+  /** Set of text-bearing surfaces illustrated by a given image.
+  *
+  * @param img Illustrative image.
+  */
+  def tbsForImage(img: Cite2Urn): Set[Cite2Urn] = {
+    val tbs = passages.filter(_.imageroi ~~ img)
+    tbs.map(_.surface).distinct.toSet
+  }
 }
 
 /** Factory for making catalogs from text sources.
