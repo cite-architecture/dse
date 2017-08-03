@@ -9,10 +9,15 @@ class DseSpec extends FlatSpec {
 
 
 val cexSrc = """
+#!citelibrary
+
+name#Sample DSE data
+urn#urn:cite2:cite:cextest.2017_1:dse
+license#Creative Commons Attribution, Non-Commercial 4.0 License <https://creativecommons.org/licenses/by-nc/4.0/>.
 
 #!citecollections
 URN#Description#Labelling property#Ordering property#License
-urn:cite2:hmt:dse.2017a:#DSE relations of the Venetus A manuscriptscript#urn:cite2:hmt:dse.2017a:label##CC-attribution-share-alike
+urn:cite2:hmt:dse.2017a:#DSE relations of the Venetus A manuscriptscript#urn:cite2:hmt:dse.2017a.label:##CC-attribution-share-alike
 
 
 #!citeproperties
@@ -50,7 +55,7 @@ urn:cite2:hmt:dse.2017a:311v.main7#Main scholion 7, 311 verso#urn:cts:greekLit:t
 """
 
 
-  val dse = Dse(cexSrc)
+
 
 
   val psg = CtsUrn("urn:cts:greekLit:tlg0012.tlg001.msA:1.1")
@@ -60,7 +65,7 @@ urn:cite2:hmt:dse.2017a:311v.main7#Main scholion 7, 311 verso#urn:cts:greekLit:t
 
 
 
-  "A Digital Scholarly Edition" should "be instantiated from a CiteLibrary" in pending
+  "A Digital Scholarly Edition" should "be instantiated from a CiteLibrary" in pending //  val dse = Dse(cexSrc)
   /* {
     dse match {
       case dse: Dse => assert(true)

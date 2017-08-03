@@ -16,7 +16,7 @@ license#Creative Commons Attribution, Non-Commercial 4.0 License <https://creati
 
 #!citecollections
 URN#Description#Labelling property#Ordering property#License
-urn:cite2:hmt:dse.2017a:#DSE relations of the Venetus A manuscriptscript#urn:cite2:hmt:dse.2017a:label##CC-attribution-share-alike
+urn:cite2:hmt:dse.2017a:#DSE relations of the Venetus A manuscriptscript#urn:cite2:hmt:dse.2017a.label:##CC-attribution-share-alike
 
 
 #!citeproperties
@@ -69,6 +69,9 @@ urn:cite2:hmt:dse.2017a:311v.main7#Main scholion 7, 311 verso#urn:cts:greekLit:t
     val stripped = Dse.stripHeader(cex.blockVector("datamodels"))
     assert(stripped.size == 1)
   }
+
+  it should "build a DsePassage from a CiteObject" in pending
+  it should "construct a Dse from CEX source" in pending
 
 
 

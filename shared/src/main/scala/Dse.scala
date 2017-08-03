@@ -37,7 +37,8 @@ object Dse {
   * @param cexSrc CEX data.
   */
   def apply(cexSrc : String, delimiter: String = "#", delimiter2: String = ","): Dse = {
-    val citerepo = CiteLibrary(cexSrc, delimiter, delimiter2)
+    //  all citable objects in the repo
+    val objs = CiteLibrary(cexSrc, delimiter, delimiter2).collectionRepository.get.citableObjects
 
     val cex = CexParser(cexSrc)
     val dataModels = stripHeader(cex.blockVector("datamodels"))
@@ -45,14 +46,26 @@ object Dse {
       val cols = s.split("#")
       Cite2Urn(cols(0))
     }
-    // SELECT ALL DATA FOR EACH COLLECTION:
-    println("COLLS: " + collections)
-
-
-    val passages = Vector.empty[DsePassage]
-    Dse(passages)
+    val applicable = for (c <- collections) yield {
+      objs.filter(_.urn ~~ c)
+    }
+    val dsePassages = applicable.flatten.map(fromCitableObject(_))
+    Dse(dsePassages)
   }
 
-
+  /** Construct a [[DsePassage]] from a CiteObject belonging to a
+  * collection implementing the Dse model.
+  *
+  * @param obj Citable object in a colletion implementing the Dse model.
+  */
+  def fromCitableObject(obj: CiteObject): DsePassage = {
+    val passageUrn = obj.urn.addProperty("passage")
+    val passage = obj.propertyValue(passageUrn).asInstanceOf[CtsUrn]
+    val imageUrn = obj.urn.addProperty("imageroi")
+    val image = obj.propertyValue(imageUrn).asInstanceOf[Cite2Urn]
+    val surfaceUrn = obj.urn.addProperty("surface")
+    val surface = obj.propertyValue(surfaceUrn).asInstanceOf[Cite2Urn]
+    DsePassage(obj.urn, obj.label, passage, image,surface)
+  }
 
 }
