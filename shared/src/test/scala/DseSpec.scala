@@ -56,18 +56,7 @@ urn:cite2:hmt:dse.2017a:311v.main7#Main scholion 7, 311 verso#urn:cts:greekLit:t
 
 
 
-
-
-
-  "A Digital Scholarly Edition" should "be instantiated from a CiteLibrary" in {
-    val dse = Dse(cexSrc)
-    dse match {
-      case dse: Dse => assert(true)
-      case _ => fail("Should have created a CiteLibrary")
-    }
-  }
-
-  it should "identify the set of TBS in the library" in {
+  "A Digital Scholarly Edition" should "identify the set of TBS in the library" in {
     val dse = Dse(cexSrc)
     val expected = Set(Cite2Urn("urn:cite2:hmt:msA:311r"), Cite2Urn("urn:cite2:hmt:msA:311v"))
     assert (dse.tbs == expected)
@@ -120,16 +109,6 @@ urn:cite2:hmt:dse.2017a:311v.main7#Main scholion 7, 311 verso#urn:cts:greekLit:t
     val img = Cite2Urn("urn:cite2:hmt:vaimg:VA311RN_0481")
     val expected = Set(Cite2Urn("urn:cite2:hmt:msA:311r"))
     assert(dse.tbsForImage(img.dropExtensions) == expected)
-  }
-
-
-
-  it should "be possible to instantiate from a CEX source" in {
-    val dse = Dse(cexSrc)
-    dse match {
-      case dse: Dse => assert(true)
-      case _ => fail("Should have created a Dse object")
-    }
   }
 
 

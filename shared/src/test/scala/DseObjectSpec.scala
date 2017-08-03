@@ -2,6 +2,7 @@ package edu.holycross.shot.dse
 import org.scalatest.FlatSpec
 import edu.holycross.shot.cite._
 import edu.holycross.shot.cex._
+import edu.holycross.shot.scm._
 
 
 class DseObjectSpec extends FlatSpec {
@@ -61,17 +62,34 @@ urn:cite2:hmt:dse.2017a:311v.main7#Main scholion 7, 311 verso#urn:cts:greekLit:t
   val surface = Cite2Urn("urn:cite2:hmt:msA.2017a:12r")
   val img = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA012RN_0013@0.0611,0.2252,0.4675,0.0901")
 
-
-
-
   "The Dse object" should "drop headers from data model source" in {
     val cex = CexParser(cexSrc)
     val stripped = Dse.stripHeader(cex.blockVector("datamodels"))
     assert(stripped.size == 1)
   }
 
-  it should "build a DsePassage from a CiteObject" in pending
-  it should "construct a Dse from CEX source" in pending
+  it should "build a DsePassage from a CiteObject" in {
+    val citableObjects = CiteLibrary(cexSrc, "#", ",").collectionRepository.get.citableObjects
+
+    val firstObject = citableObjects(0)
+    val dsePsg = Dse.fromCitableObject(firstObject)
+    assert(dsePsg.urn == Cite2Urn("urn:cite2:hmt:dse.2017a:311r.main1"))
+    assert(dsePsg.label == "Main scholion 1, 311 recto")
+    assert(dsePsg.passage == CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A2"))
+    assert(dsePsg.imageroi == Cite2Urn("urn:cite2:hmt:vaimg:VA311RN_0481@0.216,0.0811,0.61,0.0751"))
+    assert(dsePsg.surface == Cite2Urn("urn:cite2:hmt:msA:311r"))
+  }
+
+  it should "create a Dse from CEX source" in {
+   val dse = Dse(cexSrc)
+   dse match {
+     case dse: Dse => assert(true)
+     case _ => fail("Should have created a CiteLibrary")
+   }
+   val expectedSize =  17
+   assert(dse.size == expectedSize)
+ }
+
 
 
 
