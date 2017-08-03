@@ -16,6 +16,43 @@ import scala.scalajs.js.annotation._
   def size : Int = {
     passages.size
   }
+
+  /** Set of text-bearing surfaces in this DSE.
+  */
+  def tbs : Set[Cite2Urn]= {
+    passages.map(_.surface).distinct.toSet
+  }
+
+  /** Set of texts (editions or versions) in this DSE.
+  */
+  def texts: Set[CtsUrn] = {
+    passages.map(_.passage.dropPassage).distinct.toSet
+  }
+
+  /** Set of image collections in this DSE.
+  */
+  def imageCollections: Set[Cite2Urn] = {
+    passages.map(_.imageroi.dropSelector).distinct.toSet
+  }
+
+  /** Set of images illustrating a given surface.
+  *
+  * @param surface A text-bearing surface.
+  */
+  def imagesForTbs(surface: Cite2Urn) : Set[Cite2Urn] = {
+    val tbs = passages.filter(_.surface ~~ surface)
+    tbs.map(_.imageroi.dropExtensions).distinct.toSet
+  }
+
+  /** Set of images illustrating a given passage of text.
+  *
+  * @param psg A citable node of text.
+  */
+  def imagesForText(psg: CtsUrn) : Set[Cite2Urn] = {
+    val tbs = passages.filter(_.passage ~~ psg)
+    tbs.map(_.imageroi.dropExtensions).distinct.toSet
+  }
+
 }
 
 /** Factory for making catalogs from text sources.

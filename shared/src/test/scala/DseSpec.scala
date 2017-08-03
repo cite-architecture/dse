@@ -58,15 +58,9 @@ urn:cite2:hmt:dse.2017a:311v.main7#Main scholion 7, 311 verso#urn:cts:greekLit:t
 
 
 
-  val psg = CtsUrn("urn:cts:greekLit:tlg0012.tlg001.msA:1.1")
-  val surface = Cite2Urn("urn:cite2:hmt:msA.2017a:12r")
-  val img = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA012RN_0013@0.0611,0.2252,0.4675,0.0901")
 
-
-
-
-  "A Digital Scholarly Edition" should "be instantiated from a CiteLibrary" in pending //  val dse = Dse(cexSrc)
-  /* {
+  "A Digital Scholarly Edition" should "be instantiated from a CiteLibrary" in {
+    val dse = Dse(cexSrc)
     dse match {
       case dse: Dse => assert(true)
       case _ => fail("Should have created a CiteLibrary")
@@ -74,47 +68,64 @@ urn:cite2:hmt:dse.2017a:311v.main7#Main scholion 7, 311 verso#urn:cts:greekLit:t
   }
 
   it should "identify the set of TBS in the library" in {
-    val expected = Set(surface)
+    val dse = Dse(cexSrc)
+    val expected = Set(Cite2Urn("urn:cite2:hmt:msA:311r"), Cite2Urn("urn:cite2:hmt:msA:311v"))
     assert (dse.tbs == expected)
   }
+
   it should "identify the set of texts in the library" in {
-    val expected = Set(psg.dropPassage)
+    val dse = Dse(cexSrc)
+    val expected = Set(CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:"))
     assert(dse.texts == expected)
   }
+
   it should "identify the set of image collections in the library" in {
-    val expected = Set(img.dropSelector)
+    val dse = Dse(cexSrc)
+    val expected = Set(Cite2Urn("urn:cite2:hmt:vaimg:"))
     assert(dse.imageCollections == expected)
   }
+
   it should "find images for a given TBS" in {
-    val expected = Set(Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA012RN_0013"))
+    val dse = Dse(cexSrc)
+    def surface = Cite2Urn("urn:cite2:hmt:msA:311r")
+    val expected = Set(Cite2Urn("urn:cite2:hmt:vaimg:VA311RN_0481"))
     assert(dse.imagesForTbs(surface) == expected)
   }
+
   it should "find images for a given text passage" in {
-    val expected = Set(img)
+    val dse = Dse(cexSrc)
+    val expected = Set(Cite2Urn("urn:cite2:hmt:vaimg:VA311RN_0481"))
+    val psg = CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A3")
     assert(dse.imagesForText(psg) == expected)
   }
+    /*
+
   it should "find text passages for a given TBS" in {
+    val dse = Dse(cexSrc)
     val expected = Set(psg)
     assert(dse.textsForTbs(surface) == expected)
   }
   it should "find text passages for a given image" in {
+    val dse = Dse(cexSrc)
     val expected = Set(psg)
     assert(dse.textsForImage(img.dropExtensions) == expected)
   }
   it should "find TBS illustrated by a given image" in {
+    val dse = Dse(cexSrc)
     val expected = Set(surface)
     assert(dse.tbsForImage(img.dropExtensions) == expected)
   }
-
+*/
 
 
   it should "be possible to instantiate from a CEX source" in {
+    val dse = Dse(cexSrc)
     dse match {
       case dse: Dse => assert(true)
       case _ => fail("Should have created a Dse object")
     }
   }
-  */
+
 
 
 }
