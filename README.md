@@ -2,7 +2,7 @@
 
 A cross-platform library for working with digital diplomatic scholarly editions.
 
-## Current version: 2.0.0
+## Current version: 2.0.1
 
 See [release notes](releases.md).
 
@@ -25,7 +25,7 @@ Diplomatic scholarly editions relate three entities:
 2. a sequence of text-bearing surfaces
 3. visual documentary evidence
 
-Passages of text are identified with CTS URNs;  text-bearing surfaces and visual evidence are identified with CITE2 URNs.  
+Passages of text are identified with CTS URNs;  text-bearing surfaces and visual evidence are identified with CITE2 URNs.
 
 
 ## CEX serialization of the DSE data model
