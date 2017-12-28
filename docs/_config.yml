@@ -1,0 +1,26 @@
+
+
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            The DSE data model
+tagline:          'Digital Diplomatic Scholarly Editions'
+description:      ''
+
+
+baseurl: '/dse/'
+
+
+author:
+  name:           'Neel Smith'
+
+
+links:
+  - title:  CITE Architecture
+    url:  https://cite-architecture.github.io/
+    external: true
+  - title:  Github repository
+    url:  https://github.com/cite-architecture/dse
+    external: true
