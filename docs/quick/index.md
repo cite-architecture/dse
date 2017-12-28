@@ -74,15 +74,15 @@ val page1 = Cite2Urn("urn:cite2:hmt:msA:311r")
 val passages1 = dse.textsForTbs(page1)
 assert(passages1.size == 10)
 
-val images = dse.imagesForTbs(page1)
-assert(images.size == 1)
-
+val images1 = dse.imagesForTbs(page1)
+assert(images1.size == 1)
 
 val page2 = Cite2Urn("urn:cite2:hmt:msA:311v")
 val passages2 = dse.textsForTbs(page2)
 assert(passages2.size == 7)
 
-
+val images2 = dse.imagesForTbs(page2)
+assert(images2.size == 1)
 ```
 
 ### Find documentary image for a text passage
