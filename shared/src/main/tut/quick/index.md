@@ -55,3 +55,27 @@ In the JVM environment, you can use the `DseSource` object's `fromFile` method t
 ```tut:silent
 val dse = DseSource.fromFile("jvm/src/test/resources/311rv.cex")
 ```
+
+
+## Working with a DSE model
+
+### Find text contents and documentary images for a text-bearing surface
+
+```tut:silent
+import edu.holycross.shot.cite._
+
+val page = Cite2Urn("urn:cite2:hmt:msA:311r")
+
+val passages = dse.textsForTbs(page)
+val images = dse.imagesForTbs(page)
+
+
+```
+
+### Find documentary image for a text passage
+
+```tut:silent
+val passage = CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A5")
+val surface = dse.imagesForText(passage)
+assert(surface.size == 1)
+```
