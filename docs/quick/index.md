@@ -49,7 +49,7 @@ urn:cite2:hmt:dse.2017a:311r.main1#Main scholion 1, 311 recto#urn:cts:greekLit:t
 val dse = Dse(cex)
 ```
 
-In the JVM environment, you can use the `DseSource` object's `fromFile` method to instantiate a DSE model directly from a file in CEX format.
+In the JVM environment, you can use the `DseSource` object's `fromFile` method to instantiate a DSE model directly from a file in CEX format.  (This is a small sample with a total of 17 text passages on 2 pages.  We'll use this sample data set in the following examples.)
 
 
 ```scala
@@ -59,15 +59,28 @@ val dse = DseSource.fromFile("jvm/src/test/resources/311rv.cex")
 
 ## Working with a DSE model
 
-### Find text contents and documentary images for a text-bearing surface
+
+To work with URNs, you'll need to import the `cite` library.
 
 ```scala
 import edu.holycross.shot.cite._
+```
 
-val page = Cite2Urn("urn:cite2:hmt:msA:311r")
 
-val passages = dse.textsForTbs(page)
-val images = dse.imagesForTbs(page)
+### Find text contents and documentary images for a text-bearing surface
+
+```scala
+val page1 = Cite2Urn("urn:cite2:hmt:msA:311r")
+val passages1 = dse.textsForTbs(page1)
+assert(passages1.size == 10)
+
+val images = dse.imagesForTbs(page1)
+assert(images.size == 1)
+
+
+val page2 = Cite2Urn("urn:cite2:hmt:msA:311v")
+val passages2 = dse.textsForTbs(page2)
+assert(passages2.size == 7)
 
 
 ```
@@ -76,6 +89,25 @@ val images = dse.imagesForTbs(page)
 
 ```scala
 val passage = CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A5")
-val surface = dse.imagesForText(passage)
-assert(surface.size == 1)
+val images = dse.imagesForText(passage)
+assert(images.size == 1)
+```
+
+
+### Find material illustrated by an image
+
+```scala
+scala> val img = Cite2Urn("urn:cite2:hmt:vaimg:VA311RN_0481")
+img: edu.holycross.shot.cite.Cite2Urn = urn:cite2:hmt:vaimg:VA311RN_0481
+
+scala> val surfaces = dse.tbsForImage(img)
+surfaces: Set[edu.holycross.shot.cite.Cite2Urn] = Set(urn:cite2:hmt:msA:311r)
+
+scala> assert(surfaces.size == 1)
+
+scala> val passages = dse.textsForImage(img)
+passages: Set[edu.holycross.shot.cite.CtsUrn] = Set(urn:cts:greekLit:tlg5026.msA.hmt:24.A5, urn:cts:greekLit:tlg5026.msA.hmt:24.A8, urn:cts:greekLit:tlg5026.msA.hmt:24.A6, urn:cts:greekLit:tlg5026.msA.hmt:24.A2, urn:cts:greekLit:tlg5026.msA.hmt:24.A11, urn:cts:greekLit:tlg5026.msA.hmt:24.A9, urn:cts:greekLit:tlg5026.msA.hmt:24.A7, urn:cts:greekLit:tlg5026.msA.hmt:24.A3, urn:cts:greekLit:tlg5026.msA.hmt:24.A10, urn:cts:greekLit:tlg5026.msA.hmt:24.A4)
+
+scala> passages.size
+res12: Int = 10
 ```
