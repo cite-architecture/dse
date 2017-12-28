@@ -94,7 +94,7 @@ assert(images.size == 1)
 ```
 
 
-### Find material illustrated by an image
+### Find surfaces and texts illustrated by an image
 
 ```tut:silent
 val img = Cite2Urn("urn:cite2:hmt:vaimg:VA311RN_0481")
