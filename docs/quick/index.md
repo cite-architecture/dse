@@ -97,17 +97,10 @@ assert(images.size == 1)
 ### Find material illustrated by an image
 
 ```scala
-scala> val img = Cite2Urn("urn:cite2:hmt:vaimg:VA311RN_0481")
-img: edu.holycross.shot.cite.Cite2Urn = urn:cite2:hmt:vaimg:VA311RN_0481
+val img = Cite2Urn("urn:cite2:hmt:vaimg:VA311RN_0481")
 
-scala> val surfaces = dse.tbsForImage(img)
-surfaces: Set[edu.holycross.shot.cite.Cite2Urn] = Set(urn:cite2:hmt:msA:311r)
-
-scala> assert(surfaces.size == 1)
-
-scala> val passages = dse.textsForImage(img)
-passages: Set[edu.holycross.shot.cite.CtsUrn] = Set(urn:cts:greekLit:tlg5026.msA.hmt:24.A5, urn:cts:greekLit:tlg5026.msA.hmt:24.A8, urn:cts:greekLit:tlg5026.msA.hmt:24.A6, urn:cts:greekLit:tlg5026.msA.hmt:24.A2, urn:cts:greekLit:tlg5026.msA.hmt:24.A11, urn:cts:greekLit:tlg5026.msA.hmt:24.A9, urn:cts:greekLit:tlg5026.msA.hmt:24.A7, urn:cts:greekLit:tlg5026.msA.hmt:24.A3, urn:cts:greekLit:tlg5026.msA.hmt:24.A10, urn:cts:greekLit:tlg5026.msA.hmt:24.A4)
-
-scala> passages.size
-res12: Int = 10
+val surfaces = dse.tbsForImage(img)
+assert(surfaces.size == 1)
+val passages = dse.textsForImage(img)
+assert(passages.size == 10)
 ```

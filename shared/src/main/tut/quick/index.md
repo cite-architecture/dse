@@ -96,11 +96,11 @@ assert(images.size == 1)
 
 ### Find material illustrated by an image
 
-```tut
+```tut:silent
 val img = Cite2Urn("urn:cite2:hmt:vaimg:VA311RN_0481")
 
 val surfaces = dse.tbsForImage(img)
 assert(surfaces.size == 1)
 val passages = dse.textsForImage(img)
-passages.size
+assert(passages.size == 10)
 ```
