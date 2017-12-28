@@ -10,6 +10,11 @@ See [release notes](releases.md).
 
 [GPL 3.0](https://opensource.org/licenses/gpl-3.0.html)
 
+
+## Documentation
+
+See <https://cite-architecture.github.io/dse/>.
+
 ## Using, building, testing
 
 `dse` is compiled for both the JVM and ScalaJS using scala version  2.11.
