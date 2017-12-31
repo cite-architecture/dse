@@ -6,7 +6,7 @@ permalink:        pretty
 
 # Setup
 title:            The DSE data model
-tagline:          'Digital Diplomatic Scholarly Editions'
+tagline:          'Modeling Diplomatic Scholarly Editions'
 description:      ''
 
 
@@ -21,6 +21,6 @@ links:
   - title:  CITE Architecture home
     url:  https://cite-architecture.github.io/
     external: true
-  - title:  Github repository
+  - title:  DSE Github repository
     url:  https://github.com/cite-architecture/dse
     external: true
