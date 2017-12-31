@@ -18,3 +18,6 @@ To serialize DSE data in CEX, first define one or more collections with the thre
     #!datamodels
     Collection#Model#Label#Description
     urn:cite2:hmt:dse.2017a:#urn:cite2:dse:datamodel.v1:#DSE model#Diplomatic Scholarly Edition (DSE) model.  See documentation at <https://github.com/cite-architecture/dse>.
+
+
+Like any other CITE Collection, DSE collections are declared in a CEX `citecollections` block, and include their data in a `citedata` block.
