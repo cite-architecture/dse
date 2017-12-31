@@ -4,7 +4,7 @@ title: CEX serialization of the DSE data model
 ---
 
 
-To serialize DSE data in CEX, first define one or more collections with the three required  properties, then include a `#datamodels` section declaring that your collection follows the DSE data model. The following example illustrates these two blocks of a CEX source:
+To serialize DSE data in CEX, define each DSE collection with the three properties `passage`, `imageroi` and `surface`, in addition to the required properties for idetnifying URN and human-readable label.  Then include in your CEX a `#datamodels` section declaring that your collection follows the DSE data model. The following example illustrates these two blocks of a CEX source:
 
 
     #!citeproperties
