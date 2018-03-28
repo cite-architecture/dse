@@ -69,15 +69,24 @@ urn:cite2:hmt:dse.2017a:311v.main7#Main scholion 7, 311 verso#urn:cts:greekLit:t
   }
 
   it should "build a DsePassage from a CiteObject" in {
-    val citableObjects = CiteLibrary(cexSrc, "#", ",").collectionRepository.get.citableObjects
 
-    val firstObject = citableObjects(0)
+    val libr = CiteLibrary(cexSrc, "#", ",")
+
+
+
+
+    val citableObjects = CiteLibrary(cexSrc, "#", ",").collectionRepository.get.citableObjects
+    val testUrn =  Cite2Urn("urn:cite2:hmt:dse.2017a:311r.main1")
+
+    val matchingCites = citableObjects.filter(_.urn == testUrn)
+    val firstObject = matchingCites(0)
     val dsePsg = Dse.fromCitableObject(firstObject)
     assert(dsePsg.urn == Cite2Urn("urn:cite2:hmt:dse.2017a:311r.main1"))
     assert(dsePsg.label == "Main scholion 1, 311 recto")
     assert(dsePsg.passage == CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A2"))
     assert(dsePsg.imageroi == Cite2Urn("urn:cite2:hmt:vaimg:VA311RN_0481@0.216,0.0811,0.61,0.0751"))
     assert(dsePsg.surface == Cite2Urn("urn:cite2:hmt:msA:311r"))
+
   }
 
   it should "create a Dse from CEX source" in {
