@@ -1,5 +1,8 @@
 # `dse`: release notes
 
+
+**2.2.0**:  Add functions to generate URLs pointing to an installation of CITE Architecture's Image Citation Tool for any of the three corners of the DSE relation.
+
 **2.1.0**:  Update to `ohco2` library.  Add full cross build functionality.
 
 **2.0.1**: Update to `citeobj` library fixes a bug in computing path for some image extensions.
