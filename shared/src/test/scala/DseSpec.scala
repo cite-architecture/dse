@@ -134,4 +134,12 @@ urn:cite2:hmt:dse.2017a:311v.main7#Main scholion 7, 311 verso#urn:cts:greekLit:t
     assert(dse.ictForText(scholion) == expected)
   }
 
+  it should "composte an ICT URL for an image when no overlays" in {
+    //val pg = "urn:cite2:hmt:msA.v1:insidefrontcover"
+    val img = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VAMSInside_front_cover_versoN_0500")
+    val dse = Dse(cexSrc)
+    val expected = "http://www.homermultitext.org/ict2/?urn=" + img
+    assert (dse.ictForImage(img) == expected)
+  }
+
 }

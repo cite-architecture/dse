@@ -99,7 +99,11 @@ import scala.scalajs.js.annotation._
   */
   def ictForSurface(surfaceUrn: Cite2Urn, baseUrl: String = "http://www.homermultitext.org/ict2/") : String = {
     val rois = passages.filter(_.surface == surfaceUrn).map(_.imageroi)
-    baseUrl + "?urn=" + rois.mkString("&urn=")
+    if (rois.size > 0) {
+      baseUrl + "?urn=" + rois.mkString("&urn=")
+    } else {
+      baseUrl
+    }
   }
 
   /** Compose a URL string to display DSE relations for
@@ -114,7 +118,11 @@ import scala.scalajs.js.annotation._
   */
   def ictForImage(img: Cite2Urn, baseUrl: String = "http://www.homermultitext.org/ict2/") : String = {
     val rois = passages.filter(_.imageroi ~~ img).map(_.imageroi)
-    baseUrl + "?urn=" + rois.mkString("&urn=")
+    if (rois.size > 0 ) {
+      baseUrl + "?urn=" + rois.mkString("&urn=")
+    } else {
+      baseUrl + "?urn=" + img
+    }
   }
 
   /** Compose a URL string to display DSE relations for
@@ -129,7 +137,11 @@ import scala.scalajs.js.annotation._
   */
   def ictForText(psg: CtsUrn, baseUrl: String = "http://www.homermultitext.org/ict2/") : String = {
     val rois = passages.filter(_.passage == psg).map(_.imageroi)
-    baseUrl + "?urn=" + rois.mkString("&urn=")
+    if (rois.size > 0) {
+      baseUrl + "?urn=" + rois.mkString("&urn=")
+    } else {
+      baseUrl
+    }
   }
 
 

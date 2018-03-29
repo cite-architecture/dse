@@ -1,5 +1,6 @@
 # `dse`: release notes
 
+**2.2.1**: ICT functions return more reasonable URL if there are no matches for requested image, surface or text passage.
 
 **2.2.0**:  Add functions to generate URLs pointing to an installation of CITE Architecture's Image Citation Tool for any of the three corners of the DSE relation.
 
