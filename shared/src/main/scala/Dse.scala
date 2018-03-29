@@ -85,6 +85,54 @@ import scala.scalajs.js.annotation._
     val tbs = passages.filter(_.imageroi ~~ img)
     tbs.map(_.surface).distinct.toSet
   }
+
+
+  /** Compose a URL string to display DSE relations for
+  * a specifice text-bearing surface in the image citation
+  * tool developed for the CITE Architecture.
+  * See https://github.com/cite-architecture/ict2.
+  *
+  * @param surfaceUrn The surface to illustrate.
+  * @param baseUrl Home URL, as a String, for an installation
+  * of the CITE Image Citation Tool (version 2).
+  *
+  */
+  def ictForSurface(surfaceUrn: Cite2Urn, baseUrl: String = "http://www.homermultitext.org/ict2/") : String = {
+    val rois = passages.filter(_.surface == surfaceUrn).map(_.imageroi)
+    baseUrl + "?urn=" + rois.mkString("&urn=")
+  }
+
+  /** Compose a URL string to display DSE relations for
+  * a specified image in the image citation
+  * tool developed for the CITE Architecture.
+  * See https://github.com/cite-architecture/ict2.
+  *
+  * @param img The images to illustrate.
+  * @param baseUrl Home URL, as a String, for an installation
+  * of the CITE Image Citation Tool (version 2).
+  *
+  */
+  def ictForImage(img: Cite2Urn, baseUrl: String = "http://www.homermultitext.org/ict2/") : String = {
+    val rois = passages.filter(_.imageroi ~~ img).map(_.imageroi)
+    baseUrl + "?urn=" + rois.mkString("&urn=")
+  }
+
+  /** Compose a URL string to display DSE relations for
+  * an exactly matching specified passage of text in the image citation
+  * tool developed for the CITE Architecture.
+  * See https://github.com/cite-architecture/ict2.
+  *
+  * @param psg Text passage to illustrate.
+  * @param baseUrl Home URL, as a String, for an installation
+  * of the CITE Image Citation Tool (version 2).
+  *
+  */
+  def ictForText(psg: CtsUrn, baseUrl: String = "http://www.homermultitext.org/ict2/") : String = {
+    val rois = passages.filter(_.passage == psg).map(_.imageroi)
+    baseUrl + "?urn=" + rois.mkString("&urn=")
+  }
+
+
 }
 
 /** Factory for making catalogs from text sources.
