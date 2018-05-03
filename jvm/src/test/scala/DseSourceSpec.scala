@@ -13,7 +13,7 @@ class DseSourceSpec extends FlatSpec {
     val fName = "jvm/src/test/resources/311rv.cex"
     val dse = DseSource.fromFile(fName)
     dse match {
-      case edition: Dse => assert(true)
+      case edition: DseVector => assert(true)
       case _ => fail("Should have made a Dse")
     }
     val expectedSize = 17

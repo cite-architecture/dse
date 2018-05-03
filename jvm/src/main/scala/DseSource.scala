@@ -18,9 +18,9 @@ object DseSource {
   *
   * @param fileName Name of file with data in CEX format.
   */
-  def fromFile(fileName: String): Dse = {
+  def fromFile(fileName: String): DseVector = {
     val lns = Source.fromFile(fileName).getLines.toVector
-    Dse(lns.mkString("\n"))
+    DseVector(lns.mkString("\n"))
   }
 
 

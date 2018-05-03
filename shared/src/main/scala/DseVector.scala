@@ -9,7 +9,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation._
 
 
-@JSExportAll case class Dse (passages: Vector[DsePassage]) {
+@JSExportAll case class DseVector (passages: Vector[DsePassage]) {
 
   /** Number of citable text passages in this data set.
   */
@@ -149,7 +149,7 @@ import scala.scalajs.js.annotation._
 
 /** Factory for making catalogs from text sources.
 */
-object Dse {
+object DseVector {
 
   /**  Strip header line off of each String in a Vector.
   *
@@ -161,11 +161,11 @@ object Dse {
     dataModels
   }
 
-  /** Create a [[Dse]] from a CEX source.
+  /** Create a [[DseVector]] from a CEX source.
   *
   * @param cexSrc CEX data.
   */
-  def apply(cexSrc : String, delimiter: String = "#", delimiter2: String = ","): Dse = {
+  def apply(cexSrc : String, delimiter: String = "#", delimiter2: String = ","): DseVector = {
     //  all citable objects in the repo
     val objs = CiteLibrary(cexSrc, delimiter, delimiter2).collectionRepository.get.citableObjects
 
@@ -179,7 +179,7 @@ object Dse {
       objs.filter(_.urn ~~ c)
     }
     val dsePassages = applicable.flatten.map(fromCitableObject(_))
-    Dse(dsePassages)
+    DseVector(dsePassages)
   }
 
   /** Construct a [[DsePassage]] from a CiteObject belonging to a
