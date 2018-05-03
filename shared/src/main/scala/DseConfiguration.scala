@@ -130,12 +130,61 @@ import scala.scalajs.js.annotation._
   *
   * @param psg A citable node of text.
   */
-  /*
   def imagesForText(psg: CtsUrn) : Set[Cite2Urn] = {
-    val tbs = passages.filter(_.passage ~~ psg)
-    tbs.map(_.imageroi.dropExtensions).distinct.toSet
+    //val tbs = passages.filter(_.passage ~~ psg)
+    //tbs.map(_.imageroi.dropExtensions).distinct.toSet
+    val matchingTexts = repo.data.data.filter(_.urn.dropSelector == passagePropertyUrn).filter(_.propertyValue.asInstanceOf[CtsUrn] >= psg)
+    val propName = imagePropertyUrn.property
+    //println(s"propName: ${propName}")
+    val imgProps = matchingTexts.map(t => {
+     //   println(s"t: ${t}")
+        propertyUrnFromPropertyName(t.urn.asInstanceOf[Cite2Urn], propName).dropExtensions
+    }).distinct.toSet
+    val imgs = imgProps.map( i => {
+      repo.data.propertyValue(i).asInstanceOf[Cite2Urn].dropExtensions
+    })
+    imgs
+
+
   }
+
+  /** Set of texts appearing on a given text-bearing surface.
+  * Note that this is an unordered set of citable nodes.  You need to consult a
+  * TextRepository or a Corpus to determine the document order
+  * of nodes in this set or construct a range from this set.
+  *
+  * @param surf Text-bearing surface.
   */
+  def textsForTbs(surf: Cite2Urn): Set[CtsUrn] = {
+    val tbs = repo.data.data.filter(_.urn.dropSelector == surfacePropertyUrn).filter(_.propertyValue.asInstanceOf[Cite2Urn] == surf)
+    val propName = passagePropertyUrn.property
+    val passageProps = tbs.map(t => {
+        propertyUrnFromPropertyName(t.urn.asInstanceOf[Cite2Urn], propName).dropExtensions
+    }).distinct.toSet
+    val texts = passageProps.map( i => {
+      repo.data.propertyValue(i).asInstanceOf[CtsUrn]
+    })
+    texts
+  }
+
+/** Set of texts illustrated by a given image.
+  * Note that this is an unordered set of citable nodes.  You need to consult a
+  * TextRepository or a Corpus to determine the document order
+  * of nodes in this set or construct a range from this set.
+  *
+  * @param img Illustrative image.
+  */
+  def textsForImage(img: Cite2Urn): Set[CtsUrn] = {
+    val imgs = repo.data.data.filter(_.urn.dropSelector == imagePropertyUrn).filter(_.propertyValue.asInstanceOf[Cite2Urn].dropExtensions == img)
+    val propName = passagePropertyUrn.property
+    val passageProps = imgs.map(t => {
+        propertyUrnFromPropertyName(t.urn.asInstanceOf[Cite2Urn], propName).dropExtensions
+    }).distinct.toSet
+    val texts = passageProps.map( i => {
+      repo.data.propertyValue(i).asInstanceOf[CtsUrn]
+    })
+    texts
+  }
 
 
   // Probably should be in CiteObj library?

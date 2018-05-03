@@ -56,9 +56,9 @@ urn:cite2:hmt:dse.2017a:311v_main7#Main scholion 7, 311 verso#urn:cts:greekLit:t
 
 """
 
- // val testCex = "shared/src/test/resources/va-dse.cex"
-      val repo = CiteCollectionRepository(cexSrc,"#",",")
-//  val repo = CiteRepositorySource.fromFile(testCex)
+  val repo = CiteCollectionRepository(cexSrc,"#",",")
+  //val bigCex = "shared/src/test/resources/va-dse.cex"
+  //val bigRepo = CiteRepositorySource.fromFile(testCex)
 
   val collUrn:Cite2Urn = Cite2Urn("urn:cite2:hmt:dse.2017a:") 
   val lbl:String = "DSE model of Venetus A manuscript"
@@ -137,7 +137,6 @@ urn:cite2:hmt:dse.2017a:311v_main7#Main scholion 7, 311 verso#urn:cts:greekLit:t
     assert(dse.imagesForTbs(surface) == expected)
   }
 
-/*
   it should "find images for a given text passage" in {
    val dse:DseConfiguration = DseConfiguration(
         repo,
@@ -151,7 +150,6 @@ urn:cite2:hmt:dse.2017a:311v_main7#Main scholion 7, 311 verso#urn:cts:greekLit:t
     assert(dse.imagesForText(psg) == expected)
   }
 
-
   it should "find text passages for a given TBS" in {
    val dse:DseConfiguration = DseConfiguration(
         repo,
@@ -164,5 +162,17 @@ urn:cite2:hmt:dse.2017a:311v_main7#Main scholion 7, 311 verso#urn:cts:greekLit:t
     def surface = Cite2Urn("urn:cite2:hmt:msA.v1:311r")
     assert(dse.textsForTbs(surface).size == expectedSize)
   }
-  */
+
+  it should "find text passages for a given image" in {
+   val dse:DseConfiguration = DseConfiguration(
+        repo,
+        lbl,
+        psgPropUrn,
+        imgPropUrn,
+        surPropUrn
+      )
+    val expectedSize = 10
+    val img = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA311RN_0481")
+    assert(dse.textsForImage(img).size == expectedSize)
+  }
 }
