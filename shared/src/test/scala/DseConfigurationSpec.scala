@@ -175,4 +175,19 @@ urn:cite2:hmt:dse.2017a:311v_main7#Main scholion 7, 311 verso#urn:cts:greekLit:t
     val img = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA311RN_0481")
     assert(dse.textsForImage(img).size == expectedSize)
   }
+
+  it should "find TBS illustrated by a given image" in {
+   val dse:DseConfiguration = DseConfiguration(
+        repo,
+        lbl,
+        psgPropUrn,
+        imgPropUrn,
+        surPropUrn
+      )
+    val img = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA311RN_0481")
+    val expected = Set(Cite2Urn("urn:cite2:hmt:msA.v1:311r"))
+    assert(dse.tbsForImage(img.dropExtensions) == expected)
+  }
+
+
 }

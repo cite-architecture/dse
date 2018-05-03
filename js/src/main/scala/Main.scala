@@ -70,7 +70,7 @@ urn:cite2:hmt:msA.2017a:12r#urn:cite2:cite:dseverbs.2017a:illustratedBy#urn:cite
 urn:cite2:hmt:vaimg.2017a:VA012RN_0013#urn:cite2:cite:dseverbs.2017a:illustrates#urn:cite2:hmt:msA.2017a:12r
 """
 
-    val dse = Dse(cexSrc,"#",",")
+    val dse = DseVector(cexSrc,"#",",")
     println("Made a DSE: " + dse)
 
   }

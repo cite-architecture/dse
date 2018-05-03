@@ -186,6 +186,54 @@ import scala.scalajs.js.annotation._
     texts
   }
 
+  /** Set of text-bearing surfaces illustrated by a given image.
+  *
+  * @param img Illustrative image.
+  */
+  def tbsForImage(img: Cite2Urn): Set[Cite2Urn] = {
+    val imgs = repo.data.data.filter(_.urn.dropSelector == imagePropertyUrn).filter(_.propertyValue.asInstanceOf[Cite2Urn].dropExtensions == img)
+    val propName = surfacePropertyUrn.property
+    val passageProps = imgs.map(t => {
+        propertyUrnFromPropertyName(t.urn.asInstanceOf[Cite2Urn], propName).dropExtensions
+    }).distinct.toSet
+    val tbs = passageProps.map( i => {
+      repo.data.propertyValue(i).asInstanceOf[Cite2Urn]
+    })
+    tbs
+  }
+
+  /** Returns Vector[DseRecord] showing passages, surfaces, and image-Rois for 
+  * a given image. May return an empty vector.
+  * @param img Illustrative image.
+  */
+  def recordsForImage(img: Cite2Urn):Vector[DseRecord] = {
+    Vector[DseRecord]()
+  }
+
+  /** Returns Vector[DseRecord] showing passages, surfaces and image-Rois for 
+  * a given surface. May return an empty vector.
+  * @param img Illustrative image.
+  */
+  def recordsForSurface(surface: Cite2Urn):Vector[DseRecord] = {
+    Vector[DseRecord]()
+  }
+
+  /** Returns Vector[DseRecord] showing passages, surfaces, and image-Rois for 
+  * a given vector of CtsUrns. May return an empty vector
+  * @param textVec Vector[CtsUrn]
+  */
+  def recordsForTextVector(textVec: Vector[CtsUrn]):Vector[DseRecord] = {
+    Vector[DseRecord]()
+  }
+
+  /** Set of Option[Set[(CtsUrn,Cite2Urn)]] showing DSE Collection-objects
+  * for a vector of CtsUrns
+  * @param textVec Vector[CtsUrn]
+  */
+
+
+
+
 
   // Probably should be in CiteObj library?
   // Given a collection URN and a property name, construct a property URN
