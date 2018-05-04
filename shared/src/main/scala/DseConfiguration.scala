@@ -25,7 +25,7 @@ import scala.scalajs.js.annotation._
   label: String,
   passagePropertyUrn: Cite2Urn,
   imagePropertyUrn: Cite2Urn,
-  surfacePropertyUrn: Cite2Urn,
+  surfacePropertyUrn: Cite2Urn
 ) {
 
 
