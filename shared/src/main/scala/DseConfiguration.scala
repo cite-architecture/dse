@@ -207,7 +207,31 @@ import scala.scalajs.js.annotation._
   * @param img Illustrative image.
   */
   def recordsForImage(img: Cite2Urn):Vector[DseRecord] = {
-    Vector[DseRecord]()
+    // Get objects for image
+    val imgs:Vector[Cite2Urn] = repo.data.data.filter(_.urn.dropSelector == imagePropertyUrn).filter(_.propertyValue.asInstanceOf[Cite2Urn].dropExtensions == img).map(_.urn.dropProperty).toVector
+    // Get property values, 'cause we'll need them
+    val imgPropName:String = imagePropertyUrn.property
+    val txtPropName:String = passagePropertyUrn.property
+    val surfPropName:String = surfacePropertyUrn.property
+    // Get DseRecords for `imgs`
+    val recVec:Vector[DseRecord] = imgs.map( i => {
+      // get object
+      val obj:CiteObject = repo.citableObject(i)
+      // get label
+      val label:String = obj.label
+      // get property urns
+      val imgPropUrn:Cite2Urn = propertyUrnFromPropertyName(i,imgPropName)
+      val txtPropUrn:Cite2Urn = propertyUrnFromPropertyName(i,txtPropName)
+      val surfPropUrn:Cite2Urn = propertyUrnFromPropertyName(i,surfPropName)
+      // get property values
+      val imgPropVal:Cite2Urn  = obj.propertyValue(imgPropUrn).asInstanceOf[Cite2Urn]
+      val txtPropVal:CtsUrn  = obj.propertyValue(txtPropUrn).asInstanceOf[CtsUrn]
+      val surfPropVal:Cite2Urn  = obj.propertyValue(surfPropUrn).asInstanceOf[Cite2Urn]
+      //make DseRecord
+      val dr:DseRecord = DseRecord (label, txtPropVal, imgPropVal, surfPropVal, obj)
+      dr
+    }).toVector
+    recVec
   }
 
   /** Returns Vector[DseRecord] showing passages, surfaces and image-Rois for 
@@ -215,15 +239,67 @@ import scala.scalajs.js.annotation._
   * @param img Illustrative image.
   */
   def recordsForSurface(surface: Cite2Urn):Vector[DseRecord] = {
-    Vector[DseRecord]()
-  }
+  // Get objects for surface 
+    val surf:Vector[Cite2Urn] = repo.data.data.filter(_.urn.dropSelector == surfacePropertyUrn).filter(_.propertyValue.asInstanceOf[Cite2Urn] == surface).map(_.urn.dropProperty).toVector
+    // Get property values, 'cause we'll need them
+    val imgPropName:String = imagePropertyUrn.property
+    val txtPropName:String = passagePropertyUrn.property
+    val surfPropName:String = surfacePropertyUrn.property
+    // Get DseRecords for `imgs`
+    val recVec:Vector[DseRecord] = surf.map( i => {
+      // get object
+      val obj:CiteObject = repo.citableObject(i)
+      // get label
+      val label:String = obj.label
+      // get property urns
+      val imgPropUrn:Cite2Urn = propertyUrnFromPropertyName(i,imgPropName)
+      val txtPropUrn:Cite2Urn = propertyUrnFromPropertyName(i,txtPropName)
+      val surfPropUrn:Cite2Urn = propertyUrnFromPropertyName(i,surfPropName)
+      // get property values
+      val imgPropVal:Cite2Urn  = obj.propertyValue(imgPropUrn).asInstanceOf[Cite2Urn]
+      val txtPropVal:CtsUrn  = obj.propertyValue(txtPropUrn).asInstanceOf[CtsUrn]
+      val surfPropVal:Cite2Urn  = obj.propertyValue(surfPropUrn).asInstanceOf[Cite2Urn]
+      //make DseRecord
+      val dr:DseRecord = DseRecord (label, txtPropVal, imgPropVal, surfPropVal, obj)
+      dr
+    }).toVector
+    recVec 
+ }
 
   /** Returns Vector[DseRecord] showing passages, surfaces, and image-Rois for 
   * a given vector of CtsUrns. May return an empty vector
   * @param textVec Vector[CtsUrn]
   */
   def recordsForTextVector(textVec: Vector[CtsUrn]):Vector[DseRecord] = {
-    Vector[DseRecord]()
+  // Get objects for texts
+    val psgs:Vector[Cite2Urn] = {
+      textVec.map( t => {
+        repo.data.data.filter(_.urn.dropSelector == passagePropertyUrn).filter(_.propertyValue.asInstanceOf[CtsUrn] == t).map(_.urn.dropProperty) 
+      }).toVector.flatten
+    }
+    // Get property values, 'cause we'll need them
+    val imgPropName:String = imagePropertyUrn.property
+    val txtPropName:String = passagePropertyUrn.property
+    val surfPropName:String = surfacePropertyUrn.property
+    // Get DseRecords for `imgs`
+    val recVec:Vector[DseRecord] = psgs.map( i => {
+      // get object
+      val obj:CiteObject = repo.citableObject(i)
+      // get label
+      val label:String = obj.label
+      // get property urns
+      val imgPropUrn:Cite2Urn = propertyUrnFromPropertyName(i,imgPropName)
+      val txtPropUrn:Cite2Urn = propertyUrnFromPropertyName(i,txtPropName)
+      val surfPropUrn:Cite2Urn = propertyUrnFromPropertyName(i,surfPropName)
+      // get property values
+      val imgPropVal:Cite2Urn  = obj.propertyValue(imgPropUrn).asInstanceOf[Cite2Urn]
+      val txtPropVal:CtsUrn  = obj.propertyValue(txtPropUrn).asInstanceOf[CtsUrn]
+      val surfPropVal:Cite2Urn  = obj.propertyValue(surfPropUrn).asInstanceOf[Cite2Urn]
+      //make DseRecord
+      val dr:DseRecord = DseRecord (label, txtPropVal, imgPropVal, surfPropVal, obj)
+      dr
+    }).toVector
+    recVec 
   }
 
   /** Set of Option[Set[(CtsUrn,Cite2Urn)]] showing DSE Collection-objects

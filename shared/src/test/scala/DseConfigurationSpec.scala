@@ -189,5 +189,68 @@ urn:cite2:hmt:dse.2017a:311v_main7#Main scholion 7, 311 verso#urn:cts:greekLit:t
     assert(dse.tbsForImage(img.dropExtensions) == expected)
   }
 
+  it should "find a Vector of DseRecords for an image" in {
+   val dse:DseConfiguration = DseConfiguration(
+        repo,
+        lbl,
+        psgPropUrn,
+        imgPropUrn,
+        surPropUrn
+      )
+   val img = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA311RN_0481")
+   val recVec:Vector[DseRecord] = dse.recordsForImage(img)
+   assert(recVec.size == 10)
+  }
+
+it should "find a Vector of DseRecords for a surface" in {
+   val dse:DseConfiguration = DseConfiguration(
+        repo,
+        lbl,
+        psgPropUrn,
+        imgPropUrn,
+        surPropUrn
+      )
+   val surf = Cite2Urn("urn:cite2:hmt:msA.v1:311r")
+   val recVec:Vector[DseRecord] = dse.recordsForSurface(surf)
+   assert(recVec.size == 10)
+  }
+
+it should "find a Vector of DseRecords for a Vector of Passages" in {
+   val dse:DseConfiguration = DseConfiguration(
+        repo,
+        lbl,
+        psgPropUrn,
+        imgPropUrn,
+        surPropUrn
+      )
+   val textVec = Vector(
+      CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A2"),
+      CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A3"),
+      CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A4"),
+      CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A5")
+   )
+   val recVec:Vector[DseRecord] = dse.recordsForTextVector(textVec)
+   assert(recVec.size == 4)
+  }
+
+
+it should "return an empty Vector of DseRecords for a Vector of Passages when no passages are present" in {
+   val dse:DseConfiguration = DseConfiguration(
+        repo,
+        lbl,
+        psgPropUrn,
+        imgPropUrn,
+        surPropUrn
+      )
+   val textVec = Vector(
+      CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.x2"),
+      CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.x3"),
+      CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.x4"),
+      CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.x5")
+   )
+   val recVec:Vector[DseRecord] = dse.recordsForTextVector(textVec)
+   assert(recVec.size == 0)
+  }
+
 
 }
