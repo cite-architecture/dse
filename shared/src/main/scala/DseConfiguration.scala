@@ -302,12 +302,6 @@ import scala.scalajs.js.annotation._
     recVec 
   }
 
-  /** Set of Option[Set[(CtsUrn,Cite2Urn)]] showing DSE Collection-objects
-  * for a vector of CtsUrns
-  * @param textVec Vector[CtsUrn]
-  */
-
-
 
 
 
