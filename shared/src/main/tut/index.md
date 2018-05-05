@@ -23,5 +23,5 @@ See [how to serialize the DSE model to CEX format](cex).
 `dse` is a cross-platform library written in Scala for working with digital diplomatic scholarly editions.
 
 -   [Quick start](quick)
--   Current [API docs](api/edu/holycross/shot/dse/index.html)
+-   [API docs](api/edu/holycross/shot/dse/index.html): version 3.0.0
 -   [Github repository](https://github.com/cite-architecture/dse)
