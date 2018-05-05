@@ -12,7 +12,7 @@ import edu.holycross.shot.dse._
 ```
 
 
-Create a DSE model from CEX-format source data:
+Create a `DseVector` from CEX-format source data:
 
 
 ```scala
@@ -46,10 +46,10 @@ urn:cite2:hmt:dse.2017a:311r.main1#Main scholion 1, 311 recto#urn:cts:greekLit:t
 // etc, etc, etc
 """
 
-val dse = Dse(cex)
+val dse = DseVector(cex)
 ```
 
-In the JVM environment, you can use the `DseSource` object's `fromFile` method to instantiate a DSE model directly from a file in CEX format.  (This is a small sample with a total of 17 text passages on 2 pages.  We'll use this sample data set in the following examples.)
+In the JVM environment, you can use the `DseSource` object's `fromFile` method to instantiate a `DseVector` directly from a file in CEX format.  (This is a small sample with a total of 17 text passages on 2 pages.  We'll use this sample data set in the following examples.)
 
 
 ```scala
