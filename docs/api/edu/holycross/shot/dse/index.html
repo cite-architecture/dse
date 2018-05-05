@@ -134,17 +134,25 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="edu.holycross.shot">shot</a></dd></dl></div>
     </li><li class="current-entities indented4">
-                        <a class="object" href="Dse$.html" title="Factory for making catalogs from text sources."></a>
-                        <a class="class" href="Dse.html" title=""></a>
-                        <a href="Dse.html" title="">Dse</a>
+                        <span class="separator"></span>
+                        <a class="class" href="DseConfiguration.html" title="Association of a CITE Collection with a citable data model."></a>
+                        <a href="DseConfiguration.html" title="Association of a CITE Collection with a citable data model.">DseConfiguration</a>
                       </li><li class="current-entities indented4">
                         <a class="object" href="DsePassage$.html" title=""></a>
                         <a class="class" href="DsePassage.html" title=""></a>
                         <a href="DsePassage.html" title="">DsePassage</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
+                        <a class="class" href="DseRecord.html" title=""></a>
+                        <a href="DseRecord.html" title="">DseRecord</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
                         <a class="object" href="DseSource$.html" title="Factory for making catalogs from text sources."></a>
                         <a href="DseSource$.html" title="Factory for making catalogs from text sources.">DseSource</a>
+                      </li><li class="current-entities indented4">
+                        <a class="object" href="DseVector$.html" title="Factory for making catalogs from text sources."></a>
+                        <a class="class" href="DseVector.html" title=""></a>
+                        <a href="DseVector.html" title="">DseVector</a>
                       </li>
               </ul>
             </div>
@@ -225,10 +233,10 @@
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="edu.holycross.shot.dse.Dse" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="DseextendsProductwithSerializable"></a><a id="Dse:Dse"></a>
+              <ol><li name="edu.holycross.shot.dse.DseConfiguration" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="DseConfigurationextendsProductwithSerializable"></a><a id="DseConfiguration:DseConfiguration"></a>
       <span class="permalink">
-      <a href="../../../../edu/holycross/shot/dse/index.html#DseextendsProductwithSerializable" title="Permalink">
+      <a href="../../../../edu/holycross/shot/dse/index.html#DseConfigurationextendsProductwithSerializable" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -237,10 +245,13 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="Dse.html"><span class="name">Dse</span></a><span class="params">(<span name="passages">passages: <span class="extype" name="scala.Vector">Vector</span>[<a href="DsePassage.html" class="extype" name="edu.holycross.shot.dse.DsePassage">DsePassage</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="Association of a CITE Collection with a citable data model." href="DseConfiguration.html"><span class="name">DseConfiguration</span></a><span class="params">(<span name="repo">repo: <span class="extype" name="edu.holycross.shot.citeobj.CiteCollectionRepository">CiteCollectionRepository</span></span>, <span name="label">label: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="passagePropertyUrn">passagePropertyUrn: <span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span></span>, <span name="imagePropertyUrn">imagePropertyUrn: <span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span></span>, <span name="surfacePropertyUrn">surfacePropertyUrn: <span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+      <p class="shortcomment cmt">Association of a CITE Collection with a citable
+data model.</p><div class="fullcomment"><div class="comment cmt"><p>Association of a CITE Collection with a citable
+data model.
+</p></div><dl class="paramcmts block"><dt class="param">label</dt><dd class="cmt"><p>Human-readable label.</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@JSExportAll</span><span class="args">()</span>
               
         </dd></dl></div>
@@ -257,6 +268,44 @@
       </span>
       <span class="symbol">
         <a title="" href="DsePassage.html"><span class="name">DsePassage</span></a><span class="params">(<span name="urn">urn: <span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span></span>, <span name="label">label: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="passage">passage: <span class="extype" name="edu.holycross.shot.cite.CtsUrn">CtsUrn</span></span>, <span name="imageroi">imageroi: <span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span></span>, <span name="surface">surface: <span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@JSExportAll</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="edu.holycross.shot.dse.DseRecord" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="DseRecordextendsProductwithSerializable"></a><a id="DseRecord:DseRecord"></a>
+      <span class="permalink">
+      <a href="../../../../edu/holycross/shot/dse/index.html#DseRecordextendsProductwithSerializable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="DseRecord.html"><span class="name">DseRecord</span></a><span class="params">(<span name="label">label: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="passage">passage: <span class="extype" name="edu.holycross.shot.cite.CtsUrn">CtsUrn</span></span>, <span name="imageroi">imageroi: <span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span></span>, <span name="surface">surface: <span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span></span>, <span name="citeObject">citeObject: <span class="extype" name="edu.holycross.shot.citeobj.CiteObject">CiteObject</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@JSExportAll</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="edu.holycross.shot.dse.DseVector" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="DseVectorextendsProductwithSerializable"></a><a id="DseVector:DseVector"></a>
+      <span class="permalink">
+      <a href="../../../../edu/holycross/shot/dse/index.html#DseVectorextendsProductwithSerializable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="DseVector.html"><span class="name">DseVector</span></a><span class="params">(<span name="passages">passages: <span class="extype" name="scala.Vector">Vector</span>[<a href="DsePassage.html" class="extype" name="edu.holycross.shot.dse.DsePassage">DsePassage</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
@@ -369,22 +418,6 @@
       
       <p class="shortcomment cmt">True if a given URN is a CTS URN.</p><div class="fullcomment"><div class="comment cmt"><p>True if a given URN is a CTS URN.
 </p></div><dl class="paramcmts block"><dt class="param">u</dt><dd class="cmt"><p>URN to examine.</p></dd></dl></div>
-    </li><li name="edu.holycross.shot.dse.Dse" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="Dse"></a><a id="Dse:Dse"></a>
-      <span class="permalink">
-      <a href="../../../../edu/holycross/shot/dse/index.html#Dse" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a title="Factory for making catalogs from text sources." href="Dse$.html"><span class="name">Dse</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Factory for making catalogs from text sources.</p>
     </li><li name="edu.holycross.shot.dse.DsePassage" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="DsePassage"></a><a id="DsePassage:DsePassage"></a>
       <span class="permalink">
@@ -414,6 +447,22 @@
       </span>
       <span class="symbol">
         <a title="Factory for making catalogs from text sources." href="DseSource$.html"><span class="name">DseSource</span></a>
+      </span>
+      
+      <p class="shortcomment cmt">Factory for making catalogs from text sources.</p>
+    </li><li name="edu.holycross.shot.dse.DseVector" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="DseVector"></a><a id="DseVector:DseVector"></a>
+      <span class="permalink">
+      <a href="../../../../edu/holycross/shot/dse/index.html#DseVector" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="Factory for making catalogs from text sources." href="DseVector$.html"><span class="name">DseVector</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">Factory for making catalogs from text sources.</p>
