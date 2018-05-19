@@ -14,7 +14,7 @@ import js.annotation.JSExport
 object DseSource {
 
 
-  /** Create [[Dse]] from a file with data in CEX format.
+  /** Create [[DseVector]] from a file with data in CEX format.
   *
   * @param fileName Name of file with data in CEX format.
   */
