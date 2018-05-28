@@ -11,10 +11,10 @@ import edu.holycross.shot.ohco2._
 class DseConfigurationBigDataSpec extends FlatSpec {
 
 
-  val bigCex = "shared/src/test/resources/hmt-2018b.cex"
+  val bigCex = "jvm/src/test/resources/hmt-2018b.cex"
   val repo = CiteRepositorySource.fromFile(bigCex)
 
-  val collUrn:Cite2Urn = Cite2Urn("urn:cite2:hmt:va_dse.v1:") 
+  val collUrn:Cite2Urn = Cite2Urn("urn:cite2:hmt:va_dse.v1:")
   val lbl:String = "DSE model of Venetus A manuscript"
   val psgPropUrn:Cite2Urn = Cite2Urn("urn:cite2:hmt:va_dse.v1.passage:")
   val imgPropUrn:Cite2Urn = Cite2Urn("urn:cite2:hmt:va_dse.v1.imageroi:")
