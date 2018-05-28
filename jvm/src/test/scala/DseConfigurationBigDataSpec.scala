@@ -10,7 +10,9 @@ import edu.holycross.shot.ohco2._
 
 class DseConfigurationBigDataSpec extends FlatSpec {
 
-
+// too freaking big to run with routine unit tests.
+//
+/*
   val bigCex = "jvm/src/test/resources/hmt-2018b.cex"
   val repo = CiteRepositorySource.fromFile(bigCex)
 
@@ -97,5 +99,5 @@ it should "return a Vector of DseRecords for a Vector of Passages when some, but
    assert(recVec.size == 3)
   }
 
-
+*/
 }
