@@ -1,5 +1,9 @@
 # `dse`: release notes
 
+
+**3.1.1**:   Updates to libraries.
+
+
 **3.0.0**: **Breaking update.** `Dse` renamed to `DseVector` (no additional or differing functionality). `DseConfiguration` added, for working with DSE models implemented in a CiteCollection.
 
 **2.2.1**: ICT functions return more reasonable URL if there are no matches for requested image, surface or text passage.

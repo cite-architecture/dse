@@ -1,8 +1,8 @@
 # `dse`
 
-A cross-platform library for working with digital diplomatic scholarly editions.
+A cross-platform library for working with documented digital diplomatic scholarly editions.
 
-## Current version: 3.0.0
+## Current version: 3.1.1
 
 See [release notes](releases.md).
 
