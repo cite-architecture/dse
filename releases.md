@@ -1,5 +1,7 @@
 # `dse`: release notes
 
+**3.2.0**:  Add `imagesWRoiForText` function.
+
 
 **3.1.1**:   Updates to libraries.
 

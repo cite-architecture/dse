@@ -57,6 +57,16 @@ import scala.scalajs.js.annotation._
     tbs.map(_.imageroi.dropExtensions).distinct.toSet
   }
 
+
+  /** Set of image citations with RoI illustrating a given passage of text.
+  *
+  * @param psg A citable node of text.
+  */
+  def imagesWRoiForText(psg: CtsUrn) : Set[Cite2Urn] = {
+    val tbs = passages.filter(_.passage ~~ psg)
+    tbs.map(_.imageroi).distinct.toSet
+  }
+
   /** Set of texts appearing on a given text-bearing surface.
   * Note that this is an unordered set of citable nodes.  You need to consult a
   * TextRepository or a Corpus to determine the document order
