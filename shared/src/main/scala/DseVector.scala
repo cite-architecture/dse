@@ -61,22 +61,26 @@ import scala.scalajs.js.annotation._
   * @param psg A citable node of text.
   */
   def imageForText(psg: CtsUrn) : Cite2Urn = {
-    val tbs = passages.filter(_.passage ~~ psg)
-    tbs.size match {
+    val dse = passages.filter(_.passage ~~ psg)
+    dse.size match {
       case 0 => throw new Exception("DseVector: no image found for " + psg)
-      case 1 => tbs(0).imageroi.dropExtensions
+      case 1 => dse(0).imageroi.dropExtensions
       case _ => throw new Exception("DseVector: multiple images found for " + psg)
     }
   }
 
 
-  /** Set of image citations with RoI illustrating a given passage of text.
+  /** Image citation with RoI illustrating a given passage of text.
   *
   * @param psg A citable node of text.
   */
-  def imagesWRoiForText(psg: CtsUrn) : Set[Cite2Urn] = {
-    val tbs = passages.filter(_.passage ~~ psg)
-    tbs.map(_.imageroi).distinct.toSet
+  def imageWRoiForText(psg: CtsUrn) : Cite2Urn = {
+    val dse = passages.filter(_.passage ~~ psg)
+    dse.size match {
+      case 0 => throw new Exception("DseVector: no image found for " + psg)
+      case 1 => dse(0).imageroi
+      case _ => throw new Exception("DseVector: multiple images found for " + psg)
+    }
   }
 
   /** Set of texts appearing on a given text-bearing surface.

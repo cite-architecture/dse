@@ -88,11 +88,11 @@ urn:cite2:hmt:dse.2017a:311v.main7#Main scholion 7, 311 verso#urn:cts:greekLit:t
     assert(dse.imageForText(psg) == expected)
   }
 
-  it should "find images including RoI for a given text passage" in {
+  it should "find image including RoI for a given text passage" in {
     val dse = DseVector(cexSrc)
-    val expected = Set(Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.218,0.1411,0.597,0.024"))
+    val expected = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.218,0.1411,0.597,0.024")
     val psg = CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A3")
-    assert(dse.imagesWRoiForText(psg) == expected)
+    assert(dse.imageWRoiForText(psg) == expected)
   }
 
 
