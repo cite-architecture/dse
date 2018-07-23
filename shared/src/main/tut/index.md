@@ -23,5 +23,5 @@ See [how to serialize the DSE model to CEX format](cex).
 `dse` is a cross-platform library written in Scala for working with digital documented scholarly editions.
 
 -   [Quick start](quick)
--   [API docs](api/edu/holycross/shot/dse/index.html): version 3.0.0
+-   [API docs](api/edu/holycross/shot/dse/index.html): version 4.0.0
 -   [Github repository](https://github.com/cite-architecture/dse)

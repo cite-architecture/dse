@@ -53,6 +53,34 @@ urn:cite2:hmt:dse.v1:311v.main7#Main scholion 7, 311 verso#urn:cts:greekLit:tlg5
 
 """
 
+val cexSrc2 = """
+#!citelibrary
+
+name#Another sample DSE data
+urn#urn:cite2:cite:cextest.2017_1:dse2
+license#Creative Commons Attribution, Non-Commercial 4.0 License <https://creativecommons.org/licenses/by-nc/4.0/>.
+
+#!citecollections
+URN#Description#Labelling property#Ordering property#License
+urn:cite2:hmt:dse.v2:#DSE relations of the Venetus A manuscriptscript#urn:cite2:hmt:dse.v2.label:#urn:cite2:hmt:dse.v2.seq:#CC-attribution-share-alike
+
+#!citeproperties
+Property#Label#Type#Authority list
+urn:cite2:hmt:dse.v2.urn:#DSE record#Cite2Urn#
+urn:cite2:hmt:dse.v2.label:#Label#String#
+urn:cite2:hmt:dse.v2.passage:#Text passage#CtsUrn#
+urn:cite2:hmt:dse.v2.imageroi:#Image region of interest#Cite2Urn#
+urn:cite2:hmt:dse.v2.surface:#artifact surface#Cite2Urn#
+urn:cite2:hmt:dse.v2.seq:#sequence#number#
+
+#!datamodels
+Collection#Model#Label#Description
+urn:cite2:hmt:dse.v2:#urn:cite2:cite:datamodels.v1:dsemodel#DSE model#Diplomatic Scholarly Edition (DSE) model.  See documentation at <https://github.com/cite-architecture/dse>.
+
+#!citedata
+urn#label#passage#imageroi#surface#seq
+urn:cite2:hmt:dse.v2:311r.main1#Main scholion 1, 311 recto#urn:cts:greekLit:tlg5026.msA.hmt:24.A2#urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.216,0.0811,0.61,0.0751#urn:cite2:hmt:msA.v1:311r#1
+"""
 
 
   "A Digital Scholarly Edition" should "identify the set of TBS in the library" in {
@@ -164,11 +192,19 @@ urn:cite2:hmt:dse.v1:311v.main7#Main scholion 7, 311 verso#urn:cts:greekLit:tlg5
     assert(dse.ictForText(scholion) == expected)
   }
 
-  it should "composte an ICT URL for an image when no overlays" in {
+  it should "composite an ICT URL for an image when no overlays" in {
     //val pg = "urn:cite2:hmt:msA.v1:insidefrontcover"
     val img = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VAMSInside_front_cover_versoN_0500")
     val dse = DseVector(cexSrc)
     val expected = "http://www.homermultitext.org/ict2/?urn=" + img
     assert (dse.ictForImage(img) == expected)
+  }
+
+
+  it should "create a new DseVector by concatenating a second DseVector" in {
+    val dse1 = DseVector(cexSrc)
+    val dse2 = DseVector(cexSrc2)
+    val catted = dse1 ++ dse2
+    assert(catted.size == (dse1.size + dse2.size))
   }
 }

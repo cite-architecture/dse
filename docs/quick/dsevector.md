@@ -12,7 +12,10 @@ import edu.holycross.shot.dse._
 ```
 
 
-Create a `DseVector` from CEX-format source data:
+You can create a `DseVector` from a collectoin in CiteLibrary, or diretly from CEX-format source data.
+
+
+## Buiding from CEX data
 
 
 ```scala
@@ -38,7 +41,7 @@ urn:cite2:hmt:dse.2017a.surface:#ertifact surfact#Cite2Urn#
 
 #!datamodels
 Collection#Model#Label#Description
-urn:cite2:hmt:dse.2017a:#urn:cite2:dse:datamodel.v1:#DSE model#Diplomatic Scholarly Edition (DSE) model.  See documentation at <https://github.com/cite-architecture/dse>.
+urn:cite2:hmt:dse.2017a:#urn:cite2:dse:datamodel.v1:#DSE model#Documented Scholarly Edition (DSE) model.  See documentation at <https://github.com/cite-architecture/dse>.
 
 #!citedata
 urn#label#passage#imageroi#surface
@@ -74,23 +77,24 @@ val page1 = Cite2Urn("urn:cite2:hmt:msA:311r")
 val passages1 = dse.textsForTbs(page1)
 assert(passages1.size == 10)
 
-val images1 = dse.imagesForTbs(page1)
-assert(images1.size == 1)
+val image = dse.imageForTbs(page1)
+println(image)
+//assert(image == Cite2Urn("urn:cite2:hmt:vaimg:VA311RN_0481"))
 
 val page2 = Cite2Urn("urn:cite2:hmt:msA:311v")
 val passages2 = dse.textsForTbs(page2)
 assert(passages2.size == 7)
 
-val images2 = dse.imagesForTbs(page2)
-assert(images2.size == 1)
+val image2 = dse.imageForTbs(page2)
+
 ```
 
 ### Find documentary image for a text passage
 
 ```scala
 val passage = CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A5")
-val images = dse.imagesForText(passage)
-assert(images.size == 1)
+val image = dse.imageForText(passage)
+
 ```
 
 

@@ -1,6 +1,8 @@
 # `dse`: release notes
 
 
+**4.1.0**:  Adds `++` function to `DseVector`.
+
 **4.0.0**:  API-breaking changes make `DseVector` work with ordered sequences of text nodes for each physical surface.
 
 

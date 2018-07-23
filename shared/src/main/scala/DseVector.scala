@@ -15,11 +15,26 @@ import scala.scalajs.js.annotation._
 */
 @JSExportAll case class DseVector (passages: Vector[DsePassage]) {
 
+
+
+
+
   /** Number of citable text passages in this data set.
   */
   def size : Int = {
     passages.size
   }
+
+  /** Concatenate a second [[DseVector]] to this one.
+  *
+  * @param dseVector Second [[DseVector]] to concatenate
+  * to this one.
+  */
+  def ++ (dseVector: DseVector): DseVector = {
+    DseVector(this.passages ++ dseVector.passages)
+  }
+
+
 
   /** Set of text-bearing surfaces in this DSE.
   */
