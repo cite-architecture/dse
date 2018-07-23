@@ -1,5 +1,9 @@
 # `dse`: release notes
 
+
+**4.0.0**:  API-breaking changes make `DseVector` work with ordered sequences of text nodes for each physical surface.
+
+
 **3.2.0**:  Add `imagesWRoiForText` function.
 
 
