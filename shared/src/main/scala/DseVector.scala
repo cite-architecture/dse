@@ -83,16 +83,15 @@ import scala.scalajs.js.annotation._
     }
   }
 
-  /** Set of texts appearing on a given text-bearing surface.
-  * Note that this is an unordered set of citable nodes.  You need to consult a
-  * TextRepository or a Corpus to determine the document order
-  * of nodes in this set or construct a range from this set.
+  /** Vector of texts appearing on a given text-bearing surface.
+  * Ordering of the Vector follows the initial construction of
+  * the [[DseVector]].
   *
   * @param surf Text-bearing surface.
   */
-  def textsForTbs(surf: Cite2Urn): Set[CtsUrn] = {
+  def textsForTbs(surf: Cite2Urn): Vector[CtsUrn] = {
     val tbs = passages.filter(_.surface ~~ surf)
-    tbs.map(_.passage).toSet
+    tbs.map(_.passage)
   }
 
   /** Set of texts illustrated by a given image.

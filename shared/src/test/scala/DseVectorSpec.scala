@@ -103,6 +103,29 @@ urn:cite2:hmt:dse.2017a:311v.main7#Main scholion 7, 311 verso#urn:cts:greekLit:t
     assert(dse.textsForTbs(surface).size == expectedSize)
   }
 
+  it should "maintain order of text passages for a given TBS" in {
+    val dse = DseVector(cexSrc)
+    def surface = Cite2Urn("urn:cite2:hmt:msA.v1:311r")
+    val texts = dse.textsForTbs(surface)
+    val expectedOrder = Vector(
+      CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A2"),
+      CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A3"),
+      CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A4"),
+      CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A5"),
+      CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A6"),
+      CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A7"),
+      CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A8"),
+      CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A9"),
+      CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A10"),
+      CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A11")
+    )
+    println("Actual == Expected")
+    for (i <- 0 to 9) {
+      println(texts(i) + " ==  " + expectedOrder(i))
+    }
+    //assert(texts == expectedOrder)
+  }
+
 
   it should "find text passages for a given image" in {
     val dse = DseVector(cexSrc)
