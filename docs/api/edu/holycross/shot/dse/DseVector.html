@@ -129,30 +129,23 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="index.html"><span class="name">dse</span></a>
+        <a title="Classes for working with Documented Scholarly Editions." href="index.html"><span class="name">dse</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="edu.holycross.shot">shot</a></dd></dl></div>
+      <p class="shortcomment cmt">Classes for working with Documented Scholarly Editions.</p><div class="fullcomment"><div class="comment cmt"><p>Classes for working with Documented Scholarly Editions.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="edu.holycross.shot">shot</a></dd></dl></div>
     </li><li class="current-entities indented4">
-                        <span class="separator"></span>
-                        <a class="class" href="DseConfiguration.html" title="Association of a CITE Collection with a citable data model."></a>
-                        <a href="DseConfiguration.html" title="Association of a CITE Collection with a citable data model.">DseConfiguration</a>
-                      </li><li class="current-entities indented4">
-                        <a class="object" href="DsePassage$.html" title=""></a>
-                        <a class="class" href="DsePassage.html" title=""></a>
-                        <a href="DsePassage.html" title="">DsePassage</a>
+                        <a class="object" href="DsePassage$.html" title="Factory object for creating DsePassages from various kinds of sources."></a>
+                        <a class="class" href="DsePassage.html" title="Relations of documented scholarly edition for a single citable passage of text."></a>
+                        <a href="DsePassage.html" title="Relations of documented scholarly edition for a single citable passage of text.">DsePassage</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="class" href="DseRecord.html" title=""></a>
-                        <a href="DseRecord.html" title="">DseRecord</a>
+                        <a class="object" href="DseSource$.html" title="Factory for making DseVectors from text sources."></a>
+                        <a href="DseSource$.html" title="Factory for making DseVectors from text sources.">DseSource</a>
                       </li><li class="current-entities indented4">
-                        <span class="separator"></span>
-                        <a class="object" href="DseSource$.html" title="Factory for making catalogs from text sources."></a>
-                        <a href="DseSource$.html" title="Factory for making catalogs from text sources.">DseSource</a>
-                      </li><li class="current-entities indented4">
-                        <a class="object" href="DseVector$.html" title="Factory for making catalogs from text sources."></a>
-                        <a class="class" href="" title=""></a>
-                        <a href="" title="">DseVector</a>
+                        <a class="object" href="DseVector$.html" title="Factory for making DseVectors from various sources."></a>
+                        <a class="class" href="" title="A class for working with an ordered sequence of DsePassage obects."></a>
+                        <a href="" title="A class for working with an ordered sequence of DsePassage obects.">DseVector</a>
                       </li>
               </ul>
             </div>
@@ -183,7 +176,8 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Annotations</dt><dd>
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>A class for working with an ordered sequence of <a href="DsePassage.html" class="extype" name="edu.holycross.shot.dse.DsePassage">DsePassage</a> obects.
+</p></div><dl class="paramcmts block"><dt class="param">passages</dt><dd class="cmt"><p>Vector of <a href="DsePassage.html" class="extype" name="edu.holycross.shot.dse.DsePassage">DsePassage</a> objects.</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@JSExportAll</span><span class="args">()</span>
               
         </dd></dl><div class="toggleContainer block">
@@ -236,7 +230,7 @@
         <div id="allMembers">
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
-              <ol><li name="edu.holycross.shot.dse.DseVector#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+              <ol><li name="edu.holycross.shot.dse.DseVector#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="&lt;init&gt;(passages:Vector[edu.holycross.shot.dse.DsePassage]):edu.holycross.shot.dse.DseVector"></a><a id="&lt;init&gt;:DseVector"></a>
       <span class="permalink">
       <a href="../../../../edu/holycross/shot/dse/DseVector.html#&lt;init&gt;(passages:Vector[edu.holycross.shot.dse.DsePassage]):edu.holycross.shot.dse.DseVector" title="Permalink">
@@ -251,7 +245,7 @@
         <span class="name">DseVector</span><span class="params">(<span name="passages">passages: <span class="extype" name="scala.Vector">Vector</span>[<a href="DsePassage.html" class="extype" name="edu.holycross.shot.dse.DsePassage">DsePassage</a>]</span>)</span>
       </span>
       
-      
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">passages</dt><dd class="cmt"><p>Vector of <a href="DsePassage.html" class="extype" name="edu.holycross.shot.dse.DsePassage">DsePassage</a> objects.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -492,10 +486,10 @@ of the CITE Image Citation Tool (version 2).</p></dd></dl></div>
       </span>
       
       <p class="shortcomment cmt">Set of image collections in this DSE.</p>
-    </li><li name="edu.holycross.shot.dse.DseVector#imagesForTbs" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="imagesForTbs(surface:edu.holycross.shot.cite.Cite2Urn):Set[edu.holycross.shot.cite.Cite2Urn]"></a><a id="imagesForTbs(Cite2Urn):Set[Cite2Urn]"></a>
+    </li><li name="edu.holycross.shot.dse.DseVector#imageForTbs" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="imageForTbs(surface:edu.holycross.shot.cite.Cite2Urn):edu.holycross.shot.cite.Cite2Urn"></a><a id="imageForTbs(Cite2Urn):Cite2Urn"></a>
       <span class="permalink">
-      <a href="../../../../edu/holycross/shot/dse/DseVector.html#imagesForTbs(surface:edu.holycross.shot.cite.Cite2Urn):Set[edu.holycross.shot.cite.Cite2Urn]" title="Permalink">
+      <a href="../../../../edu/holycross/shot/dse/DseVector.html#imageForTbs(surface:edu.holycross.shot.cite.Cite2Urn):edu.holycross.shot.cite.Cite2Urn" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -504,15 +498,17 @@ of the CITE Image Citation Tool (version 2).</p></dd></dl></div>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">imagesForTbs</span><span class="params">(<span name="surface">surface: <span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.Set">Set</span>[<span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span>]</span>
+        <span class="name">imageForTbs</span><span class="params">(<span name="surface">surface: <span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span></span>)</span><span class="result">: <span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span></span>
       </span>
       
-      <p class="shortcomment cmt">Set of images illustrating a given surface.</p><div class="fullcomment"><div class="comment cmt"><p>Set of images illustrating a given surface.
+      <p class="shortcomment cmt">Reference image illustrating a given surface.</p><div class="fullcomment"><div class="comment cmt"><p>Reference image illustrating a given surface.
+ All DSE records for a surface should refer to a
+single image.
 </p></div><dl class="paramcmts block"><dt class="param">surface</dt><dd class="cmt"><p>A text-bearing surface.</p></dd></dl></div>
-    </li><li name="edu.holycross.shot.dse.DseVector#imagesForText" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="imagesForText(psg:edu.holycross.shot.cite.CtsUrn):Set[edu.holycross.shot.cite.Cite2Urn]"></a><a id="imagesForText(CtsUrn):Set[Cite2Urn]"></a>
+    </li><li name="edu.holycross.shot.dse.DseVector#imageForText" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="imageForText(psg:edu.holycross.shot.cite.CtsUrn):edu.holycross.shot.cite.Cite2Urn"></a><a id="imageForText(CtsUrn):Cite2Urn"></a>
       <span class="permalink">
-      <a href="../../../../edu/holycross/shot/dse/DseVector.html#imagesForText(psg:edu.holycross.shot.cite.CtsUrn):Set[edu.holycross.shot.cite.Cite2Urn]" title="Permalink">
+      <a href="../../../../edu/holycross/shot/dse/DseVector.html#imageForText(psg:edu.holycross.shot.cite.CtsUrn):edu.holycross.shot.cite.Cite2Urn" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -521,10 +517,27 @@ of the CITE Image Citation Tool (version 2).</p></dd></dl></div>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">imagesForText</span><span class="params">(<span name="psg">psg: <span class="extype" name="edu.holycross.shot.cite.CtsUrn">CtsUrn</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.Set">Set</span>[<span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span>]</span>
+        <span class="name">imageForText</span><span class="params">(<span name="psg">psg: <span class="extype" name="edu.holycross.shot.cite.CtsUrn">CtsUrn</span></span>)</span><span class="result">: <span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span></span>
       </span>
       
-      <p class="shortcomment cmt">Set of images illustrating a given passage of text.</p><div class="fullcomment"><div class="comment cmt"><p>Set of images illustrating a given passage of text.
+      <p class="shortcomment cmt">Reference image illustrating a given passage of text.</p><div class="fullcomment"><div class="comment cmt"><p>Reference image illustrating a given passage of text.
+</p></div><dl class="paramcmts block"><dt class="param">psg</dt><dd class="cmt"><p>A citable node of text.</p></dd></dl></div>
+    </li><li name="edu.holycross.shot.dse.DseVector#imageWRoiForText" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="imageWRoiForText(psg:edu.holycross.shot.cite.CtsUrn):edu.holycross.shot.cite.Cite2Urn"></a><a id="imageWRoiForText(CtsUrn):Cite2Urn"></a>
+      <span class="permalink">
+      <a href="../../../../edu/holycross/shot/dse/DseVector.html#imageWRoiForText(psg:edu.holycross.shot.cite.CtsUrn):edu.holycross.shot.cite.Cite2Urn" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">imageWRoiForText</span><span class="params">(<span name="psg">psg: <span class="extype" name="edu.holycross.shot.cite.CtsUrn">CtsUrn</span></span>)</span><span class="result">: <span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">Image citation with RoI illustrating a given passage of text.</p><div class="fullcomment"><div class="comment cmt"><p>Image citation with RoI illustrating a given passage of text.
 </p></div><dl class="paramcmts block"><dt class="param">psg</dt><dd class="cmt"><p>A citable node of text.</p></dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -694,9 +707,9 @@ of the CITE Image Citation Tool (version 2).</p></dd></dl></div>
       
       <p class="shortcomment cmt">Set of texts (editions or versions) in this DSE.</p>
     </li><li name="edu.holycross.shot.dse.DseVector#textsForImage" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="textsForImage(img:edu.holycross.shot.cite.Cite2Urn):Set[edu.holycross.shot.cite.CtsUrn]"></a><a id="textsForImage(Cite2Urn):Set[CtsUrn]"></a>
+      <a id="textsForImage(img:edu.holycross.shot.cite.Cite2Urn):Vector[edu.holycross.shot.cite.CtsUrn]"></a><a id="textsForImage(Cite2Urn):Vector[CtsUrn]"></a>
       <span class="permalink">
-      <a href="../../../../edu/holycross/shot/dse/DseVector.html#textsForImage(img:edu.holycross.shot.cite.Cite2Urn):Set[edu.holycross.shot.cite.CtsUrn]" title="Permalink">
+      <a href="../../../../edu/holycross/shot/dse/DseVector.html#textsForImage(img:edu.holycross.shot.cite.Cite2Urn):Vector[edu.holycross.shot.cite.CtsUrn]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -705,7 +718,7 @@ of the CITE Image Citation Tool (version 2).</p></dd></dl></div>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">textsForImage</span><span class="params">(<span name="img">img: <span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.Set">Set</span>[<span class="extype" name="edu.holycross.shot.cite.CtsUrn">CtsUrn</span>]</span>
+        <span class="name">textsForImage</span><span class="params">(<span name="img">img: <span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span></span>)</span><span class="result">: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="edu.holycross.shot.cite.CtsUrn">CtsUrn</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Set of texts illustrated by a given image.</p><div class="fullcomment"><div class="comment cmt"><p>Set of texts illustrated by a given image.
@@ -714,9 +727,9 @@ TextRepository or a Corpus to determine the document order
 of nodes in this set or construct a range from this set.
 </p></div><dl class="paramcmts block"><dt class="param">img</dt><dd class="cmt"><p>Illustrative image.</p></dd></dl></div>
     </li><li name="edu.holycross.shot.dse.DseVector#textsForTbs" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="textsForTbs(surf:edu.holycross.shot.cite.Cite2Urn):Set[edu.holycross.shot.cite.CtsUrn]"></a><a id="textsForTbs(Cite2Urn):Set[CtsUrn]"></a>
+      <a id="textsForTbs(surf:edu.holycross.shot.cite.Cite2Urn):Vector[edu.holycross.shot.cite.CtsUrn]"></a><a id="textsForTbs(Cite2Urn):Vector[CtsUrn]"></a>
       <span class="permalink">
-      <a href="../../../../edu/holycross/shot/dse/DseVector.html#textsForTbs(surf:edu.holycross.shot.cite.Cite2Urn):Set[edu.holycross.shot.cite.CtsUrn]" title="Permalink">
+      <a href="../../../../edu/holycross/shot/dse/DseVector.html#textsForTbs(surf:edu.holycross.shot.cite.Cite2Urn):Vector[edu.holycross.shot.cite.CtsUrn]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -725,13 +738,12 @@ of nodes in this set or construct a range from this set.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">textsForTbs</span><span class="params">(<span name="surf">surf: <span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.Set">Set</span>[<span class="extype" name="edu.holycross.shot.cite.CtsUrn">CtsUrn</span>]</span>
+        <span class="name">textsForTbs</span><span class="params">(<span name="surf">surf: <span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span></span>)</span><span class="result">: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="edu.holycross.shot.cite.CtsUrn">CtsUrn</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Set of texts appearing on a given text-bearing surface.</p><div class="fullcomment"><div class="comment cmt"><p>Set of texts appearing on a given text-bearing surface.
-Note that this is an unordered set of citable nodes.  You need to consult a
-TextRepository or a Corpus to determine the document order
-of nodes in this set or construct a range from this set.
+      <p class="shortcomment cmt">Vector of texts appearing on a given text-bearing surface.</p><div class="fullcomment"><div class="comment cmt"><p>Vector of texts appearing on a given text-bearing surface.
+Ordering of the Vector follows the initial construction of
+the <a href="" class="extype" name="edu.holycross.shot.dse.DseVector">DseVector</a>.
 </p></div><dl class="paramcmts block"><dt class="param">surf</dt><dd class="cmt"><p>Text-bearing surface.</p></dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>

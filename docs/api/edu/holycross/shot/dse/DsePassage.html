@@ -129,30 +129,23 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="index.html"><span class="name">dse</span></a>
+        <a title="Classes for working with Documented Scholarly Editions." href="index.html"><span class="name">dse</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="edu.holycross.shot">shot</a></dd></dl></div>
+      <p class="shortcomment cmt">Classes for working with Documented Scholarly Editions.</p><div class="fullcomment"><div class="comment cmt"><p>Classes for working with Documented Scholarly Editions.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="edu.holycross.shot">shot</a></dd></dl></div>
     </li><li class="current-entities indented4">
-                        <span class="separator"></span>
-                        <a class="class" href="DseConfiguration.html" title="Association of a CITE Collection with a citable data model."></a>
-                        <a href="DseConfiguration.html" title="Association of a CITE Collection with a citable data model.">DseConfiguration</a>
-                      </li><li class="current-entities indented4">
-                        <a class="object" href="DsePassage$.html" title=""></a>
-                        <a class="class" href="" title=""></a>
-                        <a href="" title="">DsePassage</a>
+                        <a class="object" href="DsePassage$.html" title="Factory object for creating DsePassages from various kinds of sources."></a>
+                        <a class="class" href="" title="Relations of documented scholarly edition for a single citable passage of text."></a>
+                        <a href="" title="Relations of documented scholarly edition for a single citable passage of text.">DsePassage</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="class" href="DseRecord.html" title=""></a>
-                        <a href="DseRecord.html" title="">DseRecord</a>
+                        <a class="object" href="DseSource$.html" title="Factory for making DseVectors from text sources."></a>
+                        <a href="DseSource$.html" title="Factory for making DseVectors from text sources.">DseSource</a>
                       </li><li class="current-entities indented4">
-                        <span class="separator"></span>
-                        <a class="object" href="DseSource$.html" title="Factory for making catalogs from text sources."></a>
-                        <a href="DseSource$.html" title="Factory for making catalogs from text sources.">DseSource</a>
-                      </li><li class="current-entities indented4">
-                        <a class="object" href="DseVector$.html" title="Factory for making catalogs from text sources."></a>
-                        <a class="class" href="DseVector.html" title=""></a>
-                        <a href="DseVector.html" title="">DseVector</a>
+                        <a class="object" href="DseVector$.html" title="Factory for making DseVectors from various sources."></a>
+                        <a class="class" href="DseVector.html" title="A class for working with an ordered sequence of DsePassage obects."></a>
+                        <a href="DseVector.html" title="A class for working with an ordered sequence of DsePassage obects.">DseVector</a>
                       </li>
               </ul>
             </div>
@@ -183,7 +176,10 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Annotations</dt><dd>
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Relations of documented scholarly edition for
+a single citable passage of text.
+</p></div><dl class="paramcmts block"><dt class="param">urn</dt><dd class="cmt"><p>URN identifying this DSE record.</p></dd><dt class="param">label</dt><dd class="cmt"><p>Human-readable label for this DSE record.</p></dd><dt class="param">passage</dt><dd class="cmt"><p>The text passage.</p></dd><dt class="param">imageroi</dt><dd class="cmt"><p>Region of interest on an image illustrating
+this passage of text.</p></dd><dt class="param">surface</dt><dd class="cmt"><p>Physical surface where this passage is preserved.</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@JSExportAll</span><span class="args">()</span>
               
         </dd></dl><div class="toggleContainer block">
@@ -236,7 +232,7 @@
         <div id="allMembers">
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
-              <ol><li name="edu.holycross.shot.dse.DsePassage#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+              <ol><li name="edu.holycross.shot.dse.DsePassage#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="&lt;init&gt;(urn:edu.holycross.shot.cite.Cite2Urn,label:String,passage:edu.holycross.shot.cite.CtsUrn,imageroi:edu.holycross.shot.cite.Cite2Urn,surface:edu.holycross.shot.cite.Cite2Urn):edu.holycross.shot.dse.DsePassage"></a><a id="&lt;init&gt;:DsePassage"></a>
       <span class="permalink">
       <a href="../../../../edu/holycross/shot/dse/DsePassage.html#&lt;init&gt;(urn:edu.holycross.shot.cite.Cite2Urn,label:String,passage:edu.holycross.shot.cite.CtsUrn,imageroi:edu.holycross.shot.cite.Cite2Urn,surface:edu.holycross.shot.cite.Cite2Urn):edu.holycross.shot.dse.DsePassage" title="Permalink">
@@ -251,7 +247,8 @@
         <span class="name">DsePassage</span><span class="params">(<span name="urn">urn: <span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span></span>, <span name="label">label: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="passage">passage: <span class="extype" name="edu.holycross.shot.cite.CtsUrn">CtsUrn</span></span>, <span name="imageroi">imageroi: <span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span></span>, <span name="surface">surface: <span class="extype" name="edu.holycross.shot.cite.Cite2Urn">Cite2Urn</span></span>)</span>
       </span>
       
-      
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">urn</dt><dd class="cmt"><p>URN identifying this DSE record.</p></dd><dt class="param">label</dt><dd class="cmt"><p>Human-readable label for this DSE record.</p></dd><dt class="param">passage</dt><dd class="cmt"><p>The text passage.</p></dd><dt class="param">imageroi</dt><dd class="cmt"><p>Region of interest on an image illustrating
+this passage of text.</p></dd><dt class="param">surface</dt><dd class="cmt"><p>Physical surface where this passage is preserved.</p></dd></dl></div>
     </li></ol>
             </div>
 
