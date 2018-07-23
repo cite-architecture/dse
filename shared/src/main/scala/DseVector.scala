@@ -101,9 +101,9 @@ import scala.scalajs.js.annotation._
   *
   * @param img Illustrative image.
   */
-  def textsForImage(img: Cite2Urn): Set[CtsUrn] = {
+  def textsForImage(img: Cite2Urn): Vector[CtsUrn] = {
     val tbs = passages.filter(_.imageroi ~~ img)
-    tbs.map(_.passage).toSet
+    tbs.map(_.passage)
   }
 
   /** Set of text-bearing surfaces illustrated by a given image.
@@ -172,11 +172,9 @@ import scala.scalajs.js.annotation._
       baseUrl
     }
   }
-
-
 }
 
-/** Factory for making catalogs from text sources.
+/** Factory for making [[DseVector]]s from various sources.
 */
 object DseVector {
 
@@ -191,24 +189,18 @@ object DseVector {
   }
 
   /** Create a [[DseVector]] from a CEX source.
+  * The CEX source must define a CITE Library.
   *
   * @param cexSrc CEX data.
   */
   def apply(cexSrc : String, delimiter: String = "#", delimiter2: String = ","): DseVector = {
-    //  all citable objects in the repo
-    val objs = CiteLibrary(cexSrc, delimiter, delimiter2).collectionRepository.get.citableObjects
-
-    val cex = CexParser(cexSrc)
-    val dataModels = stripHeader(cex.blockVector("datamodels"))
-    val collections = dataModels.map { s =>
-      val cols = s.split("#")
-      Cite2Urn(cols(0))
+    val citeLib = CiteLibrary(cexSrc, delimiter, delimiter2)
+    val dseCollections = citeLib.collectionsForModel(dseModel)
+    val dsePsgVects = for (coll <- dseCollections) yield {
+      val dseObjs = citeLib.collectionRepository.get ~~ coll
+      dseObjs.map(DseVector.fromCitableObject(_))
     }
-    val applicable = for (c <- collections) yield {
-      objs.filter(_.urn ~~ c)
-    }
-    val dsePassages = applicable.flatten.map(fromCitableObject(_))
-    DseVector(dsePassages)
+    DseVector(dsePsgVects.flatten)
   }
 
   /** Construct a [[DsePassage]] from a CiteObject belonging to a

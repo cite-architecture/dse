@@ -10,7 +10,11 @@ import edu.holycross.shot.cite._
 */
 package object dse {
 
-  // The four verbs of the DSE model.
+
+
+  // Key URNs identifying the model, and its four verbs.
+  /** The Documented Scholarly Edition model.*/
+  val dseModel = Cite2Urn("urn:cite2:cite:datamodels.v1:dsemodel")
   /** Relation of image to surface.*/
   val illustrates = Cite2Urn("urn:cite2:cite:dseverbs.2017a:illustrates")
   /** Relation of surface to image.*/
