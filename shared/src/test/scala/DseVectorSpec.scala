@@ -77,15 +77,15 @@ urn:cite2:hmt:dse.2017a:311v.main7#Main scholion 7, 311 verso#urn:cts:greekLit:t
   it should "find images for a given TBS" in {
     val dse = DseVector(cexSrc)
     def surface = Cite2Urn("urn:cite2:hmt:msA.v1:311r")
-    val expected = Set(Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA311RN_0481"))
-    assert(dse.imagesForTbs(surface) == expected)
+    val expected = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA311RN_0481")
+    assert(dse.imageForTbs(surface) == expected)
   }
 
   it should "find images for a given text passage" in {
     val dse = DseVector(cexSrc)
-    val expected = Set(Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA311RN_0481"))
+    val expected = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA311RN_0481")
     val psg = CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A3")
-    assert(dse.imagesForText(psg) == expected)
+    assert(dse.imageForText(psg) == expected)
   }
 
   it should "find images including RoI for a given text passage" in {

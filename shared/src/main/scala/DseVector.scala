@@ -24,37 +24,41 @@ import scala.scalajs.js.annotation._
   /** Set of text-bearing surfaces in this DSE.
   */
   def tbs : Set[Cite2Urn]= {
-    passages.map(_.surface).distinct.toSet
+    passages.map(_.surface).toSet
   }
 
   /** Set of texts (editions or versions) in this DSE.
   */
   def texts: Set[CtsUrn] = {
-    passages.map(_.passage.dropPassage).distinct.toSet
+    passages.map(_.passage.dropPassage).toSet
   }
 
   /** Set of image collections in this DSE.
   */
   def imageCollections: Set[Cite2Urn] = {
-    passages.map(_.imageroi.dropSelector).distinct.toSet
+    passages.map(_.imageroi.dropSelector).toSet
   }
 
-  /** Set of images illustrating a given surface.
+  /** Reference image illustrating a given surface.
   *
   * @param surface A text-bearing surface.
   */
-  def imagesForTbs(surface: Cite2Urn) : Set[Cite2Urn] = {
+  def imageForTbs(surface: Cite2Urn) : Cite2Urn = {
     val tbs = passages.filter(_.surface ~~ surface)
-    tbs.map(_.imageroi.dropExtensions).distinct.toSet
+    tbs(0).imageroi.dropExtensions
   }
 
-  /** Set of images illustrating a given passage of text.
+  /** Reference image illustrating a given passage of text.
   *
   * @param psg A citable node of text.
   */
-  def imagesForText(psg: CtsUrn) : Set[Cite2Urn] = {
+  def imageForText(psg: CtsUrn) : Cite2Urn = {
     val tbs = passages.filter(_.passage ~~ psg)
-    tbs.map(_.imageroi.dropExtensions).distinct.toSet
+    tbs.size match {
+      case 0 => throw new Exception("DseVector: no image found for " + psg)
+      case 1 => tbs(0).imageroi.dropExtensions
+      case _ => throw new Exception("DseVector: multiple images found for " + psg)
+    }
   }
 
 
