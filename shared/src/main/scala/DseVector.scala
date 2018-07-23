@@ -40,12 +40,20 @@ import scala.scalajs.js.annotation._
   }
 
   /** Reference image illustrating a given surface.
+  *  All DSE records for a surface should refer to a
+  * single image.
   *
   * @param surface A text-bearing surface.
   */
   def imageForTbs(surface: Cite2Urn) : Cite2Urn = {
-    val tbs = passages.filter(_.surface ~~ surface)
-    tbs(0).imageroi.dropExtensions
+    val referenceImg = passages.filter(_.surface ~~ surface).map(_.imageroi.dropExtensions).distinct
+    referenceImg.size match {
+      case 0 => throw new Exception("DseVector: no image found for " + surface)
+      case 1 => referenceImg(0)
+      case _ => {
+        throw new Exception("DseVector: multiple images found for " + surface + ":  " + referenceImg)
+      }
+    }
   }
 
   /** Reference image illustrating a given passage of text.
