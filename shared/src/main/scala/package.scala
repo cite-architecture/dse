@@ -2,13 +2,26 @@ package edu.holycross.shot
 
 import edu.holycross.shot.cite._
 
+
+
+/**
+* Classes for working with Documented Scholarly Editions.
+*
+*/
 package object dse {
 
-  // The four verbs of the DSE model.
-  val illustrates = Cite2Urn("urn:cite2:cite:dseverbs.2017a:illustrates")
-  val illustratedBy = Cite2Urn("urn:cite2:cite:dseverbs.2017a:illustratedBy")
 
+
+  // Key URNs identifying the model, and its four verbs.
+  /** The Documented Scholarly Edition model.*/
+  val dseModel = Cite2Urn("urn:cite2:cite:datamodels.v1:dsemodel")
+  /** Relation of image to surface.*/
+  val illustrates = Cite2Urn("urn:cite2:cite:dseverbs.2017a:illustrates")
+  /** Relation of surface to image.*/
+  val illustratedBy = Cite2Urn("urn:cite2:cite:dseverbs.2017a:illustratedBy")
+  /** Relation of surface to text.*/
   val hasOnIt = Cite2Urn("urn:cite2:cite:dseverbs.2017a:hasOnIt")
+  /** Relation of text to surface.*/
   val appearsOn = Cite2Urn("urn:cite2:cite:dseverbs.2017a:appearsOn")
 
 

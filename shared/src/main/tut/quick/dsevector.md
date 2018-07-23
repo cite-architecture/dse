@@ -38,7 +38,7 @@ urn:cite2:hmt:dse.2017a.surface:#ertifact surfact#Cite2Urn#
 
 #!datamodels
 Collection#Model#Label#Description
-urn:cite2:hmt:dse.2017a:#urn:cite2:dse:datamodel.v1:#DSE model#Diplomatic Scholarly Edition (DSE) model.  See documentation at <https://github.com/cite-architecture/dse>.
+urn:cite2:hmt:dse.2017a:#urn:cite2:dse:datamodel.v1:#DSE model#Documented Scholarly Edition (DSE) model.  See documentation at <https://github.com/cite-architecture/dse>.
 
 #!citedata
 urn#label#passage#imageroi#surface

@@ -4,14 +4,14 @@ layout: page
 ---
 
 
-Whatever you do, you'll nned to import the library:
+First import the library:
 
 
 ```tut:silent
 import edu.holycross.shot.dse._
 ```
 
-In version 3.0.0, you can work either with:
+The main 
 
 
 -   [a `DseVector`](dsevector)

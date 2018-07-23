@@ -9,9 +9,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation._
 
 
-/** A class for working with an ordered sequence of `DsePassage` obects.
+/** A class for working with an ordered sequence of [[DsePassage]] obects.
 *
-* @param passages Vector of `DsePassage` objects.
+* @param passages Vector of [[DsePassage]] objects.
 */
 @JSExportAll case class DseVector (passages: Vector[DsePassage]) {
 
@@ -24,59 +24,74 @@ import scala.scalajs.js.annotation._
   /** Set of text-bearing surfaces in this DSE.
   */
   def tbs : Set[Cite2Urn]= {
-    passages.map(_.surface).distinct.toSet
+    passages.map(_.surface).toSet
   }
 
   /** Set of texts (editions or versions) in this DSE.
   */
   def texts: Set[CtsUrn] = {
-    passages.map(_.passage.dropPassage).distinct.toSet
+    passages.map(_.passage.dropPassage).toSet
   }
 
   /** Set of image collections in this DSE.
   */
   def imageCollections: Set[Cite2Urn] = {
-    passages.map(_.imageroi.dropSelector).distinct.toSet
+    passages.map(_.imageroi.dropSelector).toSet
   }
 
-  /** Set of images illustrating a given surface.
+  /** Reference image illustrating a given surface.
+  *  All DSE records for a surface should refer to a
+  * single image.
   *
   * @param surface A text-bearing surface.
   */
-  def imagesForTbs(surface: Cite2Urn) : Set[Cite2Urn] = {
-    val tbs = passages.filter(_.surface ~~ surface)
-    tbs.map(_.imageroi.dropExtensions).distinct.toSet
+  def imageForTbs(surface: Cite2Urn) : Cite2Urn = {
+    val referenceImg = passages.filter(_.surface ~~ surface).map(_.imageroi.dropExtensions).distinct
+    referenceImg.size match {
+      case 0 => throw new Exception("DseVector: no image found for " + surface)
+      case 1 => referenceImg(0)
+      case _ => {
+        throw new Exception("DseVector: multiple images found for " + surface + ":  " + referenceImg)
+      }
+    }
   }
 
-  /** Set of images illustrating a given passage of text.
+  /** Reference image illustrating a given passage of text.
   *
   * @param psg A citable node of text.
   */
-  def imagesForText(psg: CtsUrn) : Set[Cite2Urn] = {
-    val tbs = passages.filter(_.passage ~~ psg)
-    tbs.map(_.imageroi.dropExtensions).distinct.toSet
+  def imageForText(psg: CtsUrn) : Cite2Urn = {
+    val dse = passages.filter(_.passage ~~ psg)
+    dse.size match {
+      case 0 => throw new Exception("DseVector: no image found for " + psg)
+      case 1 => dse(0).imageroi.dropExtensions
+      case _ => throw new Exception("DseVector: multiple images found for " + psg)
+    }
   }
 
 
-  /** Set of image citations with RoI illustrating a given passage of text.
+  /** Image citation with RoI illustrating a given passage of text.
   *
   * @param psg A citable node of text.
   */
-  def imagesWRoiForText(psg: CtsUrn) : Set[Cite2Urn] = {
-    val tbs = passages.filter(_.passage ~~ psg)
-    tbs.map(_.imageroi).distinct.toSet
+  def imageWRoiForText(psg: CtsUrn) : Cite2Urn = {
+    val dse = passages.filter(_.passage ~~ psg)
+    dse.size match {
+      case 0 => throw new Exception("DseVector: no image found for " + psg)
+      case 1 => dse(0).imageroi
+      case _ => throw new Exception("DseVector: multiple images found for " + psg)
+    }
   }
 
-  /** Set of texts appearing on a given text-bearing surface.
-  * Note that this is an unordered set of citable nodes.  You need to consult a
-  * TextRepository or a Corpus to determine the document order
-  * of nodes in this set or construct a range from this set.
+  /** Vector of texts appearing on a given text-bearing surface.
+  * Ordering of the Vector follows the initial construction of
+  * the [[DseVector]].
   *
   * @param surf Text-bearing surface.
   */
-  def textsForTbs(surf: Cite2Urn): Set[CtsUrn] = {
+  def textsForTbs(surf: Cite2Urn): Vector[CtsUrn] = {
     val tbs = passages.filter(_.surface ~~ surf)
-    tbs.map(_.passage).toSet
+    tbs.map(_.passage)
   }
 
   /** Set of texts illustrated by a given image.
@@ -86,9 +101,9 @@ import scala.scalajs.js.annotation._
   *
   * @param img Illustrative image.
   */
-  def textsForImage(img: Cite2Urn): Set[CtsUrn] = {
+  def textsForImage(img: Cite2Urn): Vector[CtsUrn] = {
     val tbs = passages.filter(_.imageroi ~~ img)
-    tbs.map(_.passage).toSet
+    tbs.map(_.passage)
   }
 
   /** Set of text-bearing surfaces illustrated by a given image.
@@ -157,11 +172,9 @@ import scala.scalajs.js.annotation._
       baseUrl
     }
   }
-
-
 }
 
-/** Factory for making catalogs from text sources.
+/** Factory for making [[DseVector]]s from various sources.
 */
 object DseVector {
 
@@ -176,24 +189,18 @@ object DseVector {
   }
 
   /** Create a [[DseVector]] from a CEX source.
+  * The CEX source must define a CITE Library.
   *
   * @param cexSrc CEX data.
   */
   def apply(cexSrc : String, delimiter: String = "#", delimiter2: String = ","): DseVector = {
-    //  all citable objects in the repo
-    val objs = CiteLibrary(cexSrc, delimiter, delimiter2).collectionRepository.get.citableObjects
-
-    val cex = CexParser(cexSrc)
-    val dataModels = stripHeader(cex.blockVector("datamodels"))
-    val collections = dataModels.map { s =>
-      val cols = s.split("#")
-      Cite2Urn(cols(0))
+    val citeLib = CiteLibrary(cexSrc, delimiter, delimiter2)
+    val dseCollections = citeLib.collectionsForModel(dseModel)
+    val dsePsgVects = for (coll <- dseCollections) yield {
+      val dseObjs = citeLib.collectionRepository.get ~~ coll
+      dseObjs.map(DseVector.fromCitableObject(_))
     }
-    val applicable = for (c <- collections) yield {
-      objs.filter(_.urn ~~ c)
-    }
-    val dsePassages = applicable.flatten.map(fromCitableObject(_))
-    DseVector(dsePassages)
+    DseVector(dsePsgVects.flatten)
   }
 
   /** Construct a [[DsePassage]] from a CiteObject belonging to a
