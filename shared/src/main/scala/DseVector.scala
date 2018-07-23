@@ -9,9 +9,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation._
 
 
-/** A class for working with an ordered sequence of `DsePassage` obects.
+/** A class for working with an ordered sequence of [[DsePassage]] obects.
 *
-* @param passages Vector of `DsePassage` objects.
+* @param passages Vector of [[DsePassage]] objects.
 */
 @JSExportAll case class DseVector (passages: Vector[DsePassage]) {
 

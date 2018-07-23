@@ -9,12 +9,12 @@ import js.annotation.JSExport
 
 
 
-/** Factory for making catalogs from text sources.
+/** Factory for making [[DseVector]]s from text sources.
 */
 object DseSource {
 
 
-  /** Create [[DseVector]] from a file with data in CEX format.
+  /** Create a [[DseVector]] from a file with data in CEX format.
   *
   * @param fileName Name of file with data in CEX format.
   */
