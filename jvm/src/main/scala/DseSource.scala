@@ -18,8 +18,8 @@ object DseSource {
   *
   * @param fileName Name of file with data in CEX format.
   */
-  def fromFile(fileName: String): DseVector = {
-    val lns = Source.fromFile(fileName).getLines.toVector
+  def fromFile(fileName: String, encoding: String = "UTF-8"): DseVector = {
+    val lns = Source.fromFile(fileName, encoding).getLines.toVector
     DseVector(lns.mkString("\n"))
   }
 
