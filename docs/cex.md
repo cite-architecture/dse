@@ -4,7 +4,11 @@ title: CEX serialization of the DSE data model
 ---
 
 
-To serialize DSE data in CEX, define each DSE collection with the three properties `passage`, `imageroi` and `surface`, in addition to the required properties for idetnifying URN and human-readable label.  Then include in your CEX a `#datamodels` section declaring that your collection follows the DSE data model. The following example illustrates these two blocks of a CEX source:
+Like any other CITE Collection, DSE collections are declared in a CEX `citecollections` block, and include their data in a `citedata` block.
+
+All CITE collections require properties for identifying URN and human-readable label.  To implement the DSE model, define each DSE collection with three further properties named `passage`, `imageroi` and `surface`.
+
+In your CEX, include a `#datamodels` section declaring that your collection follows the DSE data model. The following example illustrates these two blocks of a CEX source:
 
 
     #!citeproperties
@@ -17,7 +21,4 @@ To serialize DSE data in CEX, define each DSE collection with the three properti
 
     #!datamodels
     Collection#Model#Label#Description
-    urn:cite2:hmt:dse.2017a:#urn:cite2:dse:datamodel.v1:#DSE model#Documented Scholarly Edition (DSE) model.  See documentation at <https://github.com/cite-architecture/dse>.
-
-
-Like any other CITE Collection, DSE collections are declared in a CEX `citecollections` block, and include their data in a `citedata` block.
+    urn:cite2:hmt:dse.2017a:#urn:cite2:dse:datamodel.v1:#DSE model#Documented Scholarly Edition (DSE) model.  See documentation at <http://cite-architecture.org/dse/>.
