@@ -1,5 +1,8 @@
 # `dse`: release notes
 
+**4.2.0*:  Updates to all CITE library dependencies.
+
+
 **4.1.1**:   Support dynamic setting of character encoding when reading data with `scala.io.Source`.
 
 **4.1.0**:  Adds `++` function to `DseVector`.
