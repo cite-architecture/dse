@@ -13,7 +13,7 @@ See [release notes](releases.md).
 
 ## Documentation
 
-See <https://cite-architecture.github.io/dse/>.
+See <https://cite-architecture.org/dse/>.
 
 ## Using, building, testing
 
