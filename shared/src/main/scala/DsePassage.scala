@@ -46,7 +46,7 @@ object DsePassage  {
   * @param co CiteObject from a collection implementing the
   * DSE model.
   */
-  def fromCitableObect(co: CiteObject): DsePassage = {
+  def fromCitableObject(co: CiteObject): DsePassage = {
       DsePassage(co.urn,
     co.label,
     CtsUrn(co.propertyValue(co.urn.addProperty("passage")).toString),

@@ -1,5 +1,10 @@
 # `dse`: release notes
 
+
+**4.2.3**:  Library updates.
+
+**4.2.2**:  Library updates.
+
 **4.2.1**:  Bug fix in underlying library.
 
 
