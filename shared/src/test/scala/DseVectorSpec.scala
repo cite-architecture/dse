@@ -27,8 +27,6 @@ buff2.close
     assert (dse.tbs == expected)
   }
 
-
-
   it should "identify the set of texts in the library" in {
     val dse = DseVector(cexSrc)
     val expected = Set(CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:"))
@@ -41,14 +39,14 @@ buff2.close
     assert(dse.imageCollections == expected)
   }
 
-  it should "find images for a given TBS" in {
+  it should "find a reference image for a given TBS" in {
     val dse = DseVector(cexSrc)
     def surface = Cite2Urn("urn:cite2:hmt:msA.v1:311r")
     val expected = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA311RN_0481")
     assert(dse.imageForTbs(surface) == expected)
   }
 
-  it should "find images for a given text passage" in {
+  it should "find a reference image for a given text passage" in {
     val dse = DseVector(cexSrc)
     val expected = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA311RN_0481")
     val psg = CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A3")
