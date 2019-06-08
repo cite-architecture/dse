@@ -2,7 +2,7 @@
 
 A cross-platform library for working with documented digital diplomatic scholarly editions.
 
-## Current version: 4.2.3
+## Current version: 4.3.0
 
 See [release notes](releases.md).
 
