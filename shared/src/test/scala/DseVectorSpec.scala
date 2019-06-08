@@ -95,7 +95,7 @@ buff2.close
     assert(dse.textsForImage(img).size == expectedSize)
   }
 
-  it should "find TBS illustrated by a given image" in {
+  it should "find a set of TBS illustrated by a given image" in {
     val dse = DseVector(cexSrc)
     val img = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA311RN_0481")
     val expected = Set(Cite2Urn("urn:cite2:hmt:msA.v1:311r"))
@@ -106,10 +106,12 @@ buff2.close
   it should "compose ICT URLs for a given surface" in {
     val pg = Cite2Urn("urn:cite2:hmt:msA.v1:311r")
     val dse = DseVector(cexSrc)
-    val expected = "http://www.homermultitext.org/ict2/?urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.643,0.2523,0.186,0.024&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.206,0.7102,0.617,0.0616&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.201,0.4129,0.63,0.2995&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.216,0.1509,0.615,0.1051&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.218,0.1411,0.597,0.024&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.202,0.6922,0.62,0.0345&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.64,0.3326,0.196,0.0848&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.216,0.0811,0.61,0.0751&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.648,0.2763,0.188,0.0578&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.201,0.7545,0.639,0.0818"
+    val actual = dse.ictForSurface(pg)
 
-    //assert(dse.ictForSurface(pg) == expected)
-    println(dse.ictForSurface(pg))
+    val expected = "http://www.homermultitext.org/ict2/?urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.216,0.0811,0.61,0.0751&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.218,0.1411,0.597,0.024&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.216,0.1509,0.615,0.1051&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.643,0.2523,0.186,0.024&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.648,0.2763,0.188,0.0578&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.64,0.3326,0.196,0.0848&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.201,0.4129,0.63,0.2995&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.202,0.6922,0.62,0.0345&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.206,0.7102,0.617,0.0616&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.201,0.7545,0.639,0.0818"
+
+
+    assert(actual == expected)
   }
 
 
