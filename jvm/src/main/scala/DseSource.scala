@@ -2,7 +2,7 @@ package edu.holycross.shot.dse
 
 import edu.holycross.shot.scm._
 import scala.io.Source
-
+import edu.holycross.shot.cite._
 
 import scala.scalajs.js
 import js.annotation.JSExport
@@ -24,5 +24,11 @@ object DseSource {
   }
 
 
+  def fromTriplesFile(f: String, dseCollection : Cite2Urn) : DseVector = {
+    val buff = Source.fromFile(f)
+    val cex = buff.getLines.mkString("\n")
+    buff.close
+    DseVector.fromTextTriples(cex, dseCollection)
+  }
 
 }

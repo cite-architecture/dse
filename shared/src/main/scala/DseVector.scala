@@ -16,9 +16,6 @@ import scala.scalajs.js.annotation._
 @JSExportAll case class DseVector (passages: Vector[DsePassage]) {
 
 
-
-
-
   /** Number of citable text passages in this data set.
   */
   def size : Int = {
@@ -232,5 +229,25 @@ object DseVector {
     val surface = obj.propertyValue(surfaceUrn).asInstanceOf[Cite2Urn]
     DsePassage(obj.urn, obj.label, passage, image,surface)
   }
+
+
+  def fromTextTriples(cex: String, dseCollection : Cite2Urn) : DseVector = {
+    val goodLines = cex.split("\n").toVector.tail.filter(_.nonEmpty)
+    val indexed = goodLines.zipWithIndex
+    val v = for ( (l,i) <- indexed) yield {
+      //urn: Cite2Urn, label: String, passage: CtsUrn, imageroi: Cite2Urn, surface: Cite2Urn
+
+      val dsePsg = dseCollection.addSelector("record_" + i)
+      val cols =l.split("#")
+      //passage#imageroi#surface
+      val label = "Passage " + i
+      val psg = CtsUrn(cols(0))
+      val img = Cite2Urn(cols(1))
+      val surface = Cite2Urn(cols(2))
+      DsePassage(dsePsg, label, psg, img, surface)
+    }
+    DseVector(v)
+  }
+
 
 }
