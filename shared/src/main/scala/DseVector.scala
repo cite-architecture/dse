@@ -15,7 +15,38 @@ import scala.scalajs.js.annotation._
 */
 @JSExportAll case class DseVector (passages: Vector[DsePassage]) {
 
+
+
   require(passages.size == passages.map(_.passage).toSet.size, "Duplicated passages :  " + duplicateTexts)
+
+  require(oneImagePerSurface, "One or more surfaces indexed to multiple images:  " + doubleIndexedSurfaces.mkString(", "))
+
+  def oneImagePerSurface: Boolean = {
+    val surfaces = passages.map(_.surface).distinct
+    val tf = for (surface <- surfaces) yield {
+      try {
+        imageForTbs(surface)
+        true
+      } catch {
+        case t: Throwable => false
+      }
+    }
+    (tf(0) && tf.distinct.size == 1)
+  }
+
+  def doubleIndexedSurfaces : Vector[Cite2Urn] = {
+    val surfaces = passages.map(_.surface).distinct
+    val singleImage = for (surface <- surfaces) yield {
+      try {
+        val img = imageForTbs(surface)
+        (surface, Some(img))
+
+      } catch {
+        case t: Throwable => (surface, None)
+      }
+    }
+    singleImage.filter(_._2 == None).map(_._1)
+  }
 
   def duplicateTexts: Vector[CtsUrn] = {
     val urns = passages.map(_.passage)
