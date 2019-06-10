@@ -21,6 +21,40 @@ import scala.scalajs.js.annotation._
 
   require(oneImagePerSurface, "One or more surfaces indexed to multiple images:  " + doubleIndexedSurfaces.mkString(", "))
 
+  require(consistentImageSurface, "Inconsistent pairing of surface and reference image: \n" + inconsistentPairs.mkString("; "))
+
+  def consistentImageSurface : Boolean = {
+
+    val tf = for (psg <- passages.map(_.passage)) yield  {
+      val surf = tbsForText(psg)
+      val img = imageForText(psg)
+      val surfImg = imageForTbs(surf)
+      (surfImg == img)
+    }
+    (tf(0) && tf.distinct.size == 1)
+  }
+
+  def inconsistentPairs : Vector[String] = {
+    val surfaces = passages.map(_.surface).distinct
+    val consistencyMessages = for (surface <- surfaces) yield {
+
+      val img = imageForTbs(surface)
+      //println("check " + surface + "<->" + img)
+      val psgs = textsForTbs(surface)
+      val pairMessages = for (psg <- psgs) yield {
+        val psgImage = imageForText(psg)
+        //println("\t" + psg + "<->" + psgImage )
+        if (psgImage == img) { "" } else {
+          val msg = s"${surface} linked to ${img} but ${psg} to ${psgImage}"
+          //println("\n\nMISMATCH:  " + msg + "\n\n")
+          msg
+        }
+      }
+      pairMessages.filter(_.nonEmpty)
+    }
+    consistencyMessages.flatten
+  }
+
   def oneImagePerSurface: Boolean = {
     val surfaces = passages.map(_.surface).distinct
     val tf = for (surface <- surfaces) yield {
@@ -67,7 +101,6 @@ import scala.scalajs.js.annotation._
   def ++ (dseVector: DseVector): DseVector = {
     DseVector(this.passages ++ dseVector.passages)
   }
-
 
 
   /** Set of text-bearing surfaces in this DSE.
@@ -164,6 +197,18 @@ import scala.scalajs.js.annotation._
     tbs.map(_.surface).distinct.toSet
   }
 
+
+
+  def tbsForText(psg: CtsUrn): Cite2Urn = {
+    val records = passages.filter(_.passage ~~ psg)
+    val tbs = records.map(_.surface).distinct
+    tbs.size match {
+      case 0 => throw new Exception("No text-bearing surface found for " + psg )
+      case 1 => tbs(0)
+      case _ => throw new Exception("CtsUrn " + psg + " is not specific enough: " + tbs.size + " text-bearing surfaces found (" + tbs.mkString(", ") +")" )
+
+    }
+  }
 
   /** Compose a URL string to display DSE relations for
   * a specifice text-bearing surface in the image citation

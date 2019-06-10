@@ -44,16 +44,59 @@ class DseVectorSanitySpec extends FlatSpec {
     buff.close
     try {
       val dse = DseVector(dupeCex)
-
-      def surface = Cite2Urn("urn:cite2:hmt:msA.v1:311r")
-      //val imgs = dse.imageForTbs(surface)
-
       fail("Should not have created DSE from CEX with multiple images for one  surface")
+
     } catch {
       case exc: Exception => assert(exc.toString.contains("One or more surfaces indexed to multiple images"))
       case t: Throwable => fail("Should have thrown java.lang.Exception, but instead threw this: " + t)
     }
   }
-  it should "allow multiple surfaces for a single reference image" in pending
-  it should "validate consistency of indexing of texts and surfaces to reference image" in pending
+  it should "allow multiple surfaces for a single reference image" in {
+    val bifolioFile = "jvm/src/test/resources/e3triples.cex"
+    val triples = Source.fromFile(bifolioFile)
+    val bifolioTriples = triples.getLines.mkString("\n")
+    triples.close
+    val testCollection = Cite2Urn("urn:cite2:units:testdse.v1:")
+    val dse = DseVector.fromTextTriples(bifolioTriples, testCollection)
+
+
+    val img = Cite2Urn("urn:cite2:hmt:e3bifolio.v1:E3_109v_110r")
+    val expected = Set(Cite2Urn("urn:cite2:hmt:e3.v1:109v"), Cite2Urn("urn:cite2:hmt:e3.v1:110r"))
+    val actual = dse.tbsForImage(img)
+    assert( actual ==  expected)
+
+
+  }/*
+  it should "validate consistency of indexing of texts and surfaces to reference image" in  {
+    val mixedPages = "jvm/src/test/resources/inconsistent.cex"
+    val buff = Source.fromFile(mixedPages)
+    val mixedPageCex = buff.getLines.mkString("\n")
+    buff.close
+    try {
+      val dse = DseVector(mixedPageCex)
+      fail("Should not have created DSE from CEX with inconsistent surfaces for text on an image")
+
+    } catch {
+      case exc: Exception => assert(exc.toString.contains("One or more surfaces indexed to multiple images"))
+      case t: Throwable => fail("Should have thrown java.lang.Exception, but instead threw this: " + t)
+    }
+  }*/
+
+  it should  "validate consistency of indexing of texts and surfaces to reference image" in  {
+    val mixedPages = "jvm/src/test/resources/inconsistent.cex"
+    val buff = Source.fromFile(mixedPages)
+    val mixedPageCex = buff.getLines.mkString("\n")
+    buff.close
+    try {
+      val dse = DseVector(mixedPageCex)
+      fail("Should not have created DSE from CEX with inconsistent surfaces for text on an image")
+
+    } catch {
+      case exc: Exception => {
+        assert(exc.toString.contains("One or more surfaces indexed to multiple images"))
+      }
+      case t: Throwable => fail("Should have thrown java.lang.Exception, but instead threw this: " + t)
+    }
+
+  }
 }

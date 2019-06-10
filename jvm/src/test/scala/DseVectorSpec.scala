@@ -94,26 +94,6 @@ class DseVectorSpec extends FlatSpec {
     assert(dse.textsForImage(img).size == expectedSize)
   }
 
-  it should "find a set of TBS illustrated by a given image" in {
-    val bifolioFile = "jvm/src/test/resources/e3sample.cex"
-
-    val buff = Source.fromFile(bifolioFile)
-    val cexSrc = buff.getLines.mkString("\n")
-    buff.close
-
-    val testCollection = Cite2Urn("urn:cite2:units:testdse.v1:")
-    val dse = DseVector.fromTextTriples(cexSrc, testCollection)
-    val img = Cite2Urn("urn:cite2:hmt:e3bifolio.v1:E3_109v_110r")
-
-    //val expected = Set(Cite2Urn("urn:cite2:hmt:msA.v1:311r"))
-    //assert(dse.tbsForImage(img.dropExtensions) == expected)
-
-    val expected = Set(Cite2Urn("urn:cite2:hmt:e3.v1:109v"), Cite2Urn("urn:cite2:hmt:e3.v1:110r"))
-    assert(dse.tbsForImage(img) ==  expected)
-
-  }
-
-
 
 
   it should "compose ICT URLs for a given surface" in {
