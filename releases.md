@@ -1,5 +1,8 @@
 # `dse`: release notes
 
+**4.4.0**:  Validates consistency of `DsePassage`s in a `DseVector`.
+
+
 **4.3.0**: Adds functions for constructing `DseVector` from CEX triples of passage, image and surface.
 
 **4.2.3**:  Library updates.
