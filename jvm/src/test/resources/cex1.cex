@@ -23,7 +23,6 @@ urn:cite2:hmt:dse.v1:#urn:cite2:cite:datamodels.v1:dsemodel#DSE model#Diplomatic
 
 #!citedata
 urn#label#passage#imageroi#surface#seq
-urn:cite2:hmt:dse.v1:311r.main1#Main scholion 1, 311 recto#urn:cts:greekLit:tlg5026.msA.hmt:24.A2#urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.216,0.0811,0.61,0.0751#urn:cite2:hmt:msA.v1:311r#1
 urn:cite2:hmt:dse.v1:311r.main2#Main scholion 2, 311 recto#urn:cts:greekLit:tlg5026.msA.hmt:24.A3#urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.218,0.1411,0.597,0.024#urn:cite2:hmt:msA.v1:311r#2
 urn:cite2:hmt:dse.v1:311r.main3#Main scholion 3, 311 recto#urn:cts:greekLit:tlg5026.msA.hmt:24.A4#urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.216,0.1509,0.615,0.1051#urn:cite2:hmt:msA.v1:311r#3
 urn:cite2:hmt:dse.v1:311r.main4#Main scholion 4, 311 recto#urn:cts:greekLit:tlg5026.msA.hmt:24.A5#urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.643,0.2523,0.186,0.024#urn:cite2:hmt:msA.v1:311r#4

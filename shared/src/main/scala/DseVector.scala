@@ -15,7 +15,13 @@ import scala.scalajs.js.annotation._
 */
 @JSExportAll case class DseVector (passages: Vector[DsePassage]) {
 
+  require(passages.size == passages.map(_.passage).toSet.size, "Duplicated passages :  " + duplicateTexts)
 
+  def duplicateTexts: Vector[CtsUrn] = {
+    val urns = passages.map(_.passage)
+    val dupeCounts = urns.groupBy(u => u).filter( _._2.size > 1)
+    dupeCounts.map(_._1).toVector
+  }
   /** Number of citable text passages in this data set.
   */
   def size : Int = {
