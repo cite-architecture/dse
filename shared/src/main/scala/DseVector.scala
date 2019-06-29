@@ -28,7 +28,7 @@ import scala.scalajs.js.annotation._
   /** True if ...
   */
   def consistentImageSurface : Boolean = {
-    println("Checking consinstent image surface.")
+    println("Checking consistent image surface.")
     val tf = for (psg <- passages.map(_.passage)) yield  {
       val surf = tbsForText(psg)
       val img = imageForText(psg)
@@ -135,7 +135,7 @@ import scala.scalajs.js.annotation._
   * @param surface A text-bearing surface.
   */
   def imageForTbs(surface: Cite2Urn) : Cite2Urn = {
-    val referenceImg = passages.filter(_.surface ~~ surface).map(_.imageroi.dropExtensions).distinct
+    val referenceImg = passages.filter(_.surface == surface).map(_.imageroi.dropExtensions).distinct
     referenceImg.size match {
       case 0 => throw new Exception("DseVector: no image found for " + surface)
       case 1 => referenceImg(0)
@@ -150,7 +150,8 @@ import scala.scalajs.js.annotation._
   * @param psg A citable node of text.
   */
   def imageForText(psg: CtsUrn) : Cite2Urn = {
-    val dse = passages.filter(_.passage ~~ psg)
+    //val dse = passages.filter(_.passage ~~ psg)
+    val dse = passages.filter(_.passage == psg)
     dse.size match {
       case 0 => throw new Exception("DseVector: no image found for " + psg)
       case 1 => dse(0).imageroi.dropExtensions
@@ -207,7 +208,8 @@ import scala.scalajs.js.annotation._
 
 
   def tbsForText(psg: CtsUrn): Cite2Urn = {
-    val records = passages.filter(_.passage ~~ psg)
+    //val records = passages.filter(_.passage ~~ psg)
+    val records = passages.filter(_.passage == psg)
     val tbs = records.map(_.surface).distinct
     tbs.size match {
       case 0 => throw new Exception("No text-bearing surface found for " + psg )
