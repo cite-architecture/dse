@@ -1,5 +1,8 @@
 # `dse`: release notes
 
+
+**4.5.0**:  Modest performance improvement in creating large `DseVector`s.
+
 **4.4.0**:  Validates consistency of `DsePassage`s in a `DseVector`.
 
 

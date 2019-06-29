@@ -23,14 +23,19 @@ import scala.scalajs.js.annotation._
 
   require(consistentImageSurface, "Inconsistent pairing of surface and reference image: \n" + inconsistentPairs.mkString("; "))
 
-  def consistentImageSurface : Boolean = {
 
+
+  /** True if ...
+  */
+  def consistentImageSurface : Boolean = {
+    println("Checking consinstent image surface.")
     val tf = for (psg <- passages.map(_.passage)) yield  {
       val surf = tbsForText(psg)
       val img = imageForText(psg)
       val surfImg = imageForTbs(surf)
       (surfImg == img)
     }
+    println("Done")
     (tf(0) && tf.distinct.size == 1)
   }
 
@@ -55,6 +60,8 @@ import scala.scalajs.js.annotation._
     consistencyMessages.flatten
   }
 
+  /** True if only one reference image referenced to a surface.
+  */
   def oneImagePerSurface: Boolean = {
     val surfaces = passages.map(_.surface).distinct
     val tf = for (surface <- surfaces) yield {
@@ -289,12 +296,29 @@ object DseVector {
   */
   def apply(cexSrc : String, delimiter: String = "#", delimiter2: String = ","): DseVector = {
     val citeLib = CiteLibrary(cexSrc, delimiter, delimiter2)
-    val dseCollections = citeLib.collectionsForModel(dseModel)
+    val citeObjRepo = citeLib.collectionRepository.get
+
+    /*
     val dsePsgVects = for (coll <- dseCollections) yield {
       val dseObjs = citeLib.collectionRepository.get ~~ coll
       dseObjs.map(DseVector.fromCitableObject(_))
+    }*/
+
+    // 1. Find relevant collections in your library.
+    val dseCollections = citeLib.collectionsForModel(dseModel)
+    // 2. get a map of object Idss
+    val cMap = citeObjRepo.collectionsMap
+    val dseObjs = for (coll <- dseCollections ) yield {
+      val ids = cMap(coll)
+      // and make full ojbects from them:
+      val objs = for (id <- ids) yield {
+        citeObjRepo.citableObject(id)
+      }
+      objs
     }
-    DseVector(dsePsgVects.flatten)
+    val dVect = DseVector(dseObjs.flatten.map(DseVector.fromCitableObject(_)))
+    //DseVector(dsePsgVects.flatten)
+    dVect
   }
 
   /** Construct a [[DsePassage]] from a CiteObject belonging to a
