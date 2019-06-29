@@ -1,5 +1,6 @@
 # `dse`: release notes
 
+**4.6.0**: Includes CWB's substantial performance improvements in creating large `DseVector`s.
 
 **4.5.0**:  Modest performance improvement in creating large `DseVector`s.
 
