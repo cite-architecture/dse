@@ -303,6 +303,7 @@ object DseVector {
   }
 
 
+
   /** Create a [[DseVector]] from a CEX source.
   * The CEX source must define a CITE Library.
   *

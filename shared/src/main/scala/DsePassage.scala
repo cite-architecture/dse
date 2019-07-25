@@ -20,6 +20,9 @@ import scala.scalajs.js.annotation._
 * @param surface Physical surface where this passage is preserved.
 */
 @JSExportAll case class DsePassage (urn: Cite2Urn, label: String, passage: CtsUrn, imageroi: Cite2Urn, surface: Cite2Urn) {
+  def cex(delimiter: String = "#") = {
+    s"${urn}${delimiter}${label}${delimiter}${passage}${delimiter}${imageroi}${delimiter}${surface}"
+  }
 }
 
 

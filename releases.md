@@ -1,5 +1,6 @@
 # `dse`: release notes
 
+**5.1.0**:  Add `cex` function to `DsePassage`.
 
 **5.0.0**: API-breaking change.  `DseVector` object now constructs a `DseVector` from a single CEX string using default values for delimiters.  To specify delimiters explicitly, it includes a new `cex` function.
 
