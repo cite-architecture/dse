@@ -69,9 +69,9 @@ urn:cite2:hmt:dse.v1:311v.main7#Main scholion 7, 311 verso#urn:cts:greekLit:tlg5
 
   it should "build a DsePassage from a CiteObject" in {
 
-    val libr = CiteLibrary(cexSrc, "#", ",")
+    val libr = CiteLibrary(cexSrc)
 
-    val citableObjects = CiteLibrary(cexSrc, "#", ",").collectionRepository.get.citableObjects
+    val citableObjects = CiteLibrary(cexSrc).collectionRepository.get.citableObjects
     val testUrn =  Cite2Urn("urn:cite2:hmt:dse.v1:311r.main1")
 
     val matchingCites = citableObjects.filter(_.urn == testUrn)

@@ -291,13 +291,25 @@ object DseVector {
     dataModels
   }
 
+
+  /** Create a [[DseVector]] from a CEX source with default
+  * values for delimiter strings.
+  * The CEX source must define a CITE Library.
+  *
+  * @param cexSrc CEX data.
+  */
+  def apply(cexString: String) : DseVector = {
+    cex(cexString, "#", ",")
+  }
+
+
   /** Create a [[DseVector]] from a CEX source.
   * The CEX source must define a CITE Library.
   *
   * @param cexSrc CEX data.
   */
-  def apply(cexSrc : String, delimiter: String = "#", delimiter2: String = ","): DseVector = {
-    val citeLib = CiteLibrary(cexSrc, delimiter, delimiter2)
+  def cex(cexSrc : String, delimiter: String = "#", delimiter2: String = ","): DseVector = {
+    val citeLib = CiteLibrary.cex(cexSrc, delimiter, delimiter2)
     val citeObjRepo = citeLib.collectionRepository.get
 
     /*
