@@ -1,5 +1,7 @@
 # `dse`: release notes
 
+**5.1.2**: updates to multiple library dependencies.
+
 **5.1.1**: republish as 5.1.1 previous 5.1.0 that failed on binary publicatoin to bintray.
 
 
