@@ -281,6 +281,20 @@ import scala.scalajs.js.annotation._
 */
 object DseVector {
 
+
+  /** Build a [[DseVector]] from a CiteLibrary.
+  *
+  * @param lib A CiteLibrary including one or more collections
+  * implementing the DSE model.
+  */
+  def fromCiteLibrary(lib: CiteLibrary): DseVector = {
+    val dseModel = Cite2Urn("urn:cite2:cite:datamodels.v1:dsemodel")
+    val dseCollections = lib.collectionsForModel(dseModel)
+    val citeObjects = lib.collectionRepository.get.citableObjects
+    DseVector(citeObjects.map(DseVector.fromCitableObject(_)))
+  }
+
+
   /**  Strip header line off of each String in a Vector.
   *
   * @param v Vector of Strings.
