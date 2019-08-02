@@ -56,12 +56,16 @@ urn:cite2:hmt:dse.v1:311v.main7#Main scholion 7, 311 verso#urn:cts:greekLit:tlg5
 
   val lib = CiteLibrary(cexSrc)
 
-
   "The Dse object" should "extract a DseVector from a CiteLibrary" in {
     val dsev = DseVector.fromCiteLibrary(lib)
     val expectedSize = 17
     assert(dsev.size == expectedSize)
   }
+
+  it should "object if no collections are configured for DSE model" in pending
+
+  it should "return an empty vector if there are no objects in a collection implementing the DSE model" in pending
+  
 
 
 
