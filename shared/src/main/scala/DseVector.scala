@@ -291,7 +291,11 @@ object DseVector {
     val dseModel = Cite2Urn("urn:cite2:cite:datamodels.v1:dsemodel")
     val dseCollections = lib.collectionsForModel(dseModel)
     val citeObjects = lib.collectionRepository.get.citableObjects
-    DseVector(citeObjects.map(DseVector.fromCitableObject(_)))
+
+    val dseSingles = for (dseCollection <- dseCollections) yield {
+      citeObjects.filter(dseCollection ~~ _.urn)
+    }
+    DseVector(dseSingles.flatten.map(DseVector.fromCitableObject(_)))
   }
 
 
