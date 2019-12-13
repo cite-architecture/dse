@@ -4,7 +4,7 @@ import edu.holycross.shot.cite._
 import edu.holycross.shot.cex._
 import edu.holycross.shot.citeobj._
 import edu.holycross.shot.scm._
-
+import java.util.Calendar
 import scala.scalajs.js
 import scala.scalajs.js.annotation._
 
@@ -28,16 +28,47 @@ import scala.scalajs.js.annotation._
   /** True if ...
   */
   def consistentImageSurface : Boolean = {
+    val passageImage: Vector[(CtsUrn, Cite2Urn)] = {
+      passages.map( p => {
+        (p.passage, p.imageroi)
+      }).distinct
+    } 
+    val passageSurface: Vector[(CtsUrn, Cite2Urn)] = {
+      passages.map( p => {
+        (p.passage, p.surface)
+      }).distinct
+    } 
+    val imageSurface: Vector[(Cite2Urn, Cite2Urn)] = {
+      passages.map( p => {
+        (p.imageroi.dropExtensions, p.surface)
+      })
+    } 
+    ((passageImage.size == passageSurface.size) &
+      (passageSurface.size == imageSurface.size) & (passages.size > 0))
+
+  }
+
+  /*
+  def consistentImageSurfaceOrig : Boolean = {
     println("Checking consistent image surface.")
+    println(s"There are ${passages.size} DSE records.")
     val tf = for (psg <- passages.map(_.passage)) yield  {
+      val t1 = Calendar.getInstance().getTimeInMillis()
       val surf = tbsForText(psg)
+      val t2 = Calendar.getInstance().getTimeInMillis()
       val img = imageForText(psg)
+      val t3 = Calendar.getInstance().getTimeInMillis()
       val surfImg = imageForTbs(surf)
+      val t4 = Calendar.getInstance().getTimeInMillis()
+      //println(s"tbsForText: ${t2 - t1}")
+      //println(s"imageForText: ${t3 - t2}")
+      //println(s"imageForTbs: ${t4 - t3}")
       (surfImg == img)
     }
     println("Done")
     (tf(0) && tf.distinct.size == 1)
   }
+  */
 
   def inconsistentPairs : Vector[String] = {
     val surfaces = passages.map(_.surface).distinct

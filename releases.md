@@ -1,5 +1,7 @@
 # `dse`: release notes
 
+**5.2.2**: Improved DSE validation time by four orders of magnitude.
+
 **5.2.1**: fix typo in `fromCiteLibrary` function.
 
 **5.2.0**:  add function to `DseVector` object to extract a `DseVector` from a `CiteLibrary`.
