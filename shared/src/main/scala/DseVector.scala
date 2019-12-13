@@ -69,7 +69,10 @@ import scala.scalajs.js.annotation._
         imageForTbs(surface)
         true
       } catch {
-        case t: Throwable => false
+        case t: Throwable => {
+          println(s"${t} :: ${surface}")
+          false
+        }
       }
     }
     (tf(0) && tf.distinct.size == 1)
@@ -81,7 +84,6 @@ import scala.scalajs.js.annotation._
       try {
         val img = imageForTbs(surface)
         (surface, Some(img))
-
       } catch {
         case t: Throwable => (surface, None)
       }
