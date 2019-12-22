@@ -9,11 +9,15 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation._
 
 
+
+import wvlet.log._
+import wvlet.log.LogFormatter.SourceCodeLogFormatter
+
 /** A class for working with an ordered sequence of [[DsePassage]] obects.
 *
 * @param passages Vector of [[DsePassage]] objects.
 */
-@JSExportAll case class DseVector (passages: Vector[DsePassage]) {
+@JSExportAll case class DseVector (passages: Vector[DsePassage]) extends LogSupport {
 
 
 
@@ -32,17 +36,17 @@ import scala.scalajs.js.annotation._
       passages.map( p => {
         (p.passage, p.imageroi)
       }).distinct
-    } 
+    }
     val passageSurface: Vector[(CtsUrn, Cite2Urn)] = {
       passages.map( p => {
         (p.passage, p.surface)
       }).distinct
-    } 
+    }
     val imageSurface: Vector[(Cite2Urn, Cite2Urn)] = {
       passages.map( p => {
         (p.imageroi.dropExtensions, p.surface)
       })
-    } 
+    }
     ((passageImage.size == passageSurface.size) &
       (passageSurface.size == imageSurface.size) & (passages.size > 0))
 
@@ -50,8 +54,8 @@ import scala.scalajs.js.annotation._
 
   /*
   def consistentImageSurfaceOrig : Boolean = {
-    println("Checking consistent image surface.")
-    println(s"There are ${passages.size} DSE records.")
+    debug("Checking consistent image surface.")
+    debug(s"There are ${passages.size} DSE records.")
     val tf = for (psg <- passages.map(_.passage)) yield  {
       val t1 = Calendar.getInstance().getTimeInMillis()
       val surf = tbsForText(psg)
@@ -60,12 +64,12 @@ import scala.scalajs.js.annotation._
       val t3 = Calendar.getInstance().getTimeInMillis()
       val surfImg = imageForTbs(surf)
       val t4 = Calendar.getInstance().getTimeInMillis()
-      //println(s"tbsForText: ${t2 - t1}")
-      //println(s"imageForText: ${t3 - t2}")
-      //println(s"imageForTbs: ${t4 - t3}")
+      //debug(s"tbsForText: ${t2 - t1}")
+      //debug(s"imageForText: ${t3 - t2}")
+      //debug(s"imageForTbs: ${t4 - t3}")
       (surfImg == img)
     }
-    println("Done")
+    debug("Done")
     (tf(0) && tf.distinct.size == 1)
   }
   */
@@ -75,14 +79,14 @@ import scala.scalajs.js.annotation._
     val consistencyMessages = for (surface <- surfaces) yield {
 
       val img = imageForTbs(surface)
-      //println("check " + surface + "<->" + img)
+      //debug("check " + surface + "<->" + img)
       val psgs = textsForTbs(surface)
       val pairMessages = for (psg <- psgs) yield {
         val psgImage = imageForText(psg)
-        //println("\t" + psg + "<->" + psgImage )
+        //debug("\t" + psg + "<->" + psgImage )
         if (psgImage == img) { "" } else {
           val msg = s"${surface} linked to ${img} but ${psg} to ${psgImage}"
-          //println("\n\nMISMATCH:  " + msg + "\n\n")
+          //debug("\n\nMISMATCH:  " + msg + "\n\n")
           msg
         }
       }
@@ -101,7 +105,7 @@ import scala.scalajs.js.annotation._
         true
       } catch {
         case t: Throwable => {
-          println(s"${t} :: ${surface}")
+          debug(s"${t} :: ${surface}")
           false
         }
       }
