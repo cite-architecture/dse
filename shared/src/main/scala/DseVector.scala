@@ -65,30 +65,7 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
 
 
   def triangleConsistencyErrors : Vector[String] = {
-    val surfaces = passages.map(_.surface).distinct
-    val consistencyErrorMessages = for (surface <- surfaces) yield {
-
-      imageForTbs(surface) match {
-        case None => Vector(s"No image found for surface ${surface}")
-        case img: Option[Cite2Urn] => {
-
-          debug("check " + surface + "<->" + img.get)
-          val psgs = textsForTbs(surface)
-          val pairMessages = for (psg <- psgs) yield {
-            val psgImage = imageForText(psg)
-            debug("\t" + psg + "<->" + psgImage )
-
-            if (psgImage == img.get) { "" } else {
-              val msg = s"${surface} linked to ${img.get} but ${psg} to ${psgImage}"
-              debug("\n\nMISMATCH:  " + msg + "\n\n")
-              msg
-            }
-          }
-          pairMessages.filter(_.nonEmpty)
-        }
-      }
-    }
-    consistencyErrorMessages.flatten
+    DseVector.triangleConsistencyErrors(passages)
   }
 
   /** Number of citable text passages in this data set.
@@ -134,19 +111,20 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
   }
 
 
-
   /** Reference image illustrating a given passage of text.
   *
   * @param psg A citable node of text.
   */
-  def imageForText(psg: CtsUrn) : Cite2Urn = {
+  def imageForText(psg: CtsUrn) : Option[Cite2Urn] = {
     //val dse = passages.filter(_.passage ~~ psg)
+    DseVector.imageForText(passages, psg)
+    /*
     val dse = passages.filter(_.passage == psg)
     dse.size match {
       case 0 => throw new Exception("DseVector: no image found for " + psg)
       case 1 => dse(0).imageroi.dropExtensions
       case _ => throw new Exception("DseVector: multiple images found for " + psg)
-    }
+    }*/
   }
 
 
@@ -170,8 +148,11 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
   * @param surf Text-bearing surface.
   */
   def textsForTbs(surf: Cite2Urn): Vector[CtsUrn] = {
+    DseVector.textsForTbs(passages, surf)
+    /*
     val tbs = passages.filter(_.surface ~~ surf)
     tbs.map(_.passage)
+    */
   }
 
   /** Set of texts illustrated by a given image.
@@ -291,6 +272,40 @@ object DseVector extends LogSupport {
     dupeCounts.map(_._1).toVector
   }
 
+
+
+  def triangleConsistencyErrors(passages: Vector[DsePassage]) : Vector[String] = {
+    val surfaces = passages.map(_.surface).distinct
+    // Collect error messages for each indexed surface:
+    val consistencyErrorMessages = for (surface <- surfaces) yield {
+      imageForTbs(passages, surface) match {
+        case None => Vector(s"No image found for surface ${surface}")
+
+        case img: Option[Cite2Urn] => {
+          debug("check " + surface + "<->" + img.get)
+          val psgs = textsForTbs(passages, surface)
+          val pairMessages = for (psg <- psgs) yield {
+            val psgImage = imageForText(passages, psg)
+            debug("\t" + psg + "<->" + psgImage )
+
+            psgImage match {
+              case None => s"Text passage ${psg} not linked to any image"
+              case psgImg: Option[Cite2Urn] => {
+                if (psgImg.get == img.get) { "" } else {
+                  val msg = s"${surface} linked to ${img.get} but ${psg} to ${psgImage}"
+                  debug("\n\nMISMATCH:  " + msg + "\n\n")
+                  msg
+                }
+              }
+            }
+          }
+          pairMessages.filter(_.nonEmpty)
+        }
+      }
+    }
+    consistencyErrorMessages.flatten
+  }
+
   /**  Find reference image for a given text-bearing surface
   * in a list of [[DsePassage]]s.
   *
@@ -308,6 +323,33 @@ object DseVector extends LogSupport {
       }
       case _ => {
         val msg = "DseVector: multiple images found for " + surface + ":\n" + referenceImg.mkString("\n")
+        None
+      }
+    }
+  }
+
+  def textsForTbs(passages: Vector[DsePassage], surf: Cite2Urn) = {
+    val tbs = passages.filter(_.surface ~~ surf)
+    tbs.map(_.passage)
+  }
+
+
+  /** Reference image illustrating a given passage of text.
+  *
+  * @param psg A citable node of text.
+  */
+  def imageForText(passages: Vector[DsePassage], psg: CtsUrn) :  Option[Cite2Urn]= {
+    val dse = passages.filter(_.passage == psg)
+    dse.size match {
+      case 1 => Some(dse(0).imageroi.dropExtensions)
+      case 0 => {
+        val msg = "DseVector: no image found for " + psg
+        warn(msg)
+        None
+      }
+      case _ => {
+        val msg = "DseVector: multiple images found for " + psg
+        warn(msg)
         None
       }
     }

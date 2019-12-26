@@ -56,7 +56,7 @@ class DseVectorSpec extends FlatSpec {
     val dse = DseVector(cexSrc)
     val expected = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA311RN_0481")
     val psg = CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A3")
-    assert(dse.imageForText(psg) == expected)
+    assert(dse.imageForText(psg).get == expected)
   }
 
   it should "find image including RoI for a given text passage" in {
