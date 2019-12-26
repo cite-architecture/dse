@@ -37,9 +37,7 @@ class DseVectorSanitySpec extends FlatSpec {
     }
 
   }
-  it should "allow only one reference image per surface" in  pending
-
-  /*{
+  it should "allow only one reference image per surface" in {
     val dupeFile = "jvm/src/test/resources/duplicateImage.cex"
     val buff = Source.fromFile(dupeFile)
     val dupeCex = buff.getLines.mkString("\n")
@@ -54,10 +52,10 @@ class DseVectorSanitySpec extends FlatSpec {
     }
   }
 
-  */
 
 
-  it should "allow multiple surfaces for a single reference image" in  pending /*{
+
+  it should "allow multiple surfaces for a single reference image" in  {
     val bifolioFile = "jvm/src/test/resources/e3triples.cex"
     val triples = Source.fromFile(bifolioFile)
     val bifolioTriples = triples.getLines.mkString("\n")
@@ -70,11 +68,9 @@ class DseVectorSanitySpec extends FlatSpec {
     val expected = Set(Cite2Urn("urn:cite2:hmt:e3.v1:109v"), Cite2Urn("urn:cite2:hmt:e3.v1:110r"))
     val actual = dse.tbsForImage(img)
     assert( actual ==  expected)
+  }
 
-
-  }*/
-
-  it should "validate consistency of indexing of texts and surfaces to reference image" in pending  /*{
+  it should "validate that a surface is consistently indexed to a single reference image" in {
     val mixedPages = "jvm/src/test/resources/inconsistent.cex"
     val buff = Source.fromFile(mixedPages)
     val mixedPageCex = buff.getLines.mkString("\n")
@@ -89,28 +85,9 @@ class DseVectorSanitySpec extends FlatSpec {
     }
   }
 
-  */
-
-  it should  "validate another kind of consistency of indexing of texts and surfaces to reference image" in pending
 
 
-
-
-  /* {
-    val mixedPages = "jvm/src/test/resources/inconsistent.cex"
-    val buff = Source.fromFile(mixedPages)
-    val mixedPageCex = buff.getLines.mkString("\n")
-    buff.close
-    try {
-      val dse = DseVector(mixedPageCex)
-      fail("Should not have created DSE from CEX with inconsistent surfaces for text on an image")
-
-    } catch {
-      case exc: Exception => {
-        assert(exc.toString.contains("One or more surfaces indexed to multiple images"))
-      }
-      case t: Throwable => fail("Should have thrown java.lang.Exception, but instead threw this: " + t)
-    }
+  it should  "validate that something else happens" in pending /*{
 
   }*/
 }

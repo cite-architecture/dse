@@ -27,13 +27,15 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
     msg
   })
 
-  require(oneImagePerSurface, {
+
+  require(DseVector.doubleIndexedSurfaces(passages).isEmpty, {
     val msg = "One or more surfaces indexed to multiple images:\n" + DseVector.doubleIndexedSurfaces(passages).mkString("\n")
     warn(msg)
     msg
   })
 
-//  require(consistentImageSurface, "Inconsistent pairing of surface and reference image: \n" + inconsistentPairs.mkString("; "))
+
+  require(triangleConsistencyErrors.isEmpty, "Inconsistent pairing of surface and reference image: \n" + triangleConsistencyErrors.mkString("\n"))
 
 
 
@@ -61,66 +63,33 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
   }
 
 
-/*
-  def inconsistentPairs : Vector[String] = {
-    val surfaces = passages.map(_.surface).distinct
-    val consistencyMessages = for (surface <- surfaces) yield {
 
-      val img = imageForTbs(surface)
-      //debug("check " + surface + "<->" + img)
-      val psgs = textsForTbs(surface)
-      val pairMessages = for (psg <- psgs) yield {
-        val psgImage = imageForText(psg)
-        //debug("\t" + psg + "<->" + psgImage )
-        if (psgImage == img) { "" } else {
-          val msg = s"${surface} linked to ${img} but ${psg} to ${psgImage}"
-          //debug("\n\nMISMATCH:  " + msg + "\n\n")
-          msg
-        }
-      }
-      pairMessages.filter(_.nonEmpty)
-    }
-    consistencyMessages.flatten
-  }
-  */
-
-  /** True if only one reference image referenced to a surface.
-  */
-  def oneImagePerSurface: Boolean = {
+  def triangleConsistencyErrors : Vector[String] = {
     val surfaces = passages.map(_.surface).distinct
-    if (surfaces.isEmpty) {
-      val msg =  "No text-bearing surfaces identified."
-      warn(msg)
-      throw new Exception(msg)
-    }
-    val tf = for (surface <- surfaces) yield {
-      try {
-        this.imageForTbs(surface)
-        true
-      } catch {
-        case t: Throwable => {
-          debug(s"${t} :: surface ${surface}")
-          false
+    val consistencyErrorMessages = for (surface <- surfaces) yield {
+
+      imageForTbs(surface) match {
+        case None => Vector(s"No image found for surface ${surface}")
+        case img: Option[Cite2Urn] => {
+
+          debug("check " + surface + "<->" + img.get)
+          val psgs = textsForTbs(surface)
+          val pairMessages = for (psg <- psgs) yield {
+            val psgImage = imageForText(psg)
+            debug("\t" + psg + "<->" + psgImage )
+
+            if (psgImage == img.get) { "" } else {
+              val msg = s"${surface} linked to ${img.get} but ${psg} to ${psgImage}"
+              debug("\n\nMISMATCH:  " + msg + "\n\n")
+              msg
+            }
+          }
+          pairMessages.filter(_.nonEmpty)
         }
       }
     }
-    (tf(0) && tf.distinct.size == 1)
+    consistencyErrorMessages.flatten
   }
-
-/*
-  def doubleIndexedSurfaces : Vector[Cite2Urn] = {
-    val surfaces = passages.map(_.surface).distinct
-    val singleImage = for (surface <- surfaces) yield {
-      try {
-        val img = imageForTbs(surface)
-        (surface, Some(img))
-      } catch {
-        case t: Throwable => (surface, None)
-      }
-    }
-    singleImage.filter(_._2 == None).map(_._1)
-  }
-*/
 
   /** Number of citable text passages in this data set.
   */
@@ -156,7 +125,10 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
     passages.map(_.imageroi.dropSelector).toSet
   }
 
-
+  /**  Find reference image for a given text-bearing surface.
+  *
+  * @param surface URN for surface to check.
+  */
   def imageForTbs(surface: Cite2Urn) : Option[Cite2Urn] = {
     DseVector.imageForTbs(passages, surface)
   }
@@ -319,7 +291,11 @@ object DseVector extends LogSupport {
     dupeCounts.map(_._1).toVector
   }
 
-  /**
+  /**  Find reference image for a given text-bearing surface
+  * in a list of [[DsePassage]]s.
+  *
+  * @param passsages List of [[DsePassage]]s.
+  * @param surface URN for surface to check.
   */
   def imageForTbs(passages: Vector[DsePassage], surface: Cite2Urn) : Option[Cite2Urn] = {
     val referenceImg = passages.filter(_.surface == surface).map(_.imageroi.dropExtensions).distinct
