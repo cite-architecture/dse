@@ -20,13 +20,11 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
 @JSExportAll case class DseVector (passages: Vector[DsePassage]) extends LogSupport {
   Logger.setDefaultLogLevel(LogLevel.DEBUG)
 
-
   require(passages.size == passages.map(_.passage).toSet.size, {
     val msg = "Duplicate text passages in constructor to DseVector:\n" + DseVector.duplicatePassages(passages).mkString("\n")
     warn(msg)
     msg
   })
-
 
   require(DseVector.doubleIndexedSurfaces(passages).isEmpty, {
     val msg = "One or more surfaces indexed to multiple images:\n" + DseVector.doubleIndexedSurfaces(passages).mkString("\n")
@@ -34,13 +32,11 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
     msg
   })
 
-
-  require(triangleConsistencyErrors.isEmpty, "Inconsistent pairing of surface and reference image: \n" + triangleConsistencyErrors.mkString("\n"))
-
+  require(triangleConsistencyErrors.isEmpty, "Inconsistent pairing of surface and text passages on it to reference images: \n" + triangleConsistencyErrors.mkString("\n"))
 
 
   /** True if ...
-  */
+
   def consistentImageSurface : Boolean = {
     val passageImage: Vector[(CtsUrn, Cite2Urn)] = {
       passages.map( p => {
@@ -61,7 +57,7 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
       (passageSurface.size == imageSurface.size) & (passages.size > 0))
 
   }
-
+  */
 
 
   def triangleConsistencyErrors : Vector[String] = {
@@ -118,13 +114,6 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
   def imageForText(psg: CtsUrn) : Option[Cite2Urn] = {
     //val dse = passages.filter(_.passage ~~ psg)
     DseVector.imageForText(passages, psg)
-    /*
-    val dse = passages.filter(_.passage == psg)
-    dse.size match {
-      case 0 => throw new Exception("DseVector: no image found for " + psg)
-      case 1 => dse(0).imageroi.dropExtensions
-      case _ => throw new Exception("DseVector: multiple images found for " + psg)
-    }*/
   }
 
 
@@ -132,12 +121,20 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
   *
   * @param psg A citable node of text.
   */
-  def imageWRoiForText(psg: CtsUrn) : Cite2Urn = {
+  def imageWRoiForText(psg: CtsUrn) : Option[Cite2Urn] = {
     val dse = passages.filter(_.passage ~~ psg)
     dse.size match {
-      case 0 => throw new Exception("DseVector: no image found for " + psg)
-      case 1 => dse(0).imageroi
-      case _ => throw new Exception("DseVector: multiple images found for " + psg)
+      case 1 => Some(dse(0).imageroi)
+      case 0 => {
+        val msg = "DseVector: no image found for " + psg
+        warn(msg)
+        None
+      }
+      case _ => {
+        val msg = "DseVector: multiple images found for " + psg
+        warn(msg)
+        None
+      }
     }
   }
 
@@ -273,7 +270,11 @@ object DseVector extends LogSupport {
   }
 
 
-
+  /** Find any instances of surface and related text passages
+  * being indexed to different reference images in a Vector of [[DsePassage]]s.
+  *
+  * @param passages Vector of [[DsePassage]]s to check.
+  */
   def triangleConsistencyErrors(passages: Vector[DsePassage]) : Vector[String] = {
     val surfaces = passages.map(_.surface).distinct
     // Collect error messages for each indexed surface:
@@ -328,11 +329,16 @@ object DseVector extends LogSupport {
     }
   }
 
+  /**  Find all text passages indexed to a given text-bearing surface
+  * in a list of [[DsePassage]]s.
+  *
+  * @param passsages List of [[DsePassage]]s.
+  * @param surface URN for surface to check.
+  */
   def textsForTbs(passages: Vector[DsePassage], surf: Cite2Urn) = {
     val tbs = passages.filter(_.surface ~~ surf)
     tbs.map(_.passage)
   }
-
 
   /** Reference image illustrating a given passage of text.
   *
@@ -374,8 +380,6 @@ object DseVector extends LogSupport {
     }
     singleImageEntries.filter(_._2 == None).map(_._1)
   }
-
-
 
 
   /** Build a [[DseVector]] from a CiteLibrary.

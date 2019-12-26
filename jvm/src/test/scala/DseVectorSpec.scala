@@ -63,7 +63,7 @@ class DseVectorSpec extends FlatSpec {
     val dse = DseVector(cexSrc)
     val expected = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.218,0.1411,0.597,0.024")
     val psg = CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A3")
-    assert(dse.imageWRoiForText(psg) == expected)
+    assert(dse.imageWRoiForText(psg).get == expected)
   }
 
 
