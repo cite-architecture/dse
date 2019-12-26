@@ -17,7 +17,7 @@ lazy val crossed = crossProject.in(file(".")).
     settings(
       name := "dse",
       organization := "edu.holycross.shot",
-      version := "5.3.0",
+      version := "6.0.0",
       licenses += ("GPL-3.0",url("https://opensource.org/licenses/gpl-3.0.html")),
       resolvers += Resolver.jcenterRepo,
       resolvers += "beta" at "http://beta.hpcc.uh.edu/nexus/content/repositories/releases",

@@ -23,7 +23,7 @@ class DseVectorSanitySpec extends FlatSpec {
 
 
 
-  "A DSE Vector" should "have no duplicate text passages" in {
+  "A DSE Vector" should "have no duplicate text passages" in  {
     val dupeFile = "jvm/src/test/resources/duplicateText.cex"
     val buff = Source.fromFile(dupeFile)
     val dupeCex = buff.getLines.mkString("\n")
@@ -37,7 +37,9 @@ class DseVectorSanitySpec extends FlatSpec {
     }
 
   }
-  it should "allow only one reference image per surface" in {
+  it should "allow only one reference image per surface" in  pending
+
+  /*{
     val dupeFile = "jvm/src/test/resources/duplicateImage.cex"
     val buff = Source.fromFile(dupeFile)
     val dupeCex = buff.getLines.mkString("\n")
@@ -51,7 +53,11 @@ class DseVectorSanitySpec extends FlatSpec {
       case t: Throwable => fail("Should have thrown java.lang.Exception, but instead threw this: " + t)
     }
   }
-  it should "allow multiple surfaces for a single reference image" in {
+
+  */
+
+
+  it should "allow multiple surfaces for a single reference image" in  pending /*{
     val bifolioFile = "jvm/src/test/resources/e3triples.cex"
     val triples = Source.fromFile(bifolioFile)
     val bifolioTriples = triples.getLines.mkString("\n")
@@ -66,8 +72,9 @@ class DseVectorSanitySpec extends FlatSpec {
     assert( actual ==  expected)
 
 
-  }/*
-  it should "validate consistency of indexing of texts and surfaces to reference image" in  {
+  }*/
+
+  it should "validate consistency of indexing of texts and surfaces to reference image" in pending  /*{
     val mixedPages = "jvm/src/test/resources/inconsistent.cex"
     val buff = Source.fromFile(mixedPages)
     val mixedPageCex = buff.getLines.mkString("\n")
@@ -80,9 +87,16 @@ class DseVectorSanitySpec extends FlatSpec {
       case exc: Exception => assert(exc.toString.contains("One or more surfaces indexed to multiple images"))
       case t: Throwable => fail("Should have thrown java.lang.Exception, but instead threw this: " + t)
     }
-  }*/
+  }
 
-  it should  "validate consistency of indexing of texts and surfaces to reference image" in  {
+  */
+
+  it should  "validate another kind of consistency of indexing of texts and surfaces to reference image" in pending
+
+
+
+
+  /* {
     val mixedPages = "jvm/src/test/resources/inconsistent.cex"
     val buff = Source.fromFile(mixedPages)
     val mixedPageCex = buff.getLines.mkString("\n")
@@ -98,5 +112,5 @@ class DseVectorSanitySpec extends FlatSpec {
       case t: Throwable => fail("Should have thrown java.lang.Exception, but instead threw this: " + t)
     }
 
-  }
+  }*/
 }

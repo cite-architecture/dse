@@ -43,7 +43,13 @@ class DseVectorSpec extends FlatSpec {
     val dse = DseVector(cexSrc)
     def surface = Cite2Urn("urn:cite2:hmt:msA.v1:311r")
     val expected = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA311RN_0481")
-    assert(dse.imageForTbs(surface) == expected)
+    assert(dse.imageForTbs(surface).get == expected)
+  }
+
+  it should "return None if no matching image found" in {
+    val dse = DseVector(cexSrc)
+    def surface = Cite2Urn("urn:cite2:hmt:msA.v1:NON_EXISTENT")
+    assert(dse.imageForTbs(surface) == None)
   }
 
   it should "find a reference image for a given text passage" in {

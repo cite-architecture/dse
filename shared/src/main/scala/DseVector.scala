@@ -18,14 +18,22 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
 * @param passages Vector of [[DsePassage]] objects.
 */
 @JSExportAll case class DseVector (passages: Vector[DsePassage]) extends LogSupport {
+  Logger.setDefaultLogLevel(LogLevel.DEBUG)
 
 
+  require(passages.size == passages.map(_.passage).toSet.size, {
+    val msg = "Duplicate text passages in constructor to DseVector:\n" + DseVector.duplicatePassages(passages).mkString("\n")
+    warn(msg)
+    msg
+  })
 
-  require(passages.size == passages.map(_.passage).toSet.size, "Duplicated passages :  " + duplicateTexts)
+  require(oneImagePerSurface, {
+    val msg = "One or more surfaces indexed to multiple images:\n" + DseVector.doubleIndexedSurfaces(passages).mkString("\n")
+    warn(msg)
+    msg
+  })
 
-  require(oneImagePerSurface, "One or more surfaces indexed to multiple images:  " + doubleIndexedSurfaces.mkString(", "))
-
-  require(consistentImageSurface, "Inconsistent pairing of surface and reference image: \n" + inconsistentPairs.mkString("; "))
+//  require(consistentImageSurface, "Inconsistent pairing of surface and reference image: \n" + inconsistentPairs.mkString("; "))
 
 
 
@@ -52,28 +60,8 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
 
   }
 
-  /*
-  def consistentImageSurfaceOrig : Boolean = {
-    debug("Checking consistent image surface.")
-    debug(s"There are ${passages.size} DSE records.")
-    val tf = for (psg <- passages.map(_.passage)) yield  {
-      val t1 = Calendar.getInstance().getTimeInMillis()
-      val surf = tbsForText(psg)
-      val t2 = Calendar.getInstance().getTimeInMillis()
-      val img = imageForText(psg)
-      val t3 = Calendar.getInstance().getTimeInMillis()
-      val surfImg = imageForTbs(surf)
-      val t4 = Calendar.getInstance().getTimeInMillis()
-      //debug(s"tbsForText: ${t2 - t1}")
-      //debug(s"imageForText: ${t3 - t2}")
-      //debug(s"imageForTbs: ${t4 - t3}")
-      (surfImg == img)
-    }
-    debug("Done")
-    (tf(0) && tf.distinct.size == 1)
-  }
-  */
 
+/*
   def inconsistentPairs : Vector[String] = {
     val surfaces = passages.map(_.surface).distinct
     val consistencyMessages = for (surface <- surfaces) yield {
@@ -94,18 +82,24 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
     }
     consistencyMessages.flatten
   }
+  */
 
   /** True if only one reference image referenced to a surface.
   */
   def oneImagePerSurface: Boolean = {
     val surfaces = passages.map(_.surface).distinct
+    if (surfaces.isEmpty) {
+      val msg =  "No text-bearing surfaces identified."
+      warn(msg)
+      throw new Exception(msg)
+    }
     val tf = for (surface <- surfaces) yield {
       try {
-        imageForTbs(surface)
+        this.imageForTbs(surface)
         true
       } catch {
         case t: Throwable => {
-          debug(s"${t} :: ${surface}")
+          debug(s"${t} :: surface ${surface}")
           false
         }
       }
@@ -113,6 +107,7 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
     (tf(0) && tf.distinct.size == 1)
   }
 
+/*
   def doubleIndexedSurfaces : Vector[Cite2Urn] = {
     val surfaces = passages.map(_.surface).distinct
     val singleImage = for (surface <- surfaces) yield {
@@ -125,12 +120,8 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
     }
     singleImage.filter(_._2 == None).map(_._1)
   }
+*/
 
-  def duplicateTexts: Vector[CtsUrn] = {
-    val urns = passages.map(_.passage)
-    val dupeCounts = urns.groupBy(u => u).filter( _._2.size > 1)
-    dupeCounts.map(_._1).toVector
-  }
   /** Number of citable text passages in this data set.
   */
   def size : Int = {
@@ -165,22 +156,12 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
     passages.map(_.imageroi.dropSelector).toSet
   }
 
-  /** Reference image illustrating a given surface.
-  *  All DSE records for a surface should refer to a
-  * single image.
-  *
-  * @param surface A text-bearing surface.
-  */
-  def imageForTbs(surface: Cite2Urn) : Cite2Urn = {
-    val referenceImg = passages.filter(_.surface == surface).map(_.imageroi.dropExtensions).distinct
-    referenceImg.size match {
-      case 0 => throw new Exception("DseVector: no image found for " + surface)
-      case 1 => referenceImg(0)
-      case _ => {
-        throw new Exception("DseVector: multiple images found for " + surface + ":  " + referenceImg)
-      }
-    }
+
+  def imageForTbs(surface: Cite2Urn) : Option[Cite2Urn] = {
+    DseVector.imageForTbs(passages, surface)
   }
+
+
 
   /** Reference image illustrating a given passage of text.
   *
@@ -243,16 +224,24 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
   }
 
 
-
-  def tbsForText(psg: CtsUrn): Cite2Urn = {
-    //val records = passages.filter(_.passage ~~ psg)
+  /** URN for the text-bearing surface carrying a given text passage.
+  *
+  * @param psg A passage of text found on a single text-bearing surface.
+  */
+  def tbsForText(psg: CtsUrn): Option[Cite2Urn] = {
     val records = passages.filter(_.passage == psg)
     val tbs = records.map(_.surface).distinct
     tbs.size match {
-      case 0 => throw new Exception("No text-bearing surface found for " + psg )
-      case 1 => tbs(0)
-      case _ => throw new Exception("CtsUrn " + psg + " is not specific enough: " + tbs.size + " text-bearing surfaces found (" + tbs.mkString(", ") +")" )
-
+      case 0 => {
+        warn("No text-bearing surface found for " + psg )
+        None
+      }
+      case 1 => Some(tbs(0))
+      case _ => {
+        val msg = "CtsUrn " + psg + " is not specific enough: " + tbs.size  + " text-bearing surfaces found (" + tbs.mkString(", ") + ")"
+        warn(msg)
+        None
+      }
     }
   }
 
@@ -264,7 +253,6 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
   * @param surfaceUrn The surface to illustrate.
   * @param baseUrl Home URL, as a String, for an installation
   * of the CITE Image Citation Tool (version 2).
-  *
   */
   def ictForSurface(surfaceUrn: Cite2Urn, baseUrl: String = "http://www.homermultitext.org/ict2/") : String = {
     val rois = passages.filter(_.surface == surfaceUrn).map(_.imageroi)
@@ -316,7 +304,60 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
 
 /** Factory for making [[DseVector]]s from various sources.
 */
-object DseVector {
+object DseVector extends LogSupport {
+  Logger.setDefaultLogLevel(LogLevel.DEBUG)
+
+
+  /** Find any instances of a text passages appearing more than
+  * once in a Vector of [[DsePassage]]s.
+  *
+  * @param dsePassages Vector of [[DsePassage]]s to test.
+  */
+  def duplicatePassages(dsePassages: Vector[DsePassage]): Vector[CtsUrn] = {
+    val urns = dsePassages.map(_.passage)
+    val dupeCounts = urns.groupBy(u => u).filter( _._2.size > 1)
+    dupeCounts.map(_._1).toVector
+  }
+
+  /**
+  */
+  def imageForTbs(passages: Vector[DsePassage], surface: Cite2Urn) : Option[Cite2Urn] = {
+    val referenceImg = passages.filter(_.surface == surface).map(_.imageroi.dropExtensions).distinct
+    referenceImg.size match {
+      case 1 => Some(referenceImg(0))
+      case 0 => {
+        val msg = "DseVector: no image found for " + surface
+        warn(msg)
+        None
+      }
+      case _ => {
+        val msg = "DseVector: multiple images found for " + surface + ":\n" + referenceImg.mkString("\n")
+        None
+      }
+    }
+  }
+
+  /** Find any instances of a text-bearing surface indexed to more than
+  * one reference image in a Vector of [[DsePassage]]s.
+  *
+  * @param dsePassages Vector of [[DsePassage]]s to test.
+  */
+  def doubleIndexedSurfaces(passages: Vector[DsePassage]) : Vector[Cite2Urn] = {
+    // 1. Get unique set of surface IDs
+    val surfaces = passages.map(_.surface).distinct
+    // 2.
+    val singleImageEntries = for (surface <- surfaces) yield {
+      try {
+        val img = imageForTbs(passages, surface)
+        (surface, img)
+      } catch {
+        case t: Throwable => (surface, None)
+      }
+    }
+    singleImageEntries.filter(_._2 == None).map(_._1)
+  }
+
+
 
 
   /** Build a [[DseVector]] from a CiteLibrary.
@@ -347,7 +388,7 @@ object DseVector {
   }
 
 
-  /** Create a [[DseVector]] from a CEX source with default
+  /** Create a [[DseVector]] from CEX source with default
   * values for delimiter strings.
   * The CEX source must define a CITE Library.
   *
@@ -357,7 +398,36 @@ object DseVector {
     cex(cexString, "#", ",")
   }
 
+  /** Uncritically create a Vector of [[DsePassage]]s from a
+  * CEX string defining a CITE library with DSE content.
+  *
+  * @param cexSrc CEX data.
+  * @param delimiter Primary delimiter for CEX.
+  * @param delimiter2 Secondary delimiter for CEX.
+  */
+  def rawFromCex(cexSrc : String, delimiter: String = "#", delimiter2: String = ","): Vector[DsePassage] = {
+    debug("Uncritically building Vector of DsePassages from cex string.")
+    val citeLib = CiteLibrary.cex(cexSrc, delimiter, delimiter2)
+    val citeObjRepo = citeLib.collectionRepository.get
+    // 1. Find relevant collections in your library.
+    val dseCollections = citeLib.collectionsForModel(dseModel)
+    debug(s"Collections implementing ${dseModel} : " + dseCollections.size + " (" +  dseCollections.mkString(", ")  + ")")
 
+    // 2. construct DseObjects for all collections
+    // implementing the model:
+    val dseObjs = for (coll <- dseCollections ) yield {
+      val ids = citeObjRepo.collectionsMap(coll)
+      // and make full ojbects from them:
+      val objs = for (id <- ids) yield {
+        citeObjRepo.citableObject(id)
+      }
+      objs
+    }
+    debug("Created " + dseObjs.flatten.size +  " citable objects.")
+    val dses = dseObjs.flatten.map(DseVector.fromCitableObject(_))
+    debug("Converted to " + dses.size + " DseObjs.")
+    dses
+  }
 
   /** Create a [[DseVector]] from a CEX source.
   * The CEX source must define a CITE Library.
@@ -365,30 +435,8 @@ object DseVector {
   * @param cexSrc CEX data.
   */
   def cex(cexSrc : String, delimiter: String = "#", delimiter2: String = ","): DseVector = {
-    val citeLib = CiteLibrary.cex(cexSrc, delimiter, delimiter2)
-    val citeObjRepo = citeLib.collectionRepository.get
-
-    /*
-    val dsePsgVects = for (coll <- dseCollections) yield {
-      val dseObjs = citeLib.collectionRepository.get ~~ coll
-      dseObjs.map(DseVector.fromCitableObject(_))
-    }*/
-
-    // 1. Find relevant collections in your library.
-    val dseCollections = citeLib.collectionsForModel(dseModel)
-    // 2. get a map of object Idss
-    val cMap = citeObjRepo.collectionsMap
-    val dseObjs = for (coll <- dseCollections ) yield {
-      val ids = cMap(coll)
-      // and make full ojbects from them:
-      val objs = for (id <- ids) yield {
-        citeObjRepo.citableObject(id)
-      }
-      objs
-    }
-    val dVect = DseVector(dseObjs.flatten.map(DseVector.fromCitableObject(_)))
-    //DseVector(dsePsgVects.flatten)
-    dVect
+    val psgVect = rawFromCex(cexSrc, delimiter, delimiter2)
+    DseVector(psgVect)
   }
 
   /** Construct a [[DsePassage]] from a CiteObject belonging to a
@@ -406,9 +454,15 @@ object DseVector {
     DsePassage(obj.urn, obj.label, passage, image,surface)
   }
 
-
-  def fromTextTriples(cex: String, dseCollection : Cite2Urn) : DseVector = {
-    val goodLines = cex.split("\n").toVector.tail.filter(_.nonEmpty)
+  /** Uncritically create a Vector of [[DsePassage]]s from a
+  * CEX string with DSE triples.
+  *
+  * @param cexStr CEX data.
+  * @param dseCollection Cite2Urn for the CITE collection newly
+  * created entries.
+  */
+  def rawFromTextTriples(cexStr: String, dseCollection : Cite2Urn) : Vector[DsePassage] = {
+    val goodLines = cexStr.split("\n").toVector.tail.filter(_.nonEmpty)
     val indexed = goodLines.zipWithIndex
     val v = for ( (l,i) <- indexed) yield {
       //urn: Cite2Urn, label: String, passage: CtsUrn, imageroi: Cite2Urn, surface: Cite2Urn
@@ -422,6 +476,18 @@ object DseVector {
       val surface = Cite2Urn(cols(2))
       DsePassage(dsePsg, label, psg, img, surface)
     }
+    v
+  }
+
+  /** Create a [[DseVector]] from CEX data for triples.  New
+  * DSE records are created in a specified collection.
+  *
+  * @param cexStr CEX data for DSE triples.
+  * @param dseCollection Cite2Urn for the collection for
+  * newly created [[DsePassage]]s.
+  */
+  def fromTextTriples(cexStr: String, dseCollection : Cite2Urn) : DseVector = {
+    val v = rawFromTextTriples(cexStr, dseCollection)
     DseVector(v)
   }
 
