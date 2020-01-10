@@ -276,35 +276,19 @@ object DseVector extends LogSupport {
   * @param passages Vector of [[DsePassage]]s to check.
   */
   def triangleConsistencyErrors(passages: Vector[DsePassage]) : Vector[String] = {
-    val surfaces = passages.map(_.surface).distinct
-    // Collect error messages for each indexed surface:
-    val consistencyErrorMessages = for (surface <- surfaces) yield {
-      imageForTbs(passages, surface) match {
-        case None => Vector(s"No image found for surface ${surface}")
 
-        case img: Option[Cite2Urn] => {
-          debug("check " + surface + "<->" + img.get)
-          val psgs = textsForTbs(passages, surface)
-          val pairMessages = for (psg <- psgs) yield {
-            val psgImage = imageForText(passages, psg)
-            debug("\t" + psg + "<->" + psgImage )
+      val dups: Vector[(Cite2Urn, Vector[(Cite2Urn, Cite2Urn)])] = passages.map(p => {
+        (p.surface, p.imageroi.dropExtensions) 
+      }).distinct.groupBy( _._1 ).filter(_._2.size > 1).toVector
 
-            psgImage match {
-              case None => s"Text passage ${psg} not linked to any image"
-              case psgImg: Option[Cite2Urn] => {
-                if (psgImg.get == img.get) { "" } else {
-                  val msg = s"${surface} linked to ${img.get} but ${psg} to ${psgImage}"
-                  debug("\n\nMISMATCH:  " + msg + "\n\n")
-                  msg
-                }
-              }
-            }
-          }
-          pairMessages.filter(_.nonEmpty)
-        }
-      }
-    }
-    consistencyErrorMessages.flatten
+      dups.map( d => {
+         val thisSurface: Cite2Urn = d._1
+         val theseImages: Vector[Cite2Urn] = d._2.map(_._2)
+         val errorVec: Vector[String] = theseImages.map( ti => {
+          s"${thisSurface} <-> ${ti}"
+         })
+         Vector("One surface, more than one image:\n") ++ errorVec
+      }).flatten
   }
 
   /**  Find reference image for a given text-bearing surface
@@ -367,20 +351,10 @@ object DseVector extends LogSupport {
   * @param dsePassages Vector of [[DsePassage]]s to test.
   */
   def doubleIndexedSurfaces(passages: Vector[DsePassage]) : Vector[Cite2Urn] = {
-    // 1. Get unique set of surface IDs
-    val surfaces = passages.map(_.surface).distinct
-    // 2.
-    val singleImageEntries = for (surface <- surfaces) yield {
-      try {
-        val img = imageForTbs(passages, surface)
-        (surface, img)
-      } catch {
-        case t: Throwable => (surface, None)
-      }
-    }
-    singleImageEntries.filter(_._2 == None).map(_._1)
+    passages.map(p => {
+      (p.surface, p.imageroi.dropExtensions) 
+    }).distinct.groupBy( _._1 ).filter(_._2.size > 1).map(_._1).toVector
   }
-
 
   /** Build a [[DseVector]] from a CiteLibrary.
   *

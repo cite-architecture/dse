@@ -1,5 +1,7 @@
 # `dse`: release notes
 
+**6.0.3** Improved time for validting DSEVectors.
+
 **6.0.2** Really properly publish version 6.0.0  with logging set to `info` level.
 
 **6.0.1** Republish version 6.0.0 with logging set to `info` level.
