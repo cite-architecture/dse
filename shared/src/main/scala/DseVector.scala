@@ -18,7 +18,7 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
 * @param passages Vector of [[DsePassage]] objects.
 */
 @JSExportAll case class DseVector (passages: Vector[DsePassage]) extends LogSupport {
-  Logger.setDefaultLogLevel(LogLevel.DEBUG)
+  Logger.setDefaultLogLevel(LogLevel.INFO)
 
   require(passages.size == passages.map(_.passage).toSet.size, {
     val msg = "Duplicate text passages in constructor to DseVector:\n" + DseVector.duplicatePassages(passages).mkString("\n")
@@ -255,7 +255,7 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
 /** Factory for making [[DseVector]]s from various sources.
 */
 object DseVector extends LogSupport {
-  Logger.setDefaultLogLevel(LogLevel.DEBUG)
+  Logger.setDefaultLogLevel(LogLevel.INFO)
 
 
   /** Find any instances of a text passages appearing more than

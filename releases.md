@@ -1,5 +1,9 @@
 # `dse`: release notes
 
+**6.0.2** Really properly publish version 6.0.0  with logging set to `info` level.
+
+**6.0.1** Republish version 6.0.0 with logging set to `info` level.
+
 **6.0.0** API-breaking update.  Functions retrieving a URN for an image or text-bearing surface in DSE relations now return `Option[Cite2Urn]` rather than returning `Cite2Urn` and throwing Exceptions.  `DseVector` object adds a suite of functions for evaluating a Vector of `DsePassage`  objects that can be used to evaluate data prior to attempting to construct a `DseVector`.  Behavior of `DseVector` is unchanged in that it *will* throw an Exception if bad input data are provided to its constructor.
 
 **5.3.0** Add logging support.
