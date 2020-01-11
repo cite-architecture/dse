@@ -53,6 +53,83 @@ urn:cite2:hmt:dse.v1:311v.main7#Main scholion 7, 311 verso#urn:cts:greekLit:tlg5
 
 """
 
+val noDseCex = """
+#!citelibrary
+
+name#Sample DSE data
+urn#urn:cite2:cite:cextest.2017_1:dse
+license#Creative Commons Attribution, Non-Commercial 4.0 License <https://creativecommons.org/licenses/by-nc/4.0/>.
+
+#!citecollections
+URN#Description#Labelling property#Ordering property#License
+urn:cite2:hmt:dse.v1:#DSE relations of the Venetus A manuscriptscript#urn:cite2:hmt:dse.v1.label:#urn:cite2:hmt:dse.v1.seq:#CC-attribution-share-alike
+
+#!citeproperties
+Property#Label#Type#Authority list
+urn:cite2:hmt:dse.v1.urn:#DSE record#Cite2Urn#
+urn:cite2:hmt:dse.v1.label:#Label#String#
+urn:cite2:hmt:dse.v1.passage:#Text passage#CtsUrn#
+urn:cite2:hmt:dse.v1.imageroi:#Image region of interest#Cite2Urn#
+urn:cite2:hmt:dse.v1.surface:#artifact surface#Cite2Urn#
+urn:cite2:hmt:dse.v1.seq:#sequence#number#
+
+#!datamodels
+Collection#Model#Label#Description
+urn:cite2:hmt:dsex.v1:#urn:cite2:cite:datamodels.v1:dsemodel#DSE model#Diplomatic Scholarly Edition (DSE) model.  See documentation at <https://github.com/cite-architecture/dse>.
+
+#!citedata
+urn#label#passage#imageroi#surface#seq
+urn:cite2:hmt:dse.v1:311r.main1#Main scholion 1, 311 recto#urn:cts:greekLit:tlg5026.msA.hmt:24.A2#urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.216,0.0811,0.61,0.0751#urn:cite2:hmt:msA.v1:311r#1
+urn:cite2:hmt:dse.v1:311r.main2#Main scholion 2, 311 recto#urn:cts:greekLit:tlg5026.msA.hmt:24.A3#urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.218,0.1411,0.597,0.024#urn:cite2:hmt:msA.v1:311r#2
+urn:cite2:hmt:dse.v1:311r.main3#Main scholion 3, 311 recto#urn:cts:greekLit:tlg5026.msA.hmt:24.A4#urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.216,0.1509,0.615,0.1051#urn:cite2:hmt:msA.v1:311r#3
+
+"""
+val noDseModelCex = """
+#!citelibrary
+
+name#Sample DSE data
+urn#urn:cite2:cite:cextest.2017_1:dse
+license#Creative Commons Attribution, Non-Commercial 4.0 License <https://creativecommons.org/licenses/by-nc/4.0/>.
+
+#!citecollections
+URN#Description#Labelling property#Ordering property#License
+urn:cite2:hmt:dse.v1:#DSE relations of the Venetus A manuscriptscript#urn:cite2:hmt:dse.v1.label:#urn:cite2:hmt:dse.v1.seq:#CC-attribution-share-alike
+
+#!citeproperties
+Property#Label#Type#Authority list
+urn:cite2:hmt:dse.v1.urn:#DSE record#Cite2Urn#
+urn:cite2:hmt:dse.v1.label:#Label#String#
+urn:cite2:hmt:dse.v1.passage:#Text passage#CtsUrn#
+urn:cite2:hmt:dse.v1.imageroi:#Image region of interest#Cite2Urn#
+urn:cite2:hmt:dse.v1.surface:#artifact surface#Cite2Urn#
+urn:cite2:hmt:dse.v1.seq:#sequence#number#
+
+
+#!citedata
+urn#label#passage#imageroi#surface#seq
+urn:cite2:hmt:dse.v1:311r.main1#Main scholion 1, 311 recto#urn:cts:greekLit:tlg5026.msA.hmt:24.A2#urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.216,0.0811,0.61,0.0751#urn:cite2:hmt:msA.v1:311r#1
+urn:cite2:hmt:dse.v1:311r.main2#Main scholion 2, 311 recto#urn:cts:greekLit:tlg5026.msA.hmt:24.A3#urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.218,0.1411,0.597,0.024#urn:cite2:hmt:msA.v1:311r#2
+urn:cite2:hmt:dse.v1:311r.main3#Main scholion 3, 311 recto#urn:cts:greekLit:tlg5026.msA.hmt:24.A4#urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.216,0.1509,0.615,0.1051#urn:cite2:hmt:msA.v1:311r#3
+
+"""
+
+val noCollectionsAtAll = """
+#!cexversion
+3.0
+
+#!citelibrary
+name#Fragment from Herodotus' Histories, Book VIII on Papyrus Oxyrhynchus 2099, dated to early 2nd century AD.
+urn#urn:cite2:cex:fufolio.2018a:POxy2099
+license#CC Share Alike.  For details, see more info.
+
+
+#!ctscatalog
+urn#citationScheme#groupName#workTitle#versionLabel#exemplarLabel#online#lang
+urn:cts:greekLit:tlg0016.tlg001.eng:#book/section#Herodotus#Histories#English, trans. Godley##true#eng
+
+#!ctsdata
+urn:cts:greekLit:tlg0016.tlg001.eng:8.22#Themistocles however selected those ships of the Athenians which sailed best, and went round to the springs of drinking-water, cutting inscriptions on the stones there, which the Ionians read when they came to Artemision on the following day. These inscriptions ran thus: "Ionians, ye act not rightly in making expedition against the fathers of your race and endeavouring to enslave Hellas. Best of all were it that ye should come and be
+"""
 
   val lib = CiteLibrary(cexSrc)
 
@@ -62,11 +139,22 @@ urn:cite2:hmt:dse.v1:311v.main7#Main scholion 7, 311 verso#urn:cts:greekLit:tlg5
     assert(dsev.size == expectedSize)
   }
 
-  it should "object if no collections are configured for DSE model" in pending
+  it should "return an empty vector if there are no objects in a collection implementing the DSE model" in {
+  	val noDSElib = CiteLibrary(noDseCex)
+  	val dsev = DseVector.fromCiteLibrary(noDSElib)
+  	assert(dsev.size == 0)
+  }
+ 
+ it should "return an empty vector if there is no DSE model defined" in {
+  	val noDSElib = CiteLibrary(noDseModelCex)
+  	val dsev = DseVector.fromCiteLibrary(noDSElib)
+  	assert(dsev.size == 0)
+  } 
 
-  it should "return an empty vector if there are no objects in a collection implementing the DSE model" in pending
-  
-
-
+it should "return an empty vector if there are no collections at all defined" in {
+  	val noDSElib = CiteLibrary(noCollectionsAtAll)
+  	val dsev = DseVector.fromCiteLibrary(noDSElib)
+  	assert(dsev.size == 0)
+  } 
 
 }

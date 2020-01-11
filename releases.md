@@ -1,5 +1,7 @@
 # `dse`: release notes
 
+**6.0.4** Will not throw an exception when asked to create a DSEVector from a library that has no DSE object, or one that has no DSE model declared, or one with no CiteCollectionRepository at all. Gives an empty Vector back instead, in each case.
+
 **6.0.3** Improved time for validting DSEVectors.
 
 **6.0.2** Really properly publish version 6.0.0  with logging set to `info` level.
