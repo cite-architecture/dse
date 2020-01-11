@@ -157,4 +157,9 @@ it should "return an empty vector if there are no collections at all defined" in
   	assert(dsev.size == 0)
   } 
 
+it should "happily create an empty DseVector" in {
+  val dsev = DseVector(Vector[DsePassage]())
+  assert(dsev.size == 0)
+}
+
 }
