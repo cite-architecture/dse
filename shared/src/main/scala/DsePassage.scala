@@ -5,6 +5,9 @@ import edu.holycross.shot.citeobj._
 import edu.holycross.shot.citerelation._
 import edu.holycross.shot.scm._
 
+
+import edu.holycross.shot.citebinaryimage._
+
 import scala.scalajs.js
 import scala.scalajs.js.annotation._
 
@@ -22,6 +25,20 @@ import scala.scalajs.js.annotation._
 @JSExportAll case class DsePassage (urn: Cite2Urn, label: String, passage: CtsUrn, imageroi: Cite2Urn, surface: Cite2Urn) {
   def cex(delimiter: String = "#") = {
     s"${urn}${delimiter}${label}${delimiter}${passage}${delimiter}${imageroi}${delimiter}${surface}"
+  }
+
+
+  /** Formats markdown string for proofreading.  Assumes layout of
+  * file system on IIIF service mirrors URN values.
+  */
+  def markdown(
+    baseUrl : String  = "http://www.homermultitext.org/iipsrv?",
+    basePath: String = "/project/homer/pyramidal/deepzoom/"
+  ): String = {
+    val extension =  Vector(imageroi.namespace, imageroi.collection, imageroi.version).mkString("/") + "/"
+    val fullPath = basePath + extension
+    val bis  = IIIFApi(baseUrl, fullPath)
+    "- Compare text " + passage + " to image " + bis.linkedMarkdownImage(imageroi)
   }
 }
 
