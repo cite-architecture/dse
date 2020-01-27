@@ -9,14 +9,14 @@ import scala.io.Source
 */
 class DseVectorRawSpec extends FlatSpec {
 
-
+/*
   val cexSrcFile1= "jvm/src/test/resources/hmt-2018e-errors.cex"
   val buff1 = Source.fromFile(cexSrcFile1)
   val cexSrc = buff1.getLines.mkString("\n")
   buff1.close
   val psgVector = DseVector.rawFromCex(cexSrc)
-
-  "The DSEVector object" should "uncritically create a Vector of DsePassages from CEX source" in {
+*/
+  "The DSEVector object" should "uncritically create a Vector of DsePassages from CEX source" in  pending /*{
     psgVector match {
       case v: Vector[DsePassage] => assert(true)
       case _ => fail("Should have created a Vector of DsePassages")
@@ -24,12 +24,12 @@ class DseVectorRawSpec extends FlatSpec {
     println("SIZE: = " + psgVector.size)
     assert(psgVector.nonEmpty, "Should have created some DsePassages")
   }
-
-  it should "find duplicate text passages" in {
+*/
+  it should "find duplicate text passages" in pending /* {
     val dupes = DseVector.duplicatePassages(psgVector)
     println("DUPES: " + dupes)
     assert(dupes.nonEmpty, "Should have found some duplicates")
-  }
+  }*/
 
   it should "find surfaces indexed to more than one image" in pending
 

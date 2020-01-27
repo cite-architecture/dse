@@ -105,7 +105,7 @@ class DseVectorSpec extends FlatSpec {
   it should "compose ICT URLs for a given surface" in {
     val pg = Cite2Urn("urn:cite2:hmt:msA.v1:311r")
     val dse = DseVector(cexSrc)
-    val actual = dse.ictForSurface(pg)
+    val actual = dse.ictForSurface(pg).get
 
     val expected = "http://www.homermultitext.org/ict2/?urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.218,0.1411,0.597,0.024&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.216,0.1509,0.615,0.1051&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.643,0.2523,0.186,0.024&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.648,0.2763,0.188,0.0578&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.64,0.3326,0.196,0.0848&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.201,0.4129,0.63,0.2995&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.202,0.6922,0.62,0.0345&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.206,0.7102,0.617,0.0616&urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.201,0.7545,0.639,0.0818"
 
@@ -125,7 +125,7 @@ class DseVectorSpec extends FlatSpec {
     val scholion = CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A3")
     val dse = DseVector(cexSrc)
     val expected = "http://www.homermultitext.org/ict2/?urn=urn:cite2:hmt:vaimg.2017a:VA311RN_0481@0.218,0.1411,0.597,0.024"
-    assert(dse.ictForText(scholion) == expected)
+    assert(dse.ictForText(scholion).get == expected)
   }
 
   it should "composite an ICT URL for an image when no overlays" in {

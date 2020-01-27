@@ -204,12 +204,16 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
   * @param baseUrl Home URL, as a String, for an installation
   * of the CITE Image Citation Tool (version 2).
   */
-  def ictForSurface(surfaceUrn: Cite2Urn, baseUrl: String = "http://www.homermultitext.org/ict2/") : String = {
+  def ictForSurface(
+    surfaceUrn: Cite2Urn,
+    baseUrl: String = "http://www.homermultitext.org/ict2/"
+  ) : Option[String] = {
     val rois = passages.filter(_.surface == surfaceUrn).map(_.imageroi)
     if (rois.size > 0) {
-      baseUrl + "?urn=" + rois.mkString("&urn=")
+      Some(baseUrl + "?urn=" + rois.mkString("&urn="))
     } else {
-      baseUrl
+      //baseUrl + "?urn=" +  imageForTbs(surfaceUrn)
+      None
     }
   }
 
@@ -242,12 +246,12 @@ import wvlet.log.LogFormatter.SourceCodeLogFormatter
   * of the CITE Image Citation Tool (version 2).
   *
   */
-  def ictForText(psg: CtsUrn, baseUrl: String = "http://www.homermultitext.org/ict2/") : String = {
+  def ictForText(psg: CtsUrn, baseUrl: String = "http://www.homermultitext.org/ict2/") : Option[String] = {
     val rois = passages.filter(_.passage == psg).map(_.imageroi)
     if (rois.size > 0) {
-      baseUrl + "?urn=" + rois.mkString("&urn=")
+      Some(baseUrl + "?urn=" + rois.mkString("&urn="))
     } else {
-      baseUrl
+      None
     }
   }
 }
@@ -278,7 +282,7 @@ object DseVector extends LogSupport {
   def triangleConsistencyErrors(passages: Vector[DsePassage]) : Vector[String] = {
 
       val dups: Vector[(Cite2Urn, Vector[(Cite2Urn, Cite2Urn)])] = passages.map(p => {
-        (p.surface, p.imageroi.dropExtensions) 
+        (p.surface, p.imageroi.dropExtensions)
       }).distinct.groupBy( _._1 ).filter(_._2.size > 1).toVector
 
       dups.map( d => {
@@ -352,7 +356,7 @@ object DseVector extends LogSupport {
   */
   def doubleIndexedSurfaces(passages: Vector[DsePassage]) : Vector[Cite2Urn] = {
     passages.map(p => {
-      (p.surface, p.imageroi.dropExtensions) 
+      (p.surface, p.imageroi.dropExtensions)
     }).distinct.groupBy( _._1 ).filter(_._2.size > 1).map(_._1).toVector
   }
 

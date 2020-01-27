@@ -7,17 +7,18 @@ import scala.io.Source
 
 class DseVectorErrorsSpec extends FlatSpec {
 
+/*
   val cexSrcFile1= "jvm/src/test/resources/hmt-2018e-errors.cex"
   val buff1 = Source.fromFile(cexSrcFile1)
   val cexSrc = buff1.getLines.mkString("\n")
   buff1.close
   val psgVector = DseVector.rawFromCex(cexSrc)
+*/
 
 
 
 
-
-  "A Digital Scholarly Edition" should "log duplicate text entries in source DsePassages" in {
+  "A Digital Scholarly Edition" should "log duplicate text entries in source DsePassages" in pending/* {
     try {
       val dseV = DseVector(psgVector)
       fail("Should have thrown an Exception")
@@ -27,6 +28,6 @@ class DseVectorErrorsSpec extends FlatSpec {
         fail("Should have thrown an IllegalArgumentException, but threw " + t)
       }
     }
-  }
+  }*/
 
 }
