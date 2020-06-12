@@ -1,6 +1,8 @@
 # `dse`: release notes
 
-**7.0.0** API-breaking correction to display in ICT2 when no indexed passages on a surface.
+**7.1.0**: Adds support for SJS 1.0.0.
+
+**7.0.0**: API-breaking correction to display in ICT2 when no indexed passages on a surface.
 
 **6.1.0** Adds new `markdown` methods in `DsePassage` class.
 

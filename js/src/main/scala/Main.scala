@@ -1,11 +1,10 @@
 package edu.holycross.shot.dse
 
-import scala.scalajs.js
 import edu.holycross.shot.cite._
 import edu.holycross.shot.cex._
 
-object Main extends js.JSApp {
-  def main(): Unit = {
+object Main  {
+  def main(args: Array[String]): Unit = {
     val cexSrc = """
 
 #!citelibrary
