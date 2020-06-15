@@ -3,13 +3,13 @@ title:  "DseVector: quick start"
 layout: page
 ---
 
-**Version @VERSION@**
+**Version 7.1.0**
 
 
 Import the library:
 
 
-```scala mdoc
+```scala
 import edu.holycross.shot.dse._
 ```
 
@@ -20,7 +20,7 @@ You can create a `DseVector` from a collectoin in CiteLibrary, or diretly from C
 ## Buiding from CEX data
 
 
-```scala mdoc:silent
+```scala
 
 val cex = """
 #!citelibrary
@@ -57,7 +57,7 @@ val dse1 = DseVector(cex)
 In the JVM environment, you can use the `DseSource` object's `fromFile` method to instantiate a `DseVector` directly from a file in CEX format.  (This is a small sample with a total of 17 text passages on 2 pages.  We'll use this sample data set in the following examples.)
 
 
-```scala mdoc:silent
+```scala
 val dse = DseSource.fromFile("jvm/src/test/resources/311rv.cex")
 ```
 
@@ -67,46 +67,88 @@ val dse = DseSource.fromFile("jvm/src/test/resources/311rv.cex")
 
 To work with URNs, you'll need to import the `cite` library.
 
-```scala mdoc
+```scala
 import edu.holycross.shot.cite._
 ```
 
 
 ### Find text contents and documentary images for a text-bearing surface
 
-```scala mdoc
+```scala
 val page1 = Cite2Urn("urn:cite2:hmt:msA:311r")
+// page1: Cite2Urn = Cite2Urn("urn:cite2:hmt:msA:311r")
 val passages1 = dse.textsForTbs(page1)
+// passages1: Vector[CtsUrn] = Vector(
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A2"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A3"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A4"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A5"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A6"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A7"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A8"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A9"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A10"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A11")
+// )
 assert(passages1.size == 10)
 
 val image = dse.imageForTbs(page1)
+// image: Option[Cite2Urn] = None
 println(image)
+// None
 //assert(image == Cite2Urn("urn:cite2:hmt:vaimg:VA311RN_0481"))
 
 val page2 = Cite2Urn("urn:cite2:hmt:msA:311v")
+// page2: Cite2Urn = Cite2Urn("urn:cite2:hmt:msA:311v")
 val passages2 = dse.textsForTbs(page2)
+// passages2: Vector[CtsUrn] = Vector(
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.B1"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.B2"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.B3"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.B4"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.B5"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.B6"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.B7")
+// )
 assert(passages2.size == 7)
 
 val image2 = dse.imageForTbs(page2)
-
+// image2: Option[Cite2Urn] = None
 ```
 
 ### Find documentary image for a text passage
 
-```scala mdoc
+```scala
 val passage = CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A5")
+// passage: CtsUrn = CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A5")
 val image3 = dse.imageForText(passage)
-
+// image3: Option[Cite2Urn] = Some(
+//   Cite2Urn("urn:cite2:hmt:vaimg.v1:VA311RN_0481")
+// )
 ```
 
 
 ### Find surfaces and texts illustrated by an image
 
-```scala mdoc
+```scala
 val img = Cite2Urn("urn:cite2:hmt:vaimg:VA311RN_0481")
+// img: Cite2Urn = Cite2Urn("urn:cite2:hmt:vaimg:VA311RN_0481")
 
 val surfaces = dse.tbsForImage(img)
+// surfaces: Set[Cite2Urn] = Set(Cite2Urn("urn:cite2:hmt:msA.v1:311r"))
 assert(surfaces.size == 1)
 val passages = dse.textsForImage(img)
+// passages: Vector[CtsUrn] = Vector(
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A2"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A3"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A4"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A5"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A6"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A7"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A8"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A9"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A10"),
+//   CtsUrn("urn:cts:greekLit:tlg5026.msA.hmt:24.A11")
+// )
 assert(passages.size == 10)
 ```

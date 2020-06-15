@@ -3,6 +3,7 @@ layout: page
 title: "DSE model: home page"
 ---
 
+**Version 7.1.0**
 
 ## The model
 
@@ -22,4 +23,4 @@ See [how to serialize the DSE model to CEX format](cex).
 
 `dse` is a cross-platform library written in Scala for working with digital documented scholarly editions.
 
--   [Quick start](quick)
+-   [Quick start](./quick/)

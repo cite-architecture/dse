@@ -3,12 +3,12 @@ title:  Quick start
 layout: page
 ---
 
-**Version @VERSION@**
+**Version 7.1.0**
 
 First import the library:
 
 
-```scala mdoc
+```scala
 import edu.holycross.shot.dse._
 ```
 
