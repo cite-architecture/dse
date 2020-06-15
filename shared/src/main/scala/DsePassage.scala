@@ -38,7 +38,7 @@ import scala.scalajs.js.annotation._
     val extension =  Vector(imageroi.namespace, imageroi.collection, imageroi.version).mkString("/") + "/"
     val fullPath = basePath + extension
     val bis  = IIIFApi(baseUrl, fullPath)
-    "- Compare text " + passage + " to image " + bis.linkedMarkdownImage(imageroi)
+    "Compare text " + passage + " to image " + bis.linkedMarkdownImage(imageroi)
   }
 }
 

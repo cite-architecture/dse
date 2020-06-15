@@ -1,5 +1,7 @@
 # `dse`: release notes
 
+**7.1.1**: Fixes a bug in string formatting of `DsePassage`.
+
 **7.1.0**: Adds support for SJS 1.0.0.
 
 **7.0.0**: API-breaking correction to display in ICT2 when no indexed passages on a surface.
