@@ -468,7 +468,7 @@ object DseVector extends LogSupport {
   * created entries.
   */
   def rawFromTextTriples(cexStr: String, dseCollection : Cite2Urn) : Vector[DsePassage] = {
-    val goodLines = cexStr.split("\n").toVector.tail.filter(_.nonEmpty)
+    val goodLines = cexStr.split("\n").toVector.filter(_.nonEmpty)
     val indexed = goodLines.zipWithIndex
     val v = for ( (l,i) <- indexed) yield {
       //urn: Cite2Urn, label: String, passage: CtsUrn, imageroi: Cite2Urn, surface: Cite2Urn

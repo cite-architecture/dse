@@ -58,7 +58,7 @@ class DseVectorSanitySpec extends FlatSpec {
   it should "allow multiple surfaces for a single reference image" in  {
     val bifolioFile = "jvm/src/test/resources/e3triples.cex"
     val triples = Source.fromFile(bifolioFile)
-    val bifolioTriples = triples.getLines.mkString("\n")
+    val bifolioTriples = triples.getLines.toVector.tail.mkString("\n")
     triples.close
     val testCollection = Cite2Urn("urn:cite2:units:testdse.v1:")
     val dse = DseVector.fromTextTriples(bifolioTriples, testCollection)

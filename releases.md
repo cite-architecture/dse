@@ -1,5 +1,7 @@
 # `dse`: release notes
 
+**7.1.2**: Fixes a bug in loading DSE triples from text file.
+
 **7.1.1**: Fixes a bug in string formatting of `DsePassage`.
 
 **7.1.0**: Adds support for SJS 1.0.0.
