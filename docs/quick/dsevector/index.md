@@ -3,7 +3,7 @@ title:  "DseVector: quick start"
 layout: page
 ---
 
-**Version 7.1.0**
+**Version 7.1.2**
 
 
 Import the library:

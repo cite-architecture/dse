@@ -3,7 +3,7 @@ layout: page
 title: "DSE model: home page"
 ---
 
-**Version 7.1.0**
+**Version 7.1.2**
 
 ## The model
 

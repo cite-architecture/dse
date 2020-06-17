@@ -3,7 +3,7 @@ title:  Quick start
 layout: page
 ---
 
-**Version 7.1.0**
+**Version 7.1.2**
 
 First import the library:
 
