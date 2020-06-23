@@ -471,16 +471,21 @@ object DseVector extends LogSupport {
     val goodLines = cexStr.split("\n").toVector.filter(_.nonEmpty)
     val indexed = goodLines.zipWithIndex
     val v = for ( (l,i) <- indexed) yield {
-      //urn: Cite2Urn, label: String, passage: CtsUrn, imageroi: Cite2Urn, surface: Cite2Urn
+      try {
+        //urn: Cite2Urn, label: String, passage: CtsUrn, imageroi: Cite2Urn, surface: Cite2Urn
+        val dsePsg = dseCollection.addSelector("record_" + i)
+        val cols =l.split("#")
+        //passage#imageroi#surface
+        val label = "Passage " + i
+        val psg = CtsUrn(cols(0))
+        val img = Cite2Urn(cols(1))
+        val surface = Cite2Urn(cols(2))
+        DsePassage(dsePsg, label, psg, img, surface)
 
-      val dsePsg = dseCollection.addSelector("record_" + i)
-      val cols =l.split("#")
-      //passage#imageroi#surface
-      val label = "Passage " + i
-      val psg = CtsUrn(cols(0))
-      val img = Cite2Urn(cols(1))
-      val surface = Cite2Urn(cols(2))
-      DsePassage(dsePsg, label, psg, img, surface)
+      } catch {
+        case t: Throwable => throw new Exception(s"DseVector: could not read valid text triple from line ${l} (item ${i} in sequence).\nPrior exception: ${t}")
+      }
+
     }
     v
   }
