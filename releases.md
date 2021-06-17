@@ -1,5 +1,7 @@
 # `dse`: release notes
 
+**7.1.4**: Artifact published now at https://terracotta.hpcc.uh.edu/nexus/repository/maven-releases/
+
 **7.1.3**: Fixes misleading error message.
 
 **7.1.2**: Fixes a bug in loading DSE triples from text file.

@@ -162,4 +162,15 @@ it should "happily create an empty DseVector" in {
   assert(dsev.size == 0)
 }
 
+/*
+it should "work with this file by returning an empty vector" in {
+  val remoteLib = CiteLibrarySource.fromUrl("https://raw.githubusercontent.com/Eumaeus/fuCiteDX/master/CEX_Tutorial/4_Image_Collection.cex")
+  //val dsev = DseVector.fromCiteLibrary(remoteLib)
+  lazy val dseVec: DseVector = DseVector.fromCiteLibrary(remoteLib)
+
+  assert( dseVec.size == 0)
+
+}
+*/
+
 }

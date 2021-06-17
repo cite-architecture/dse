@@ -14,22 +14,22 @@ lazy val crossed = crossProject(JSPlatform, JVMPlatform).in(file(".")).
     settings(
       name := "dse",
       organization := "edu.holycross.shot",
-      version := "7.1.3",
+      version := "7.1.4",
       licenses += ("GPL-3.0",url("https://opensource.org/licenses/gpl-3.0.html")),
-      resolvers += Resolver.jcenterRepo,
-      resolvers += Resolver.bintrayRepo("neelsmith", "maven"),
+      resolvers += "Nexus" at "https://terracotta.hpcc.uh.edu/nexus/repository/maven-releases/",
       libraryDependencies ++= Seq(
         "org.scalatest" %%% "scalatest" % "3.1.2" % "test",
         "org.wvlet.airframe" %%% "airframe-log" % "20.5.2",
 
-        "edu.holycross.shot.cite" %%% "xcite" % "4.3.0",
-        "edu.holycross.shot" %%% "ohco2" % "10.19.0",
-        "edu.holycross.shot" %%% "citeobj" % "7.5.0",
-        "edu.holycross.shot" %%% "scm" % "7.3.0",
-        "edu.holycross.shot" %%% "citebinaryimage" % "3.2.0"
+        "edu.holycross.shot.cite" %%% "xcite" % "4.3.1",
+        "edu.holycross.shot" %%% "ohco2" % "10.20.5",
+        "edu.holycross.shot" %%% "citeobj" % "7.5.2",
+        "edu.holycross.shot" %%% "scm" % "7.4.1",
+        "edu.holycross.shot" %%% "citebinaryimage" % "3.2.1"
+      ),
+      credentials += Credentials(Path.userHome / ".sbt" / ".credentials"),
 
-
-      )
+      publishTo := Some("releases" at "https://terracotta.hpcc.uh.edu/nexus/repository/maven-releases/")
     ).
     jvmSettings(
       libraryDependencies ++= Seq(
